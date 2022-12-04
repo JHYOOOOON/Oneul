@@ -1,3 +1,20 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
+import { authorizeUser, isAccessTokenExist } from "../lib/auth";
+
 export default function Home() {
-	return <div>Lets Gooooo</div>;
+	const router = useRouter();
+
+	useEffect(() => {
+		if (isAccessTokenExist()) {
+			router.push("/search");
+		}
+	}, []);
+
+	return (
+		<div>
+			<button onClick={authorizeUser}>스포티파이 로그인</button>
+		</div>
+	);
 }
