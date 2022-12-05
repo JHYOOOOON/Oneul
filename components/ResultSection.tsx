@@ -17,6 +17,12 @@ const ResultSection = () => {
 						truthy={<div>결과 없음</div>}
 						falsy={
 							<ul>
+								{/* <div>
+									<p>#</p>
+									<p>제목</p>
+									<p>앨범</p>
+									<p>시간</p>
+								</div> */}
 								{searchResult?.map((item, index) => (
 									<ResultItem
 										key={item.id}
