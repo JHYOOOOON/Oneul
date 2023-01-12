@@ -4,6 +4,7 @@ import Maybe from "../components/Maybe";
 import ResultItem from "./ResultItem";
 import { MAX_ITEM_LEN } from "../constants";
 import { withCartItemIds, withSearchResults } from "../recoil";
+import styled from "styled-components";
 
 const ResultSection = () => {
 	const searchResult = useRecoilValue(withSearchResults);
@@ -27,7 +28,7 @@ const ResultSection = () => {
 						test={searchResult?.length === 0}
 						truthy={<div>결과 없음</div>}
 						falsy={
-							<ul>
+							<StyledUl>
 								{searchResult?.map((item, index) => (
 									<ResultItem
 										key={item.id}
@@ -40,7 +41,7 @@ const ResultSection = () => {
 										isMoreSelectAvailable={isMoreSelectAvailable}
 									/>
 								))}
-							</ul>
+							</StyledUl>
 						}
 					/>
 				}
@@ -50,3 +51,11 @@ const ResultSection = () => {
 };
 
 export default ResultSection;
+
+const StyledUl = styled.ul`
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 180px);
+	row-gap: 15px;
+	column-gap: 20px;
+	overflow: hidden;
+`;

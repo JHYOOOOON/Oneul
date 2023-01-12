@@ -1,12 +1,10 @@
 import { useState } from "react";
-import styled from "styled-components";
-import { HiPlus } from "react-icons/hi";
+import styled, { css } from "styled-components";
 
 import { searchItemType } from "../recoil/types";
-import formatTime from "../utils/msToTime";
-import Maybe from "./Maybe";
 import { useSetRecoilState } from "recoil";
 import { withCartItems } from "../recoil";
+import { HiPlus } from "react-icons/hi";
 
 type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
 	index: number;
@@ -31,24 +29,18 @@ const ResultItem = ({ id, index, name, artists, album, duration_ms, isMoreSelect
 
 	return (
 		<Wrapper onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-			<Maybe
-				test={hovered}
-				truthy={
-					<Button title={`${name} 담기`} onClick={handleSelectItem}>
-						<HiPlus />
-					</Button>
-				}
-				falsy={<Index>{index}</Index>}
-			/>
-			<SongInfo>
+			<HoverWrapper hovered={hovered}>
+				<StyledButton onClick={handleSelectItem} title={`${name} 담기`} aria-label={`${name} 담기`}>
+					<HiPlus />
+				</StyledButton>
+			</HoverWrapper>
+			<ImageWrapper>
 				<AlbumImage src={album.images[1].url} alt={name} />
-				<SongWrapper>
-					<Title>{name}</Title>
-					<Name>{artists.map((artists) => artists.name).join(", ")}</Name>
-				</SongWrapper>
-			</SongInfo>
-			<p>{album.name}</p>
-			<p>{formatTime(duration_ms)}</p>
+			</ImageWrapper>
+			<SongWrapper>
+				<Title>{name}</Title>
+				<Name>{artists.map((artists) => artists.name).join(", ")}</Name>
+			</SongWrapper>
 		</Wrapper>
 	);
 };
@@ -56,53 +48,78 @@ const ResultItem = ({ id, index, name, artists, album, duration_ms, isMoreSelect
 export default ResultItem;
 
 const Wrapper = styled.li`
-	display: grid;
-	grid-template-columns: 20px 6fr 3fr minmax(50px, 1fr);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	border-radius: 2px;
+	overflow: hidden;
+	cursor: pointer;
+	overflow: hidden;
+	transition: all 0.2s;
+	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px 0px;
+`;
+
+const HoverWrapper = styled.div<{ hovered: boolean }>`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	${({ hovered }) =>
+		hovered &&
+		css`
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			opacity: 1;
+			background-color: rgba(255, 255, 255, 0.5);
+			transition: opacity 0.2s;
+		`}
+`;
+
+const StyledButton = styled.button`
+	display: flex;
+	justify-content: center;
 	align-items: center;
-	gap: 10px;
-	height: 60px;
-	padding-left: 10px;
-	&:not(:last-child) {
-		margin-bottom: 10px;
-	}
+	width: 35px;
+	height: 35px;
+	border: none;
+	background-color: black;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 18px;
+	transition: background-color 0.2s;
+	color: white;
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.05);
+		background-color: white;
+		color: black;
 	}
 `;
 
-const Index = styled.p`
-	text-align: center;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
+const ImageWrapper = styled.div`
+	width: 100%;
+	aspect-ratio: 1/1;
+	overflow: hidden;
 `;
 
 const AlbumImage = styled.img`
-	width: 50px;
-	height: 50px;
+	width: 100%;
 `;
 
-const SongInfo = styled.div`
-	display: flex;
-	gap: 10px;
+const SongWrapper = styled.section`
+	padding: 7px 10px;
 `;
 
-const SongWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	gap: 5px;
-`;
-
-const Title = styled.p`
-	font-size: ${({ theme }) => theme.textSize.lg}rem;
+const Title = styled.h2`
+	font-size: 16px;
+	margin-bottom: 5px;
+	word-break: keep-all;
+	line-height: 1.15;
 `;
 
 const Name = styled.p`
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
-`;
-
-const Button = styled.button`
-	border: none;
-	background: none;
-	padding: 0;
-	cursor: pointer;
+	font-size: 12px;
+	color: #333;
 `;

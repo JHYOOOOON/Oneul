@@ -18,22 +18,13 @@ export default function Search() {
 
 	return (
 		<Wrapper>
-			<LeftSide>
-				<Input />
-				<ResultSection />
-			</LeftSide>
-			<SelectedSection />
+			<Input />
+			<ResultSection />
 		</Wrapper>
 	);
 }
 
 const Wrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1.5fr 1fr;
-`;
-
-const LeftSide = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
+	position: relative;
+	padding: 25px 40px;
 `;
