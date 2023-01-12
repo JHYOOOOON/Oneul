@@ -1,3 +1,13 @@
+export type cartItemsType = cartItemType | null;
+
+export type cartItemType = {
+	id: string;
+	name: string;
+	artists: artistsType[];
+	album: albumType;
+	duration_ms: number;
+};
+
 export type searchResultsType = searchItemType[] | null;
 
 export type searchItemType = {

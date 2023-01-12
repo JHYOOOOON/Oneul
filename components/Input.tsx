@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { search } from "../lib/api";
-import withSearchResults from "../recoil/withSearchResults";
+import { withSearchResults } from "../recoil";
 
 const Input = () => {
 	const [searchValue, setSearchValue] = useState("");

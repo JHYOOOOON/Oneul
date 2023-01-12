@@ -1,32 +1,24 @@
 import { useState } from "react";
+import { HiMinus } from "react-icons/hi";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
-import { HiPlus } from "react-icons/hi";
-
-import { searchItemType } from "../recoil/types";
-import formatTime from "../utils/msToTime";
-import Maybe from "./Maybe";
-import { useSetRecoilState } from "recoil";
 import { withCartItems } from "../recoil";
 
-type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
+import formatTime from "../utils/msToTime";
+import Maybe from "./Maybe";
+
+type CartItemType = {
+	id: string;
 	index: number;
-	isMoreSelectAvailable: () => boolean;
 };
 
-const ResultItem = ({ id, index, name, artists, album, duration_ms, isMoreSelectAvailable }: ResultItemType) => {
+const CartItem = ({ id, index }: CartItemType) => {
 	const [hovered, setHovered] = useState(false);
-	const setCartItem = useSetRecoilState(withCartItems(id));
+	const cartItem = useRecoilValue(withCartItems(id));
+	const deleteCartItem = useResetRecoilState(withCartItems(id));
 
-	const handleSelectItem = () => {
-		if (isMoreSelectAvailable()) return;
-
-		setCartItem({
-			id,
-			name,
-			artists,
-			album,
-			duration_ms,
-		});
+	const handleDeleteItem = () => {
+		deleteCartItem();
 	};
 
 	return (
@@ -34,26 +26,26 @@ const ResultItem = ({ id, index, name, artists, album, duration_ms, isMoreSelect
 			<Maybe
 				test={hovered}
 				truthy={
-					<Button title={`${name} 담기`} onClick={handleSelectItem}>
-						<HiPlus />
+					<Button title={`${cartItem?.name} 삭제하기`} onClick={handleDeleteItem}>
+						<HiMinus />
 					</Button>
 				}
 				falsy={<Index>{index}</Index>}
 			/>
 			<SongInfo>
-				<AlbumImage src={album.images[1].url} alt={name} />
+				<AlbumImage src={cartItem?.album.images[1].url} alt={cartItem?.name} />
 				<SongWrapper>
-					<Title>{name}</Title>
-					<Name>{artists.map((artists) => artists.name).join(", ")}</Name>
+					<Title>{cartItem?.name}</Title>
+					<Name>{cartItem?.artists.map((artists) => artists.name).join(", ")}</Name>
 				</SongWrapper>
 			</SongInfo>
-			<p>{album.name}</p>
-			<p>{formatTime(duration_ms)}</p>
+			<p>{cartItem?.album.name}</p>
+			<p>{formatTime(cartItem!.duration_ms)}</p>
 		</Wrapper>
 	);
 };
 
-export default ResultItem;
+export default CartItem;
 
 const Wrapper = styled.li`
 	display: grid;

@@ -19,11 +19,9 @@ export const search = (term: string, startIndex: number = 0) =>
 		},
 	});
 
-export const recommendations = (artists: string[], genres: string[], tracks: string[]) =>
+export const recommendations = (tracks: string[]) =>
 	instance.get("/recommendations", {
 		params: {
-			seed_artists: artists.join(","),
-			seed_genres: genres.join(","),
 			seed_tracks: tracks.join(","),
 		},
 	});

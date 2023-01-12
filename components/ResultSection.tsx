@@ -1,11 +1,22 @@
 import { useRecoilValue } from "recoil";
 
-import withSearchResults from "../recoil/withSearchResults";
 import Maybe from "../components/Maybe";
 import ResultItem from "./ResultItem";
+import { MAX_ITEM_LEN } from "../constants";
+import { withCartItemIds, withSearchResults } from "../recoil";
 
 const ResultSection = () => {
 	const searchResult = useRecoilValue(withSearchResults);
+	const cartItemIds = useRecoilValue(withCartItemIds);
+
+	const isMoreSelectAvailable = () => {
+		if (cartItemIds.length === MAX_ITEM_LEN) {
+			alert(`곡은 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있습니다`);
+			return true;
+		}
+		return false;
+	};
+
 	return (
 		<div>
 			<Maybe
@@ -17,12 +28,6 @@ const ResultSection = () => {
 						truthy={<div>결과 없음</div>}
 						falsy={
 							<ul>
-								{/* <div>
-									<p>#</p>
-									<p>제목</p>
-									<p>앨범</p>
-									<p>시간</p>
-								</div> */}
 								{searchResult?.map((item, index) => (
 									<ResultItem
 										key={item.id}
@@ -32,6 +37,7 @@ const ResultSection = () => {
 										artists={item.artists}
 										album={item.album}
 										duration_ms={item.duration_ms}
+										isMoreSelectAvailable={isMoreSelectAvailable}
 									/>
 								))}
 							</ul>
