@@ -3,7 +3,7 @@ import reset from "styled-reset";
 
 export default createGlobalStyle`
 	${reset}
-	html {
-		font-family: "Pretendard", sans-serif;
+	* {
+		font-family: "Pretendard", sans-serif !important;
 	}
 `;
