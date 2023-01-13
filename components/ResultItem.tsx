@@ -86,15 +86,15 @@ const StyledButton = styled.button`
 	width: 35px;
 	height: 35px;
 	border: none;
-	background-color: black;
+	background-color: white;
+	color: black;
 	border-radius: 50%;
 	cursor: pointer;
 	font-size: 18px;
 	transition: background-color 0.2s;
-	color: white;
 	&:hover {
-		background-color: white;
-		color: black;
+		background-color: black;
+		color: white;
 	}
 `;
 
