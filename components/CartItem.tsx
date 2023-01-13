@@ -49,16 +49,16 @@ export default CartItem;
 
 const Wrapper = styled.li`
 	display: grid;
-	grid-template-columns: 20px 6fr 3fr minmax(50px, 1fr);
+	grid-template-columns: 20px 6fr 2.5fr minmax(50px, 1fr);
 	align-items: center;
 	gap: 10px;
 	height: 60px;
-	padding-left: 10px;
-	&:not(:last-child) {
-		margin-bottom: 10px;
+	padding: 2px 10px;
+	&:nth-child(2n) {
+		background-color: rgba(0, 0, 0, 0.05);
 	}
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.05);
+		background-color: rgba(0, 0, 0, 0.1);
 	}
 `;
 

@@ -4,7 +4,8 @@ export const textSize = {
 	sm: 0.875, // 14px
 	base: 1, // 16px
 	lg: 1.125, // 18px
-	xl: 1.5, // 24px
+	xl: 1.25, // 20px
+	xxl: 1.5, // 24px
 };
 
 export const headingSize = {

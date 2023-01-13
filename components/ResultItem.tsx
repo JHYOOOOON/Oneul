@@ -86,14 +86,14 @@ const StyledButton = styled.button`
 	width: 35px;
 	height: 35px;
 	border: none;
-	background-color: white;
-	color: black;
+	background-color: ${({ theme }) => theme.color.primary100};
+	color: white;
 	border-radius: 50%;
 	cursor: pointer;
-	font-size: 18px;
+	font-size: ${({ theme }) => theme.textSize.lg}rem;
 	transition: background-color 0.2s;
 	&:hover {
-		background-color: black;
+		background-color: ${({ theme }) => theme.color.primary};
 		color: white;
 	}
 `;
@@ -113,13 +113,13 @@ const SongWrapper = styled.section`
 `;
 
 const Title = styled.h2`
-	font-size: 16px;
+	font-size: ${({ theme }) => theme.textSize.base}rem;
 	margin-bottom: 5px;
 	word-break: keep-all;
 	line-height: 1.15;
 `;
 
 const Name = styled.p`
-	font-size: 12px;
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
 	color: #333;
 `;

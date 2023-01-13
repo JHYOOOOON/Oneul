@@ -20,6 +20,7 @@ export default function Search() {
 		<Wrapper>
 			<Input />
 			<ResultSection />
+			<SelectedSection />
 		</Wrapper>
 	);
 }
