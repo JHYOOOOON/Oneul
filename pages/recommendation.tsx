@@ -1,0 +1,22 @@
+import { useEffect } from "react";
+import styled from "styled-components";
+import { useRouter } from "next/router";
+
+import { isAccessTokenExist } from "../lib/auth";
+
+export default function Recommendation() {
+	const router = useRouter();
+
+	useEffect(() => {
+		if (isAccessTokenExist() === false) {
+			router.push("/");
+		}
+	}, []);
+
+	return <Wrapper>결과페이지지롱</Wrapper>;
+}
+
+const Wrapper = styled.div`
+	position: relative;
+	padding: 25px 40px;
+`;

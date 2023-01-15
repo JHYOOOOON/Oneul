@@ -50,3 +50,20 @@ export type imageType = {
 	height: number;
 	url: string;
 };
+
+export type trackType = {
+	album: albumType;
+	artists: artistsType[];
+	duration_ms: number;
+	explicit: boolean;
+	href: string;
+	id: string;
+	is_local: boolean;
+	name: string;
+	popularity: number;
+	preview_url: string;
+	track_number: number;
+	uri: string;
+};
+
+export type recommendationType = trackType[];

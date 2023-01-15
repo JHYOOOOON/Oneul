@@ -1,19 +1,30 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import Maybe from "../components/Maybe";
 import { recommendations } from "../lib/api";
 import CartItem from "./CartItem";
-import { withCartItemIds } from "../recoil";
+import { withCartItemIds, withRecommendationItems } from "../recoil";
 
 const SelectedSection = () => {
+	const router = useRouter();
 	const [isOpened, setIsOpened] = useState(false);
 	const selectedItemIds = useRecoilValue(withCartItemIds);
+	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
 
-	const handleRecomendation = async () => {
-		const res = await recommendations(selectedItemIds);
+	const handleRecommendation = async () => {
+		try {
+			const {
+				data: { tracks },
+			} = await recommendations(selectedItemIds);
+			setRecommendationItems(tracks);
+			router.push("/recommendation");
+		} catch (error: any) {
+			console.log(`[handleRecommendationError]: ${error}`);
+		}
 	};
 
 	return (
@@ -44,11 +55,13 @@ const SelectedSection = () => {
 						/>
 					}
 				/>
-				<RecommendationButtonWrapper>
-					<RecommendationButton title="추천받기" onClick={handleRecomendation}>
-						추천곡 확인
-					</RecommendationButton>
-				</RecommendationButtonWrapper>
+				{selectedItemIds.length > 0 && (
+					<RecommendationButtonWrapper>
+						<RecommendationButton title="추천받기" onClick={handleRecommendation}>
+							추천곡 확인
+						</RecommendationButton>
+					</RecommendationButtonWrapper>
+				)}
 			</SelectedItemWrapper>
 		</StyledSection>
 	);
@@ -65,6 +78,7 @@ const StyledSection = styled.div`
 	background-color: white;
 	border-radius: 10px 10px 0 0;
 	overflow: hidden;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
 
 const StyledButton = styled.button`
@@ -90,14 +104,14 @@ const StyledButton = styled.button`
 const SelectedItemWrapper = styled.div<{ isOpened: boolean }>`
 	display: flex;
 	flex-direction: column;
-	transition: max-height 0.3s;
 	${({ isOpened }) =>
 		isOpened
 			? css`
-					max-height: 0px;
+					max-height: 700px;
+					transition: max-height 1s ease-out;
 			  `
 			: css`
-					max-height: 700px;
+					max-height: 0px;
 			  `}
 `;
 
@@ -106,7 +120,7 @@ const EmptyWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 200px;
+	min-height: 250px;
 `;
 
 const ItemWrapper = styled.ul`
