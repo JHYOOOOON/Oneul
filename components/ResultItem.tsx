@@ -11,7 +11,7 @@ type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" |
 	isMoreSelectAvailable: () => boolean;
 };
 
-const ResultItem = ({ id, index, name, artists, album, duration_ms, isMoreSelectAvailable }: ResultItemType) => {
+const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable }: ResultItemType) => {
 	const [hovered, setHovered] = useState(false);
 	const setCartItem = useSetRecoilState(withCartItems(id));
 

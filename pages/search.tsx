@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import Input from "../components/Input";
 import ResultSection from "../components/ResultSection";
 import SelectedSection from "../components/SelectedSection";
 import { isAccessTokenExist } from "../lib/auth";
+import { Description, PageWrapper, Title } from "../styles/CommonStyle";
+import { MAX_ITEM_LEN } from "../constants";
 
 export default function Search() {
 	const router = useRouter();
@@ -17,15 +18,16 @@ export default function Search() {
 	}, []);
 
 	return (
-		<Wrapper>
+		<PageWrapper>
+			<Title>곡 선택하기</Title>
+			<Description>
+				즐겨듣는 곡을 선택해주세요(최대 {MAX_ITEM_LEN}개).
+				<br />
+				담은 곡은 하단의 담은 목록에서 확인 가능합니다.
+			</Description>
 			<Input />
 			<ResultSection />
 			<SelectedSection />
-		</Wrapper>
+		</PageWrapper>
 	);
 }
-
-const Wrapper = styled.div`
-	position: relative;
-	padding: 25px 40px;
-`;

@@ -6,13 +6,5 @@ export const textSize = {
 	lg: 1.125, // 18px
 	xl: 1.25, // 20px
 	xxl: 1.5, // 24px
-};
-
-export const headingSize = {
-	1: 1.375, // 22px
-	2: 1.375, // 22px
-	3: 1, // 16px
-	4: 1.125, // 18px
-	5: 0.75, // 12px
-	6: 0.75, // 12px
+	xxxl: 1.875, // 30px
 };
