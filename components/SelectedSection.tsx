@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RxHamburgerMenu } from "react-icons/rx";
 
-import Maybe from "../components/Maybe";
+import { Maybe } from "../components";
 import CartItem from "./CartItem";
 import { withCartItemIds, withRecommendationItems } from "../recoil";
 import { recommendations, removeAccessToken } from "../lib";

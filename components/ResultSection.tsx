@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 
-import Maybe from "../components/Maybe";
+import { Maybe } from "../components";
 import ResultItem from "./ResultItem";
 import { MAX_ITEM_LEN } from "../constants";
 import { withCartItemIds, withSearchResults } from "../recoil";

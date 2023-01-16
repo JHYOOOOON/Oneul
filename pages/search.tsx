@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import Input from "../components/Input";
-import ResultSection from "../components/ResultSection";
-import SelectedSection from "../components/SelectedSection";
+import { Input, ResultSection, SelectedSection } from "../components";
 import { isAccessTokenExist } from "../lib";
 import { MAX_ITEM_LEN } from "../constants";
 import { Description, PageWrapper, Title } from "../styles/CommonStyle";

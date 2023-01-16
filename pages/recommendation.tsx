@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-import ListItem from "../components/ListItem";
+import { ListItem } from "../components";
 import { isAccessTokenExist } from "../lib";
 import { withRecommendationItems } from "../recoil";
 import { Description, PageWrapper, Title } from "../styles/CommonStyle";
