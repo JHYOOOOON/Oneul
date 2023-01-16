@@ -31,7 +31,7 @@ const Result = ({ searchResult }: ResultType) => {
 		});
 		io.observe(observeTargetRef.current);
 		return () => io.disconnect();
-	}, []);
+	}, [searchValue]);
 
 	const getNextSearchResult = (page: number) => getSearchDatas(searchValue, page);
 
