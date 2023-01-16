@@ -47,10 +47,20 @@ const Input = () => {
 export default Input;
 
 const StyledInput = styled.input`
-	width: 300px;
-	height: 20px;
-	border-radius: 2px;
+	width: 400px;
+	max-width: 80%;
+	height: 25px;
+	margin-bottom: 15px;
+	border-radius: 3px 3px 0 0;
 	border: none;
+	border-bottom: 2px solid ${({ theme }) => theme.color.primary300};
 	padding: 5px 7px;
 	font-size: ${({ theme }) => theme.textSize.base}rem;
+	background-color: ${({ theme }) => theme.color.gray400};
+	transition: border 0.2s;
+
+	&:focus {
+		outline: none;
+		border-bottom: 2px solid ${({ theme }) => theme.color.primary100};
+	}
 `;

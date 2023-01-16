@@ -7,5 +7,10 @@ export const color = {
 	black: "#000000",
 	black100: "#333333",
 	black200: "#555555",
+	gray: "#636363",
+	gray100: "#9c9c9c",
+	gray200: "#b8b8b8",
+	gray300: "#d4d4d4",
+	gray400: "#f0f0f0",
 	white: "#ffffff",
 };
