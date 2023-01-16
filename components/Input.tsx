@@ -1,20 +1,26 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { search } from "../lib/api";
 import { withSearchResults } from "../recoil";
+import { search, removeAccessToken } from "../lib";
 
 const Input = () => {
 	const [searchValue, setSearchValue] = useState("");
 	const setSearchResults = useSetRecoilState(withSearchResults);
 
 	const getSearchDatas = async () => {
-		const {
-			data: {
-				tracks: { items },
-			},
-		} = await search(searchValue);
-		setSearchResults(items);
+		try {
+			const {
+				data: {
+					tracks: { items },
+				},
+			} = await search(searchValue);
+			setSearchResults(items);
+		} catch (error: any) {
+			if (error.status === 401) {
+				removeAccessToken();
+			}
+		}
 	};
 
 	const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {

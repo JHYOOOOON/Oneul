@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { authorizeUser, isAccessTokenExist } from "../lib/auth";
+import { authorizeUser, isAccessTokenExist } from "../lib";
 
 export default function Home() {
 	const router = useRouter();

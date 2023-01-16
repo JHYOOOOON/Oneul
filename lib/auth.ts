@@ -26,6 +26,8 @@ export const getAccessToken = () => (typeof localStorage === "undefined" ? "" : 
 
 export const isAccessTokenExist = () => Boolean(getAccessToken());
 
+export const removeAccessToken = () => localStorage.removeItem("accessToken");
+
 const parseAccessToken = () => {
 	const url = window.location.href.split("#access_token=");
 	return url[url.length - 1];

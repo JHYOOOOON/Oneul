@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import ListItem from "../components/ListItem";
-import { isAccessTokenExist } from "../lib/auth";
+import { isAccessTokenExist } from "../lib";
 import { withRecommendationItems } from "../recoil";
 import { Description, PageWrapper, Title } from "../styles/CommonStyle";
 

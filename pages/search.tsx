@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import Input from "../components/Input";
 import ResultSection from "../components/ResultSection";
 import SelectedSection from "../components/SelectedSection";
-import { isAccessTokenExist } from "../lib/auth";
-import { Description, PageWrapper, Title } from "../styles/CommonStyle";
+import { isAccessTokenExist } from "../lib";
 import { MAX_ITEM_LEN } from "../constants";
+import { Description, PageWrapper, Title } from "../styles/CommonStyle";
 
 export default function Search() {
 	const router = useRouter();

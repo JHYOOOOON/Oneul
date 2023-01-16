@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { saveLogin } from "../lib/auth";
+import { saveLogin } from "../lib";
 
 const Callback = () => {
 	const router = useRouter();

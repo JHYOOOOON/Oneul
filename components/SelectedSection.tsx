@@ -5,9 +5,9 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import Maybe from "../components/Maybe";
-import { recommendations } from "../lib/api";
 import CartItem from "./CartItem";
 import { withCartItemIds, withRecommendationItems } from "../recoil";
+import { recommendations, removeAccessToken } from "../lib";
 
 const SelectedSection = () => {
 	const router = useRouter();
@@ -24,6 +24,9 @@ const SelectedSection = () => {
 			router.push("/recommendation");
 		} catch (error: any) {
 			console.log(`[handleRecommendationError]: ${error}`);
+			if (error.status === 401) {
+				removeAccessToken();
+			}
 		}
 	};
 
