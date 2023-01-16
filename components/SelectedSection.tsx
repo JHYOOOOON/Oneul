@@ -24,7 +24,7 @@ const SelectedSection = () => {
 			router.push("/recommendation");
 		} catch (error: any) {
 			console.log(`[handleRecommendationError]: ${error}`);
-			if (error.status === 401) {
+			if (error.response.status === 401) {
 				removeAccessToken();
 			}
 		}

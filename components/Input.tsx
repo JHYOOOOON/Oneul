@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -17,7 +18,7 @@ const Input = () => {
 			} = await search(searchValue);
 			setSearchResults(items);
 		} catch (error: any) {
-			if (error.status === 401) {
+			if (error.response.status === 401) {
 				removeAccessToken();
 			}
 		}
@@ -38,9 +39,18 @@ const Input = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<input placeholder="어떤 곡을 듣고 싶으세요?" onChange={handleChange} value={searchValue} />
+			<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={searchValue} />
 		</form>
 	);
 };
 
 export default Input;
+
+const StyledInput = styled.input`
+	width: 300px;
+	height: 20px;
+	border-radius: 2px;
+	border: none;
+	padding: 5px 7px;
+	font-size: ${({ theme }) => theme.textSize.base}rem;
+`;
