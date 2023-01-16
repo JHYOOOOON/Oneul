@@ -25,14 +25,28 @@ export default function Recommendation() {
 		<PageWrapper>
 			<Title>추천곡 리스트</Title>
 			<Description>담은 곡들을 바탕으로 추천드리는 20곡입니다.</Description>
-			{recommendationItems.map((item, index) => (
-				<ListItem name={item.name} artists={item.artists} album={item.album} duration_ms={item.duration_ms}>
-					{<Index>{index}</Index>}
-				</ListItem>
-			))}
+			<StyledUl>
+				{recommendationItems.map((item, index) => (
+					<ListItem
+						key={`recommendation_${index}`}
+						name={item.name}
+						artists={item.artists}
+						album={item.album}
+						duration_ms={item.duration_ms}
+					>
+						{<Index>{index + 1}</Index>}
+					</ListItem>
+				))}
+			</StyledUl>
 		</PageWrapper>
 	);
 }
+
+const StyledUl = styled.ul`
+	border: 1px solid ${({ theme }) => theme.color.primary400};
+	border-radius: 3px;
+	overflow: hidden;
+`;
 
 const Index = styled.p`
 	text-align: center;

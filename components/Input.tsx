@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useResetRecoilState } from "recoil";
 
 import { useSearch } from "./hooks";
+import { withPage } from "../recoil";
 
 const Input = () => {
 	const [value, setValue] = useState("");
 	const { setSearchValue, getSearchDatas } = useSearch();
+	const resetPage = useResetRecoilState(withPage);
 
 	const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
@@ -17,6 +20,7 @@ const Input = () => {
 			alert("검색어를 입력해주세요");
 			return;
 		}
+		resetPage();
 		setSearchValue(value);
 		getSearchDatas(value);
 	};

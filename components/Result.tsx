@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useCallback, useEffect, useRef } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { ResultItem } from ".";
-import { MAX_ITEM_LEN, START_PAGE } from "../constants";
-import { withCartItemIds } from "../recoil";
+import { MAX_ITEM_LEN } from "../constants";
+import { withCartItemIds, withPage } from "../recoil";
 import { searchResultsType } from "../recoil/types";
 import { useSearch } from "./hooks";
 
@@ -13,7 +13,7 @@ type ResultType = {
 };
 
 const Result = ({ searchResult }: ResultType) => {
-	const [page, setPage] = useState(START_PAGE);
+	const setPage = useSetRecoilState(withPage);
 	const cartItemIds = useRecoilValue(withCartItemIds);
 	const observeTargetRef = useRef<HTMLLIElement | null>(null);
 	const { getSearchDatas, searchValue } = useSearch();
@@ -23,30 +23,25 @@ const Result = ({ searchResult }: ResultType) => {
 		if (!observeTargetRef.current) return;
 		const io = new IntersectionObserver((entries, _) => {
 			if (entries[0].isIntersecting) {
-				getNextSearchResult();
+				setPage((prev) => {
+					getNextSearchResult(prev);
+					return prev + 1;
+				});
 			}
 		});
 		io.observe(observeTargetRef.current);
 		return () => io.disconnect();
 	}, []);
 
-	/* 검색어 변경되면 시작페이지 값 초기화 */
-	useEffect(() => {
-		setPage(START_PAGE);
-	}, [searchValue]);
+	const getNextSearchResult = (page: number) => getSearchDatas(searchValue, page);
 
-	const getNextSearchResult = () => {
-		getSearchDatas(searchValue, page);
-		setPage((prev) => prev + 1);
-	};
-
-	const isMoreSelectAvailable = () => {
+	const isMoreSelectAvailable = useCallback(() => {
 		if (cartItemIds.length === MAX_ITEM_LEN) {
 			alert(`곡은 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있습니다`);
 			return true;
 		}
 		return false;
-	};
+	}, [cartItemIds]);
 
 	return (
 		<StyledUl>

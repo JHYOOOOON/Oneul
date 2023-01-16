@@ -20,8 +20,8 @@ const ListItem = ({ onMouseEnter, onMouseLeave, children, name, artists, album, 
 					<Name>{artists.map((artists) => artists.name).join(", ")}</Name>
 				</SongWrapper>
 			</SongInfo>
-			<p>{album.name}</p>
-			<p>{formatTime(duration_ms)}</p>
+			<AlbumTitle>{album.name}</AlbumTitle>
+			<Time>{formatTime(duration_ms)}</Time>
 		</Wrapper>
 	);
 };
@@ -30,22 +30,16 @@ export default ListItem;
 
 const Wrapper = styled.li`
 	display: grid;
-	grid-template-columns: 20px 6fr 2.5fr minmax(50px, 1fr);
+	grid-template-columns: 20px 6fr 2.2fr minmax(30px, 45px);
 	align-items: center;
 	gap: 10px;
-	height: 60px;
-	padding: 2px 10px;
+	padding: 10px 10px;
 	&:nth-child(2n) {
-		background-color: rgba(0, 0, 0, 0.05);
+		background-color: ${({ theme }) => `${theme.color.primary400}50`};
 	}
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.1);
+		background-color: ${({ theme }) => `${theme.color.primary400}`};
 	}
-`;
-
-const Index = styled.p`
-	text-align: center;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;
 
 const AlbumImage = styled.img`
@@ -66,6 +60,7 @@ const SongWrapper = styled.div`
 `;
 
 const Title = styled.p`
+	line-height: 1.15;
 	font-size: ${({ theme }) => theme.textSize.lg}rem;
 `;
 
@@ -73,9 +68,12 @@ const Name = styled.p`
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;
 
-const Button = styled.button`
-	border: none;
-	background: none;
-	padding: 0;
-	cursor: pointer;
+const AlbumTitle = styled.p`
+	line-height: 1.15;
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
+`;
+
+const Time = styled.p`
+	line-height: 1.15;
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;
