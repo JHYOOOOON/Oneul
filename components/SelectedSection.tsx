@@ -25,7 +25,7 @@ const SelectedSection = () => {
 		} catch (error: any) {
 			console.log(`[handleRecommendationError]: ${error}`);
 			if (error.response.status === 401) {
-				removeAccessToken();
+				// removeAccessToken();
 			}
 		}
 	};
@@ -51,7 +51,7 @@ const SelectedSection = () => {
 							falsy={
 								<ItemWrapper>
 									{selectedItemIds?.map((id, index) => (
-										<CartItem key={id} id={id} index={index + 1} />
+										<CartItem key={`selectedItem_${id}`} id={id} index={index + 1} />
 									))}
 								</ItemWrapper>
 							}

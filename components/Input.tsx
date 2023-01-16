@@ -1,45 +1,29 @@
 import styled from "styled-components";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useSetRecoilState } from "recoil";
 
-import { withSearchResults } from "../recoil";
-import { search, removeAccessToken } from "../lib";
+import { useSearch } from "./hooks";
 
 const Input = () => {
-	const [searchValue, setSearchValue] = useState("");
-	const setSearchResults = useSetRecoilState(withSearchResults);
-
-	const getSearchDatas = async () => {
-		try {
-			const {
-				data: {
-					tracks: { items },
-				},
-			} = await search(searchValue);
-			setSearchResults(items);
-		} catch (error: any) {
-			if (error.response.status === 401) {
-				removeAccessToken();
-			}
-		}
-	};
+	const [value, setValue] = useState("");
+	const { setSearchValue, getSearchDatas } = useSearch();
 
 	const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
-		setSearchValue(event.target.value);
+		setValue(event.target.value);
 	};
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		if (searchValue.length === 0) {
+		if (value.length === 0) {
 			alert("검색어를 입력해주세요");
 			return;
 		}
-		getSearchDatas();
+		setSearchValue(value);
+		getSearchDatas(value);
 	};
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={searchValue} />
+			<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={value} />
 		</form>
 	);
 };

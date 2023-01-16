@@ -20,3 +20,8 @@ export const recommendationItems = atom<recommendationType>({
 	key: "atom/recommendationItems",
 	default: [],
 });
+
+export const searchValue = atom<string>({
+	key: "atom/searchValue",
+	default: "",
+});
