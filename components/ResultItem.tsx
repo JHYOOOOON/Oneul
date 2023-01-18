@@ -9,15 +9,20 @@ import { HiPlus } from "react-icons/hi";
 type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
 	index: number;
 	isMoreSelectAvailable: () => boolean;
+	isExist: (id: string) => boolean;
 };
 
-const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable }: ResultItemType) => {
+const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) => {
 	const [hovered, setHovered] = useState(false);
 	const setCartItem = useSetRecoilState(withCartItems(id));
 	const setToast = useSetRecoilState(withToast);
 
 	const handleSelectItem = () => {
 		if (isMoreSelectAvailable()) return;
+		if (isExist(id)) {
+			setToast("이미 담겨있는 곡입니다.");
+			return;
+		}
 
 		setCartItem({
 			id,

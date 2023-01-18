@@ -43,6 +43,8 @@ const Result = ({ searchResult }: ResultType) => {
 		return false;
 	}, [cartItemIds]);
 
+	const isExist = (id: string) => cartItemIds.includes(id);
+
 	return (
 		<StyledUl>
 			{searchResult?.map((item, index) => (
@@ -55,6 +57,7 @@ const Result = ({ searchResult }: ResultType) => {
 					album={item.album}
 					duration_ms={item.duration_ms}
 					isMoreSelectAvailable={isMoreSelectAvailable}
+					isExist={isExist}
 				/>
 			))}
 			<li ref={observeTargetRef}></li>

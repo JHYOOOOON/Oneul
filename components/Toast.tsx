@@ -15,7 +15,7 @@ const Toast = () => {
 		return () => {
 			clearTimeout(id);
 		};
-	}, [show]);
+	}, [show, toast]);
 
 	return (
 		<Wrapper show={show}>
