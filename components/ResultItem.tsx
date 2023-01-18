@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 import { searchItemType } from "../recoil/types";
 import { useSetRecoilState } from "recoil";
-import { withCartItems } from "../recoil";
+import { withCartItems, withToast } from "../recoil";
 import { HiPlus } from "react-icons/hi";
 
 type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
@@ -14,6 +14,7 @@ type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" |
 const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable }: ResultItemType) => {
 	const [hovered, setHovered] = useState(false);
 	const setCartItem = useSetRecoilState(withCartItems(id));
+	const setToast = useSetRecoilState(withToast);
 
 	const handleSelectItem = () => {
 		if (isMoreSelectAvailable()) return;
@@ -25,6 +26,7 @@ const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailab
 			album,
 			duration_ms,
 		});
+		setToast("정상적으로 담겼습니다.");
 	};
 
 	return (
