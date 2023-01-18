@@ -31,3 +31,13 @@ export const page = atom<number>({
 	key: "atom/page",
 	default: START_PAGE,
 });
+
+export const toast = atom<string>({
+	key: "atom/toast",
+	default: "",
+});
+
+export const showToast = atom<boolean>({
+	key: "atom/showToast",
+	default: false,
+});
