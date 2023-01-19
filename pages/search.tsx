@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Input, ResultSection, SelectedSection } from "../components";
+import { Input, ResultSection, SelectedSection, TopButton } from "../components";
 import { isAccessTokenExist, RestAPI, removeAccessToken } from "../lib";
 import { MAX_ITEM_LEN } from "../constants";
 import { Description, PageWrapper, Title } from "../styles/CommonStyle";
@@ -33,6 +33,7 @@ export default function Search() {
 			<Input />
 			<ResultSection />
 			<SelectedSection />
+			<TopButton />
 		</PageWrapper>
 	);
 }
