@@ -40,14 +40,13 @@ class RestAPI {
 			},
 		});
 
-	isTokenValid = async () => {
-		try {
-			(await this.instance()).get("/me");
-			return true;
-		} catch (error) {
-			return false;
-		}
-	};
+	isTokenValid = async () =>
+		new Promise(async (resolve, reject) => {
+			(await this.instance())
+				.get("/me")
+				.then(() => resolve(true))
+				.catch(() => resolve(false));
+		});
 }
 
 const instance = new RestAPI();
