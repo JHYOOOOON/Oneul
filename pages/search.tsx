@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { Input, ResultSection, SelectedSection } from "../components";
-import { isAccessTokenExist } from "../lib";
+import { isAccessTokenExist, RestAPI, removeAccessToken } from "../lib";
 import { MAX_ITEM_LEN } from "../constants";
 import { Description, PageWrapper, Title } from "../styles/CommonStyle";
 
@@ -13,6 +13,13 @@ export default function Search() {
 		if (isAccessTokenExist() === false) {
 			router.push("/");
 		}
+		(async () => {
+			const isValid = await RestAPI.isTokenValid();
+			if (isValid === false) {
+				removeAccessToken();
+				router.push("/");
+			}
+		})();
 	}, []);
 
 	return (

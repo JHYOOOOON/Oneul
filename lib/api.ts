@@ -1,27 +1,55 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 import config from "../config";
 import { getAccessToken } from "./auth";
+import { removeAccessToken } from ".";
 
-const instance = axios.create({
-	baseURL: config.API_URL,
-	headers: {
-		Authorization: `Bearer ${getAccessToken()}`,
-	},
-});
+class RestAPI {
+	private _instance: AxiosInstance | null = null;
 
-export const search = (term: string, startIndex: number = 0) =>
-	instance.get("/search", {
-		params: {
-			q: term,
-			type: "track",
-			offset: startIndex,
-		},
-	});
+	getInstance = () =>
+		axios.create({
+			baseURL: config.API_URL,
+			headers: {
+				Authorization: `Bearer ${getAccessToken()}`,
+			},
+		});
 
-export const recommendations = (tracks: string[]) =>
-	instance.get("/recommendations", {
-		params: {
-			seed_tracks: tracks.join(","),
-		},
-	});
+	instance = (): Promise<AxiosInstance> =>
+		new Promise((resolve) => {
+			if (this._instance === null) {
+				this._instance = this.getInstance();
+				resolve(this._instance);
+			}
+			resolve(this._instance);
+		});
+
+	search = async (term: string, startIndex: number = 0) =>
+		(await this.instance()).get("/search", {
+			params: {
+				q: term,
+				type: "track",
+				offset: startIndex,
+			},
+		});
+
+	recommendations = async (tracks: string[]) =>
+		(await this.instance()).get("/recommendations", {
+			params: {
+				seed_tracks: tracks.join(","),
+			},
+		});
+
+	isTokenValid = async () => {
+		try {
+			(await this.instance()).get("/me");
+			return true;
+		} catch (error) {
+			return false;
+		}
+	};
+}
+
+const instance = new RestAPI();
+
+export { instance as RestAPI };

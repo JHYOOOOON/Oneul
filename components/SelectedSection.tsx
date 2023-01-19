@@ -7,7 +7,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { Maybe } from "../components";
 import CartItem from "./CartItem";
 import { withCartItemIds, withRecommendationItems } from "../recoil";
-import { recommendations, removeAccessToken } from "../lib";
+import { RestAPI, removeAccessToken } from "../lib";
 
 const SelectedSection = () => {
 	const router = useRouter();
@@ -19,13 +19,13 @@ const SelectedSection = () => {
 		try {
 			const {
 				data: { tracks },
-			} = await recommendations(selectedItemIds);
+			} = await RestAPI.recommendations(selectedItemIds);
 			setRecommendationItems(tracks);
 			router.push("/recommendation");
 		} catch (error: any) {
 			console.log(`[handleRecommendationError]: ${error}`);
 			if (error.response.status === 401) {
-				// removeAccessToken();
+				removeAccessToken();
 			}
 		}
 	};

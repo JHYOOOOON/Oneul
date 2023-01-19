@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 
-import { removeAccessToken, search } from "../../lib";
+import { removeAccessToken, RestAPI } from "../../lib";
 import { withSearchResults, withSearchValue } from "../../recoil";
 
 const SEARCH_ITEM_LIMIT = 20;
@@ -15,7 +15,7 @@ const useSearch = () => {
 				data: {
 					tracks: { items },
 				},
-			} = await search(query, page * SEARCH_ITEM_LIMIT);
+			} = await RestAPI.search(query, page * SEARCH_ITEM_LIMIT);
 			if (page === 0) {
 				setSearchResults(items);
 			} else {
@@ -23,7 +23,7 @@ const useSearch = () => {
 			}
 		} catch (error: any) {
 			if (error.response.status === 401) {
-				// removeAccessToken();
+				removeAccessToken();
 			}
 		}
 	};
