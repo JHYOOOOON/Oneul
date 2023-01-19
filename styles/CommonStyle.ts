@@ -17,3 +17,17 @@ export const PageWrapper = styled.div`
 	position: relative;
 	padding: 40px 60px;
 `;
+
+export const Button = styled.button`
+	border: none;
+	padding: 7px 10px;
+	border-radius: 5px;
+	transition: background-color 0.2s;
+	font-size: ${({ theme }) => theme.textSize.base}rem;
+	background-color: ${({ theme }) => theme.color.primary100};
+	color: ${({ theme }) => theme.color.white};
+	cursor: pointer;
+	&:hover {
+		background-color: ${({ theme }) => theme.color.primary};
+	}
+`;

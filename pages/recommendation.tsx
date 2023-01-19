@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 import { ListItem } from "../components";
 import { isAccessTokenExist } from "../lib";
 import { withRecommendationItems } from "../recoil";
-import { Description, PageWrapper, Title } from "../styles/CommonStyle";
+import { Button, Description, PageWrapper, Title } from "../styles/CommonStyle";
+import html2canvas from "html2canvas";
 
 export default function Recommendation() {
 	const router = useRouter();
@@ -21,11 +22,41 @@ export default function Recommendation() {
 		}
 	}, []);
 
+	const downloadImage = (url: string) => {
+		const link = document.createElement("a");
+		link.download = "download";
+		link.href = url;
+		document.body.appendChild(link);
+		link.click();
+		link.remove();
+	};
+
+	const handleSaveList = async () => {
+		const target = document.getElementById("recommendation-list") as HTMLUListElement;
+		const options = {
+			logging: false,
+			imageTimeout: 1000,
+			useCORS: true,
+			width: target.offsetWidth,
+			height: target.offsetHeight,
+		};
+		const canvas = await html2canvas(target, options);
+		const url = canvas.toDataURL("image/png");
+		downloadImage(url);
+	};
+
 	return (
 		<PageWrapper>
-			<Title>추천곡 리스트</Title>
-			<Description>담은 곡들을 바탕으로 추천드리는 20곡입니다.</Description>
-			<StyledUl>
+			<Wrapper>
+				<div>
+					<Title>추천곡 리스트</Title>
+					<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
+				</div>
+				<DownloadButtonWrapper>
+					<DownloadButton onClick={handleSaveList}>목록 내려받기</DownloadButton>
+				</DownloadButtonWrapper>
+			</Wrapper>
+			<StyledUl id="recommendation-list">
 				{recommendationItems.map((item, index) => (
 					<ListItem
 						key={`recommendation_${index}`}
@@ -41,6 +72,25 @@ export default function Recommendation() {
 		</PageWrapper>
 	);
 }
+
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+`;
+
+const StyledDescription = styled(Description)`
+	margin-bottom: 0;
+`;
+
+const DownloadButtonWrapper = styled.div`
+	display: flex;
+	align-items: flex-end;
+`;
+
+const DownloadButton = styled(Button)`
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
+`;
 
 const StyledUl = styled.ul`
 	border: 1px solid ${({ theme }) => theme.color.primary400};

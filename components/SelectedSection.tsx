@@ -8,6 +8,7 @@ import { Maybe } from "../components";
 import CartItem from "./CartItem";
 import { withCartItemIds, withRecommendationItems } from "../recoil";
 import { RestAPI, removeAccessToken } from "../lib";
+import { Button } from "../styles/CommonStyle";
 
 const SelectedSection = () => {
 	const router = useRouter();
@@ -60,9 +61,9 @@ const SelectedSection = () => {
 				/>
 				{selectedItemIds.length > 0 && (
 					<RecommendationButtonWrapper>
-						<RecommendationButton title="추천받기" onClick={handleRecommendation}>
+						<Button title="추천받기" onClick={handleRecommendation}>
 							추천곡 확인
-						</RecommendationButton>
+						</Button>
 					</RecommendationButtonWrapper>
 				)}
 			</SelectedItemWrapper>
@@ -134,18 +135,4 @@ const RecommendationButtonWrapper = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	padding: 10px 20px;
-`;
-
-const RecommendationButton = styled.button`
-	border: none;
-	font-size: ${({ theme }) => theme.textSize.base}rem;
-	padding: 7px 10px;
-	border-radius: 5px;
-	background-color: ${({ theme }) => theme.color.primary100};
-	color: white;
-	transition: all 0.2s;
-	cursor: pointer;
-	&:hover {
-		background-color: ${({ theme }) => theme.color.primary};
-	}
 `;
