@@ -8,6 +8,7 @@ import { isAccessTokenExist } from "../lib";
 import { withRecommendationItems, withToast } from "../recoil";
 import { Button, Description, PageWrapper, Title } from "../styles/CommonStyle";
 import html2canvas from "html2canvas";
+import { v4 } from "uuid";
 
 export default function Recommendation() {
 	const router = useRouter();
@@ -30,7 +31,10 @@ export default function Recommendation() {
 		document.body.appendChild(link);
 		link.click();
 		link.remove();
-		setToast("다운로드 완료되었습니다.");
+		setToast({
+			text: "다운로드 완료되었습니다.",
+			id: v4(),
+		});
 	};
 
 	const handleSaveList = async () => {

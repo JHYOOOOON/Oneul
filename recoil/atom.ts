@@ -1,6 +1,6 @@
 import { atom, atomFamily } from "recoil";
 import { START_PAGE } from "../constants";
-import { cartItemsType, recommendationType, searchResultsType } from "./types";
+import { cartItemsType, recommendationType, searchResultsType, toastType } from "./types";
 
 export const searchResults = atom<searchResultsType>({
 	key: "atom/searchResults",
@@ -32,9 +32,12 @@ export const page = atom<number>({
 	default: START_PAGE,
 });
 
-export const toast = atom<string>({
+export const toast = atom<toastType>({
 	key: "atom/toast",
-	default: "",
+	default: {
+		text: "",
+		id: "",
+	},
 });
 
 export const showToast = atom<boolean>({

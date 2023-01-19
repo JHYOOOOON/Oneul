@@ -15,11 +15,11 @@ const Toast = () => {
 		return () => {
 			clearTimeout(id);
 		};
-	}, [show, toast]);
+	}, [toast.id]);
 
 	return (
-		<Wrapper show={show}>
-			<p>{toast}</p>
+		<Wrapper show={show} id={toast.id}>
+			<p>{toast.text}</p>
 		</Wrapper>
 	);
 };
@@ -28,7 +28,6 @@ export default Toast;
 
 const Wrapper = styled.div<{ show: boolean }>`
 	position: fixed;
-	top: 10%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding: 15px 25px;
@@ -37,10 +36,12 @@ const Wrapper = styled.div<{ show: boolean }>`
 	font-size: ${({ theme }) => theme.textSize.xl}rem;
 	color: ${({ theme }) => theme.color.white};
 	opacity: 0;
+	transform: translateY(5%);
 	transition: all 0.2s;
 	${({ show }) =>
 		show &&
 		css`
+			transform: translateY(10%);
 			opacity: 1;
 		`}
 `;

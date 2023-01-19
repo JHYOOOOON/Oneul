@@ -67,3 +67,8 @@ export type trackType = {
 };
 
 export type recommendationType = trackType[];
+
+export type toastType = {
+	text: string;
+	id: string;
+};

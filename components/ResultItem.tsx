@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { HiPlus } from "react-icons/hi";
 import styled, { css } from "styled-components";
+import { v4 } from "uuid";
 
 import { searchItemType } from "../recoil/types";
 import { useSetRecoilState } from "recoil";
 import { withCartItems, withToast } from "../recoil";
-import { HiPlus } from "react-icons/hi";
 
 type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
 	index: number;
@@ -20,7 +21,10 @@ const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailab
 	const handleSelectItem = () => {
 		if (isMoreSelectAvailable()) return;
 		if (isExist(id)) {
-			setToast("이미 담겨있는 곡입니다.");
+			setToast({
+				text: "이미 담겨있는 곡입니다.",
+				id: v4(),
+			});
 			return;
 		}
 
@@ -31,7 +35,10 @@ const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailab
 			album,
 			duration_ms,
 		});
-		setToast("정상적으로 담겼습니다.");
+		setToast({
+			text: "정상적으로 담겼습니다.",
+			id: v4(),
+		});
 	};
 
 	return (
