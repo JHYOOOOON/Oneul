@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import { ListItem } from "../components";
 import { isAccessTokenExist } from "../lib";
-import { withRecommendationItems } from "../recoil";
+import { withRecommendationItems, withToast } from "../recoil";
 import { Button, Description, PageWrapper, Title } from "../styles/CommonStyle";
 import html2canvas from "html2canvas";
 
 export default function Recommendation() {
 	const router = useRouter();
 	const recommendationItems = useRecoilValue(withRecommendationItems);
+	const setToast = useSetRecoilState(withToast);
 
 	useEffect(() => {
 		if (isAccessTokenExist() === false) {
@@ -24,11 +25,12 @@ export default function Recommendation() {
 
 	const downloadImage = (url: string) => {
 		const link = document.createElement("a");
-		link.download = "download";
+		link.download = "[Onuel]recommendation";
 		link.href = url;
 		document.body.appendChild(link);
 		link.click();
 		link.remove();
+		setToast("다운로드 완료되었습니다.");
 	};
 
 	const handleSaveList = async () => {
