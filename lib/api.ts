@@ -3,6 +3,7 @@ import axios, { AxiosInstance } from "axios";
 import config from "../config";
 import { getAccessToken } from "./auth";
 import { removeAccessToken } from ".";
+import { SEARCH_ITEM_LIMIT } from "../constants";
 
 class RestAPI {
 	private _instance: AxiosInstance | null = null;
@@ -24,12 +25,13 @@ class RestAPI {
 			resolve(this._instance);
 		});
 
-	search = async (term: string, startIndex: number = 0) =>
+	search = async (term: string, startPage: number = 0) =>
 		(await this.instance()).get("/search", {
 			params: {
 				q: term,
 				type: "track",
-				offset: startIndex,
+				offset: startPage * SEARCH_ITEM_LIMIT,
+				limit: SEARCH_ITEM_LIMIT,
 			},
 		});
 
