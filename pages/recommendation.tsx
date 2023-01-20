@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-import { ListItem } from "../components";
+import { BackButton, ListItem } from "../components";
 import { isAccessTokenExist } from "../lib";
 import { withRecommendationItems, withToast } from "../recoil";
 import { Button, Description, PageWrapper, Title } from "../styles/CommonStyle";
@@ -75,6 +75,7 @@ export default function Recommendation() {
 					</ListItem>
 				))}
 			</StyledUl>
+			<BackButton />
 		</PageWrapper>
 	);
 }
