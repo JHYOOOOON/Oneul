@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RxHamburgerMenu } from "react-icons/rx";
+import cx from "classnames";
 
 import { Maybe } from "../components";
 import CartItem from "./CartItem";
 import { withCartItemIds, withRecommendationItems } from "../recoil";
 import { RestAPI, removeAccessToken } from "../lib";
 import { Button } from "../styles/CommonStyle";
+import { MAX_ITEM_LEN } from "../constants";
+import * as Theme from "../styles/theme";
 
 const SelectedSection = () => {
 	const router = useRouter();
 	const [isOpened, setIsOpened] = useState(false);
 	const selectedItemIds = useRecoilValue(withCartItemIds);
 	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
+	const isSelectedMax = useMemo(() => selectedItemIds.length === MAX_ITEM_LEN, [selectedItemIds]);
+
+	/* 최대로 담았을 때 자동으로 열리도록 함 */
+	useEffect(() => {
+		if (isSelectedMax) {
+			setIsOpened(true);
+		}
+	}, [isSelectedMax]);
 
 	const handleRecommendation = async () => {
 		try {
@@ -27,6 +38,7 @@ const SelectedSection = () => {
 			console.log(`[handleRecommendationError]: ${error}`);
 			if (error.response.status === 401) {
 				removeAccessToken();
+				router.push("/");
 			}
 		}
 	};
@@ -61,9 +73,13 @@ const SelectedSection = () => {
 				/>
 				{selectedItemIds.length > 0 && (
 					<RecommendationButtonWrapper>
-						<Button title="추천받기" onClick={handleRecommendation}>
+						<StyledRecommendationButton
+							title="추천받기"
+							onClick={handleRecommendation}
+							className={cx({ active: isSelectedMax })}
+						>
 							추천곡 확인
-						</Button>
+						</StyledRecommendationButton>
 					</RecommendationButtonWrapper>
 				)}
 			</SelectedItemWrapper>
@@ -83,6 +99,15 @@ const StyledSection = styled.div`
 	border-radius: 10px 10px 0 0;
 	overflow: hidden;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+`;
+
+const borderAnimation = keyframes`
+	from {
+		border-color: ${Theme.color.primary100};
+	}
+	to {
+		border-color: ${Theme.color.primary400};
+	}
 `;
 
 const StyledButton = styled.button`
@@ -135,4 +160,11 @@ const RecommendationButtonWrapper = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	padding: 10px 20px;
+`;
+
+const StyledRecommendationButton = styled(Button)`
+	border: 1px solid ${({ theme }) => theme.color.primary100};
+	&.active {
+		animation: ${borderAnimation} 1.5s ease-in-out infinite;
+	}
 `;
