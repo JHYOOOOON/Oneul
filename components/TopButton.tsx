@@ -48,9 +48,11 @@ const StyledButton = styled.button`
 	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 	opacity: 0;
 	transition: background-color, opacity 0.2s;
+	visibility: hidden;
 	cursor: pointer;
 	&.isShow {
 		opacity: 1;
+		visibility: visible;
 	}
 	&:hover {
 		background-color: ${({ theme }) => theme.color.primary100};
