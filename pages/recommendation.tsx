@@ -54,10 +54,11 @@ export default function Recommendation() {
 	return (
 		<PageWrapper>
 			<Wrapper>
-				<div>
+				<TitleWrapper>
+					<BackButton />
 					<Title>추천곡 리스트</Title>
 					<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
-				</div>
+				</TitleWrapper>
 				<DownloadButtonWrapper>
 					<DownloadButton onClick={handleSaveList}>목록 내려받기</DownloadButton>
 				</DownloadButtonWrapper>
@@ -75,7 +76,6 @@ export default function Recommendation() {
 					</ListItem>
 				))}
 			</StyledUl>
-			<BackButton />
 		</PageWrapper>
 	);
 }
@@ -84,6 +84,10 @@ const Wrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 15px;
+`;
+
+const TitleWrapper = styled.div`
+	position: relative;
 `;
 
 const StyledDescription = styled(Description)`
