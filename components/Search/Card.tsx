@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { HiPlus } from "react-icons/hi";
 import styled, { css } from "styled-components";
 import { v4 } from "uuid";
 
-import { searchItemType } from "../recoil/types";
-import { useSetRecoilState } from "recoil";
-import { withCartItems, withToast } from "../recoil";
+import { searchItemType } from "@/state/types";
+import { withCartItems, withToast } from "@/state";
 
 type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
 	index: number;
@@ -13,7 +13,7 @@ type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" |
 	isExist: (id: string) => boolean;
 };
 
-const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) => {
+const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) => {
 	const [hovered, setHovered] = useState(false);
 	const setCartItem = useSetRecoilState(withCartItems(id));
 	const setToast = useSetRecoilState(withToast);
@@ -59,7 +59,7 @@ const ResultItem = ({ id, name, artists, album, duration_ms, isMoreSelectAvailab
 	);
 };
 
-export default ResultItem;
+export default Card;
 
 const Wrapper = styled.li`
 	position: relative;

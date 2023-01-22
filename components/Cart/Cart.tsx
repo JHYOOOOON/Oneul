@@ -5,15 +5,14 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { RxHamburgerMenu } from "react-icons/rx";
 import cx from "classnames";
 
-import { Maybe } from "../components";
-import CartItem from "./CartItem";
-import { withCartItemIds, withRecommendationItems } from "../recoil";
-import { RestAPI, removeAccessToken } from "../lib";
-import { Button } from "../styles/CommonStyle";
-import { MAX_ITEM_LEN } from "../constants";
-import * as Theme from "../styles/theme";
+import { Maybe } from "@/components";
+import { CartItem } from "@/components/Cart";
+import { withCartItemIds, withRecommendationItems } from "@/state";
+import { RestAPI, removeAccessToken } from "@/lib";
+import { MAX_ITEM_LEN } from "@/constants";
+import { Button, Theme } from "@/styles";
 
-const SelectedSection = () => {
+const Cart = () => {
 	const router = useRouter();
 	const [isOpened, setIsOpened] = useState(false);
 	const selectedItemIds = useRecoilValue(withCartItemIds);
@@ -87,7 +86,7 @@ const SelectedSection = () => {
 	);
 };
 
-export default SelectedSection;
+export default Cart;
 
 const StyledSection = styled.div`
 	position: fixed;

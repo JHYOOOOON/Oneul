@@ -1,5 +1,5 @@
 import config from "../config";
-import makeURL from "../utils/makeURL";
+import { makeURL } from "@/utils";
 
 export const authorizeUser = () => {
 	const loginOptions = {

@@ -2,17 +2,16 @@ import { useCallback, useEffect, useRef } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-import { ResultItem } from ".";
-import { MAX_ITEM_LEN } from "../constants";
-import { withCartItemIds, withPage } from "../recoil";
-import { searchResultsType } from "../recoil/types";
-import { useSearch } from "./hooks";
+import { MAX_ITEM_LEN } from "@/constants";
+import { withCartItemIds, withPage, searchResultsType } from "@/state";
+import { useSearch } from "@/components/Search/hooks";
+import { Card } from "@/components/Search";
 
 type ResultType = {
 	searchResult: searchResultsType;
 };
 
-const Result = ({ searchResult }: ResultType) => {
+const ResultItem = ({ searchResult }: ResultType) => {
 	const setPage = useSetRecoilState(withPage);
 	const cartItemIds = useRecoilValue(withCartItemIds);
 	const observeTargetRef = useRef<HTMLLIElement | null>(null);
@@ -48,7 +47,7 @@ const Result = ({ searchResult }: ResultType) => {
 	return (
 		<StyledUl>
 			{searchResult?.map((item, index) => (
-				<ResultItem
+				<Card
 					key={`searchResult_${index}`}
 					id={item.id}
 					index={index + 1}
@@ -65,7 +64,7 @@ const Result = ({ searchResult }: ResultType) => {
 	);
 };
 
-export default Result;
+export default ResultItem;
 
 const StyledUl = styled.ul`
 	display: grid;

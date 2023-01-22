@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useResetRecoilState } from "recoil";
 
-import { useSearch } from "./hooks";
-import { withPage } from "../recoil";
+import { useSearch } from "@/components/Search/hooks";
+import { withPage } from "@/state";
 
 const Input = () => {
 	const [value, setValue] = useState("");

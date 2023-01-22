@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Input, ResultSection, SelectedSection, TopButton } from "../components";
-import { isAccessTokenExist, RestAPI, removeAccessToken } from "../lib";
-import { MAX_ITEM_LEN } from "../constants";
-import { Description, PageWrapper, Title } from "../styles/CommonStyle";
+import { TopButton } from "@/components";
+import { Input, Result } from "@/components/Search";
+import { Cart } from "@/components/Cart";
+import { isAccessTokenExist, RestAPI, removeAccessToken } from "@/lib";
+import { MAX_ITEM_LEN } from "@/constants";
+import { Description, PageWrapper, Title } from "@/styles";
 
 export default function Search() {
 	const router = useRouter();
@@ -31,8 +33,8 @@ export default function Search() {
 				담은 곡은 하단의 담은 목록에서 확인 가능합니다.
 			</Description>
 			<Input />
-			<ResultSection />
-			<SelectedSection />
+			<Result />
+			<Cart />
 			<TopButton />
 		</PageWrapper>
 	);

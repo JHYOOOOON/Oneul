@@ -1,55 +1,31 @@
-import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 
-import { BackButton, ListItem } from "../components";
-import { isAccessTokenExist } from "../lib";
-import { withRecommendationItems, withToast } from "../recoil";
-import { Button, Description, PageWrapper, Title } from "../styles/CommonStyle";
-import html2canvas from "html2canvas";
-import { v4 } from "uuid";
+import { BackButton, DownloadButton, List } from "@/components/Recommendation";
+import { isAccessTokenExist, RestAPI } from "@/lib";
+import { withRecommendationItems } from "@/state";
+import { Description, PageWrapper, Title } from "@/styles";
 
 export default function Recommendation() {
 	const router = useRouter();
 	const recommendationItems = useRecoilValue(withRecommendationItems);
-	const setToast = useSetRecoilState(withToast);
 
 	useEffect(() => {
 		if (isAccessTokenExist() === false) {
 			router.push("/");
 		}
+		(async () => {
+			const isValid = await RestAPI.isTokenValid();
+			if (isValid === false) {
+				router.push("/");
+			}
+		})();
 		if (recommendationItems.length === 0) {
 			router.push("/search");
 		}
 	}, []);
-
-	const downloadImage = (url: string) => {
-		const link = document.createElement("a");
-		link.download = "[Onuel]recommendation";
-		link.href = url;
-		document.body.appendChild(link);
-		link.click();
-		link.remove();
-		setToast({
-			text: "다운로드 완료되었습니다.",
-			id: v4(),
-		});
-	};
-
-	const handleSaveList = async () => {
-		const target = document.getElementById("recommendation-list") as HTMLUListElement;
-		const options = {
-			logging: false,
-			imageTimeout: 1000,
-			useCORS: true,
-			width: target.offsetWidth,
-			height: target.offsetHeight,
-		};
-		const canvas = await html2canvas(target, options);
-		const url = canvas.toDataURL("image/png");
-		downloadImage(url);
-	};
 
 	return (
 		<PageWrapper>
@@ -60,22 +36,10 @@ export default function Recommendation() {
 					<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
 				</TitleWrapper>
 				<DownloadButtonWrapper>
-					<DownloadButton onClick={handleSaveList}>목록 내려받기</DownloadButton>
+					<DownloadButton />
 				</DownloadButtonWrapper>
+				<List />
 			</Wrapper>
-			<StyledUl id="recommendation-list">
-				{recommendationItems.map((item, index) => (
-					<ListItem
-						key={`recommendation_${index}`}
-						name={item.name}
-						artists={item.artists}
-						album={item.album}
-						duration_ms={item.duration_ms}
-					>
-						{<Index>{index + 1}</Index>}
-					</ListItem>
-				))}
-			</StyledUl>
 		</PageWrapper>
 	);
 }
@@ -97,19 +61,4 @@ const StyledDescription = styled(Description)`
 const DownloadButtonWrapper = styled.div`
 	display: flex;
 	align-items: flex-end;
-`;
-
-const DownloadButton = styled(Button)`
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
-`;
-
-const StyledUl = styled.ul`
-	border: 1px solid ${({ theme }) => theme.color.primary400};
-	border-radius: 3px;
-	overflow: hidden;
-`;
-
-const Index = styled.p`
-	text-align: center;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;

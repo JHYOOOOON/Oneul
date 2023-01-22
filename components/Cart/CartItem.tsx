@@ -2,10 +2,9 @@ import { useState } from "react";
 import { HiMinus } from "react-icons/hi";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
-import { withCartItems } from "../recoil";
 
-import ListItem from "./ListItem";
-import Maybe from "./Maybe";
+import { ListItem, Maybe } from "@/components";
+import { withCartItems } from "@/state";
 
 type CartItemType = {
 	id: string;

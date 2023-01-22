@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled, { css } from "styled-components";
 
-import { withShowToast, withToast } from "../recoil";
+import { withShowToast, withToast } from "@/state";
 
 const Toast = () => {
 	const [show, setShow] = useRecoilState(withShowToast);

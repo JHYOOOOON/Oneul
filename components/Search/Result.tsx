@@ -1,9 +1,10 @@
 import { useRecoilValue } from "recoil";
 
-import { Maybe, Result } from "../components";
-import { withSearchResults } from "../recoil";
+import { Maybe } from "@/components";
+import { ResultItem } from "@/components/Search";
+import { withSearchResults } from "@/state";
 
-const ResultSection = () => {
+const Result = () => {
 	const searchResult = useRecoilValue(withSearchResults);
 
 	return (
@@ -15,7 +16,7 @@ const ResultSection = () => {
 					<Maybe
 						test={searchResult?.length === 0}
 						truthy={<div>결과 없음</div>}
-						falsy={<Result searchResult={searchResult} />}
+						falsy={<ResultItem searchResult={searchResult} />}
 					/>
 				}
 			/>
@@ -23,4 +24,4 @@ const ResultSection = () => {
 	);
 };
 
-export default ResultSection;
+export default Result;

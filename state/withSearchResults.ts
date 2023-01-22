@@ -1,4 +1,5 @@
 import { selector } from "recoil";
+
 import { searchResults } from "./atom";
 import { searchResultsType } from "./types";
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { searchItemType } from "../recoil/types";
-import formatTime from "../utils/msToTime";
+import { searchItemType } from "@/state";
+import { formatTime } from "@/utils";
 
 type ListItemType = Pick<searchItemType, "name" | "artists" | "album" | "duration_ms"> & {
 	onMouseEnter?: () => void;

@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 
-import { removeAccessToken, RestAPI } from "../../lib";
-import { withSearchResults, withSearchValue } from "../../recoil";
+import { removeAccessToken, RestAPI } from "@/lib";
+import { withSearchResults, withSearchValue } from "@/state";
 
 const useSearch = () => {
 	const [searchValue, setSearchValue] = useRecoilState(withSearchValue);
