@@ -38,8 +38,8 @@ export default function Recommendation() {
 				<DownloadButtonWrapper>
 					<DownloadButton />
 				</DownloadButtonWrapper>
-				<List />
 			</Wrapper>
+			<List />
 		</PageWrapper>
 	);
 }
