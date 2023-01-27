@@ -8,40 +8,66 @@ import { withPage } from "@/state";
 
 const Input = () => {
 	const [value, setValue] = useState("");
+	const [warning, setWarning] = useState("");
 	const { setSearchValue, getSearchDatas } = useSearch();
 	const resetPage = useResetRecoilState(withPage);
 	const isValueExist = useMemo(() => value.length > 0, [value]);
 
 	const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
+		if (warning) {
+			setWarning("");
+		}
 	};
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
-		if (value.length === 0) {
-			alert("검색어를 입력해주세요");
-			return;
-		}
+		const isValid = isValidValue();
+		if (isValid === false) return;
+		setWarning("");
 		resetPage();
 		setSearchValue(value);
 		getSearchDatas(value);
 	};
 
+	const isValidValue = () => {
+		if (value.length === 0) {
+			setWarning("검색어를 입력해주세요");
+			return false;
+		}
+		const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s]/g;
+		const isInvalid = regExp.test(value);
+		if (isInvalid) {
+			setWarning("공백, 특수문자를 제외한 키워드를 입력해주세요");
+			return false;
+		}
+		return true;
+	};
+
 	const handleDeleteValue = () => setValue("");
 
 	return (
-		<StyledForm onSubmit={handleSubmit}>
-			<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={value} />
-			{isValueExist && (
-				<StyledDeleteButton type="button" onClick={handleDeleteValue}>
-					<TiDelete />
-				</StyledDeleteButton>
-			)}
-		</StyledForm>
+		<Wrapper>
+			<StyledForm onSubmit={handleSubmit}>
+				<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={value} />
+				{isValueExist && (
+					<StyledDeleteButton type="button" onClick={handleDeleteValue}>
+						<TiDelete />
+					</StyledDeleteButton>
+				)}
+			</StyledForm>
+			<Warning>{warning}</Warning>
+		</Wrapper>
 	);
 };
 
 export default Input;
+
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+`;
 
 const StyledForm = styled.form`
 	position: relative;
@@ -49,7 +75,6 @@ const StyledForm = styled.form`
 	width: 350px;
 	max-width: 80%;
 	height: 32px;
-	margin-bottom: 15px;
 	border-radius: 3px 3px 0 0;
 	border-bottom: 2px solid ${({ theme }) => theme.color.primary300};
 	background-color: ${({ theme }) => theme.color.gray400};
@@ -85,4 +110,10 @@ const StyledDeleteButton = styled.button`
 		color: ${({ theme }) => theme.color.black100};
 		transform: rotate(90deg);
 	}
+`;
+
+const Warning = styled.p`
+	margin-top: 2px;
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
+	color: ${({ theme }) => theme.color.red};
 `;

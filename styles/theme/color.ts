@@ -13,4 +13,7 @@ export const color = {
 	gray300: "#d4d4d4",
 	gray400: "#f0f0f0",
 	white: "#ffffff",
+	red: "#c30010",
+	red100: "#de0a26",
+	red200: "#ff2c2c",
 };
