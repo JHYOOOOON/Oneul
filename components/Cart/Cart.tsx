@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import styled, { css, keyframes } from "styled-components";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilCallback, useRecoilValue, useSetRecoilState } from "recoil";
 import { RxHamburgerMenu } from "react-icons/rx";
 import cx from "classnames";
 
 import { Maybe } from "@/components";
 import { CartItem } from "@/components/Cart";
-import { withCartItemIds, withRecommendationItems } from "@/state";
+import { withCartItemIds, withCartItems, withRecommendationItems } from "@/state";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN } from "@/constants";
 import { Button, Theme } from "@/styles";
@@ -42,6 +42,17 @@ const Cart = () => {
 		}
 	};
 
+	const removeAllItems = useRecoilCallback(
+		({ reset }) =>
+			() => {
+				selectedItemIds.forEach((id) => {
+					reset(withCartItems(id));
+				});
+				reset(withCartItemIds);
+			},
+		[]
+	);
+
 	return (
 		<StyledSection>
 			<StyledButton onClick={() => setIsOpened(!isOpened)}>
@@ -71,15 +82,18 @@ const Cart = () => {
 					}
 				/>
 				{selectedItemIds.length > 0 && (
-					<RecommendationButtonWrapper>
-						<StyledRecommendationButton
+					<ButtonWrapper>
+						<AllDeleteButton title="전체 삭제" onClick={removeAllItems}>
+							전체 삭제
+						</AllDeleteButton>
+						<RecommendationButton
 							title="추천받기"
 							onClick={handleRecommendation}
 							className={cx({ active: isSelectedMax })}
 						>
 							추천곡 확인
-						</StyledRecommendationButton>
-					</RecommendationButtonWrapper>
+						</RecommendationButton>
+					</ButtonWrapper>
 				)}
 			</SelectedItemWrapper>
 		</StyledSection>
@@ -155,13 +169,20 @@ const ItemWrapper = styled.ul`
 	height: max-content;
 `;
 
-const RecommendationButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	padding: 10px 20px;
 `;
 
-const StyledRecommendationButton = styled(Button)`
+const AllDeleteButton = styled(Button)`
+	background-color: ${({ theme }) => theme.color.red100};
+	&:hover {
+		background-color: ${({ theme }) => theme.color.red};
+	}
+`;
+
+const RecommendationButton = styled(Button)`
 	border: 1px solid ${({ theme }) => theme.color.primary100};
 	&.active {
 		animation: ${borderAnimation} 1.5s ease-in-out infinite;
