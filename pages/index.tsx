@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { authorizeUser, isAccessTokenExist, RestAPI } from "@/lib";
+import { isAccessTokenExist, RestAPI } from "@/lib";
+import { LoginButton } from "@/components/Home";
 
 export default function Home() {
 	const router = useRouter();
@@ -17,7 +18,7 @@ export default function Home() {
 
 	return (
 		<div>
-			<button onClick={authorizeUser}>스포티파이 로그인</button>
+			<LoginButton />
 		</div>
 	);
 }
