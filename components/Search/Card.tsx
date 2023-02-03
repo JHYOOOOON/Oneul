@@ -114,13 +114,14 @@ const StyledButton = styled.button`
 
 const ImageWrapper = styled.div`
 	width: 100%;
-	height: 100%;
-	object-fit: cover;
+	aspect-ratio: 1/1;
 	overflow: hidden;
 `;
 
 const AlbumImage = styled.img`
 	width: 100%;
+	height: 100%;
+	object-fit: cover;
 `;
 
 const SongWrapper = styled.section`
