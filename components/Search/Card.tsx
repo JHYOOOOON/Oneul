@@ -114,7 +114,8 @@ const StyledButton = styled.button`
 
 const ImageWrapper = styled.div`
 	width: 100%;
-	aspect-ratio: 1/1;
+	height: 100%;
+	object-fit: cover;
 	overflow: hidden;
 `;
 
