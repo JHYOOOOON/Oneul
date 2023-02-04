@@ -68,8 +68,8 @@ export default ResultItem;
 
 const StyledUl = styled.ul`
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 180px);
-	row-gap: 15px;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	row-gap: 25px;
 	column-gap: 20px;
 	overflow: hidden;
 `;
