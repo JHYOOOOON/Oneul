@@ -45,6 +45,7 @@ const Wrapper = styled.li`
 const AlbumImage = styled.img`
 	width: 50px;
 	height: 50px;
+	object-fit: cover;
 `;
 
 const SongInfo = styled.div`
