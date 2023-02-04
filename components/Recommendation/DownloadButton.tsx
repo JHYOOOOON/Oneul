@@ -1,13 +1,11 @@
-import { useSetRecoilState } from "recoil";
-import html2canvas from "html2canvas";
 import styled from "styled-components";
-import { v4 } from "uuid";
+import html2canvas from "html2canvas";
 
 import { Button } from "@/styles";
-import { withToast } from "@/state";
+import { useToast } from "../hooks";
 
 function DownloadButton() {
-	const setToast = useSetRecoilState(withToast);
+	const { addToast } = useToast();
 
 	const downloadImage = (url: string) => {
 		const link = document.createElement("a");
@@ -16,10 +14,7 @@ function DownloadButton() {
 		document.body.appendChild(link);
 		link.click();
 		link.remove();
-		setToast({
-			text: "다운로드 완료되었습니다.",
-			id: v4(),
-		});
+		addToast("다운로드 완료되었습니다.");
 	};
 
 	const handleSaveList = async () => {

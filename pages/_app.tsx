@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 
 import { GlobalStyle, Theme } from "@/styles";
-import { Toast } from "@/components";
+import { ToastConatiner } from "@/components";
 import "/public/assets/fonts/font.css";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<GlobalStyle />
 			<ThemeProvider theme={Theme}>
 				<Component {...pageProps} />
-				<Toast />
+				<ToastConatiner />
 			</ThemeProvider>
 		</RecoilRoot>
 	);

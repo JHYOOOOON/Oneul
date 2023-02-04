@@ -34,10 +34,7 @@ export const page = atom<number>({
 
 export const toast = atom<toastType>({
 	key: "atom/toast",
-	default: {
-		text: "",
-		id: "",
-	},
+	default: [],
 });
 
 export const showToast = atom<boolean>({

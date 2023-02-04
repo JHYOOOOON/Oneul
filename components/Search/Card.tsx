@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { HiPlus } from "react-icons/hi";
 import styled, { css } from "styled-components";
-import { v4 } from "uuid";
 
 import { searchItemType } from "@/state/types";
-import { withCartItems, withToast } from "@/state";
+import { withCartItems } from "@/state";
+import { useToast } from "../hooks";
 
 type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
 	index: number;
@@ -16,15 +16,12 @@ type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" |
 const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) => {
 	const [hovered, setHovered] = useState(false);
 	const setCartItem = useSetRecoilState(withCartItems(id));
-	const setToast = useSetRecoilState(withToast);
+	const { addToast } = useToast();
 
 	const handleSelectItem = () => {
 		if (isMoreSelectAvailable()) return;
 		if (isExist(id)) {
-			setToast({
-				text: "이미 담겨있는 곡입니다.",
-				id: v4(),
-			});
+			addToast("이미 담겨있는 곡입니다.");
 			return;
 		}
 
@@ -35,10 +32,7 @@ const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, is
 			album,
 			duration_ms,
 		});
-		setToast({
-			text: "정상적으로 담겼습니다.",
-			id: v4(),
-		});
+		addToast("정상적으로 담겼습니다.");
 	};
 
 	return (
