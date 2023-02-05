@@ -9,12 +9,16 @@
 를 통해 스포티파이에서 제공하는 추천곡 리스트를 맛보기 해볼 수 있습니다.
 
 <div align="center">
-    <img src="https://user-images.githubusercontent.com/50460114/216808739-9051f569-6d37-48af-8848-224595b40b87.png" alt="스크린샷" style="max-width: 1000px; width: 85%;" />
+    <img src="https://user-images.githubusercontent.com/50460114/216809446-84016d1e-af87-4ab2-90a1-5bb03ca3c5e8.png" alt="스크린샷" style="max-width: 1000px; width: 85%;" />
 </div>
+
+<br/>
 
 ## 🛠️ 기술스택
 
 [![My Skills](https://skillicons.dev/icons?i=nextjs,ts,styledcomponents)](https://skillicons.dev)
+
+<br/>
 
 ## ✨ 실행방법
 
@@ -22,6 +26,8 @@
 2. 프로젝트 루트 폴더에 `.env` 파일 생성
 3. `NEXT_PUBLIC_SPOTIFY_CLIENT_ID` 입력(`Spotify API`에서 받아야함)
 4. `npm run dev`
+
+<br/>
 
 ## ✍️ 그 외
 
