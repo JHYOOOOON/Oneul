@@ -68,6 +68,15 @@ const Wrapper = styled.li`
 	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px 0px;
 `;
 
+const CardShowStyle = css`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 1;
+	background-color: rgba(255, 255, 255, 0.5);
+	transition: opacity 0.2s;
+`;
+
 const HoverWrapper = styled.div<{ hovered: boolean }>`
 	position: absolute;
 	top: 0;
@@ -75,16 +84,11 @@ const HoverWrapper = styled.div<{ hovered: boolean }>`
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	${({ hovered }) =>
-		hovered &&
-		css`
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			opacity: 1;
-			background-color: rgba(255, 255, 255, 0.5);
-			transition: opacity 0.2s;
-		`}
+
+	&:has(button:focus) {
+		${CardShowStyle}
+	}
+	${({ hovered }) => hovered && CardShowStyle}
 `;
 
 const StyledButton = styled.button`
