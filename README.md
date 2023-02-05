@@ -8,12 +8,10 @@
 
 를 통해 스포티파이에서 제공하는 추천곡 리스트를 맛보기 해볼 수 있습니다.
 
-<div style="position:relative;">
-    <img src="https://user-images.githubusercontent.com/50460114/216807563-d5194083-1149-4798-90ef-09a48abafdb8.png" alt="결과페이지" style="box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px 0px;max-width:600px;width:60%">
-    <img src="https://user-images.githubusercontent.com/50460114/216807304-14a6e65e-09db-4a0b-9c17-b2357d44b932.png" alt="곡 선택하는 페이지" style="box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px 0px;max-width:800px;width:80%;position:absolute;left:30%;top:30%;
-    "/>
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/50460114/216808739-9051f569-6d37-48af-8848-224595b40b87.png" alt="스크린샷" style="max-width: 1000px; width: 85%;" />
 </div>
-<br/>
+
 ## 🛠️ 기술스택
 
 [![My Skills](https://skillicons.dev/icons?i=nextjs,ts,styledcomponents)](https://skillicons.dev)
