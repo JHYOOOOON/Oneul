@@ -6,4 +6,10 @@ export default createGlobalStyle`
 	* {
 		font-family: "Pretendard", sans-serif !important;
 	}
+	html {
+		@media (max-width: 480px) {
+			font-size: 12px;
+		}
+		min-width: 320px;
+	}
 `;

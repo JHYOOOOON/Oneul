@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { searchItemType } from "@/state";
 import { formatTime } from "@/utils";
@@ -40,6 +40,9 @@ const Wrapper = styled.li`
 	&:hover {
 		background-color: ${({ theme }) => `${theme.color.primary400}`};
 	}
+	@media screen and (max-width: 480px) {
+		grid-template-columns: 20px 6fr;
+	}
 `;
 
 const AlbumImage = styled.img`
@@ -69,12 +72,20 @@ const Name = styled.p`
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;
 
+const mobile = css`
+	@media screen and (max-width: 480px) {
+		display: none;
+	}
+`;
+
 const AlbumTitle = styled.p`
 	line-height: 1.15;
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
+	${mobile}
 `;
 
 const Time = styled.p`
 	line-height: 1.15;
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
+	${mobile}
 `;

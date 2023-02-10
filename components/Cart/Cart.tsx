@@ -112,12 +112,18 @@ const StyledSection = styled.div`
 	position: fixed;
 	right: 50px;
 	bottom: 0;
-	max-width: 80%;
 	width: 550px;
 	background-color: white;
 	border-radius: 10px 10px 0 0;
 	overflow: hidden;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	@media screen and (max-width: 480px) {
+		width: 95%;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
 `;
 
 const borderAnimation = keyframes`

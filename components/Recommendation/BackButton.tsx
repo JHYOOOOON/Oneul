@@ -18,7 +18,7 @@ export default BackButton;
 
 const StyledButton = styled.button`
 	position: absolute;
-	top: -35px;
+	top: -50%;
 	left: 0;
 	display: flex;
 	justify-content: center;
@@ -29,4 +29,7 @@ const StyledButton = styled.button`
 	color: ${({ theme }) => theme.color.black200};
 	background-color: transparent;
 	cursor: pointer;
+	@media screen and (max-width: 480px) {
+		display: none;
+	}
 `;
