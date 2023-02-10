@@ -14,7 +14,7 @@ function DownloadButton() {
 		document.body.appendChild(link);
 		link.click();
 		link.remove();
-		addToast("다운로드 완료되었습니다.");
+		addToast("다운로드중...");
 	};
 
 	const handleSaveList = async () => {
