@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import styled, { css, keyframes } from "styled-components";
 import { useRecoilCallback, useRecoilValue, useSetRecoilState } from "recoil";
+import { useQuery } from "react-query";
 import { RxHamburgerMenu } from "react-icons/rx";
 import cx from "classnames";
 
@@ -18,6 +19,25 @@ const Cart = () => {
 	const selectedItemIds = useRecoilValue(withCartItemIds);
 	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
 	const isSelectedMax = useMemo(() => selectedItemIds.length === MAX_ITEM_LEN, [selectedItemIds]);
+	const { refetch } = useQuery({
+		queryKey: "recommendations",
+		queryFn: async () => await RestAPI.recommendations(selectedItemIds),
+		enabled: false,
+		onSuccess: (result) => {
+			const {
+				data: { tracks },
+			} = result;
+			setRecommendationItems(tracks);
+			router.push("/recommendation");
+		},
+		onError: (error: any) => {
+			console.log(`[handleRecommendationError]: ${error}`);
+			if (error.response.status === 401) {
+				removeAccessToken();
+				router.push("/");
+			}
+		},
+	});
 
 	/* 최대로 담았을 때 자동으로 열리도록 함 */
 	useEffect(() => {
@@ -26,21 +46,7 @@ const Cart = () => {
 		}
 	}, [isSelectedMax]);
 
-	const handleRecommendation = async () => {
-		try {
-			const {
-				data: { tracks },
-			} = await RestAPI.recommendations(selectedItemIds);
-			setRecommendationItems(tracks);
-			router.push("/recommendation");
-		} catch (error: any) {
-			console.log(`[handleRecommendationError]: ${error}`);
-			if (error.response.status === 401) {
-				removeAccessToken();
-				router.push("/");
-			}
-		}
-	};
+	const handleRecommendation = () => refetch();
 
 	const removeAllItems = useRecoilCallback(
 		({ reset }) =>
@@ -55,7 +61,7 @@ const Cart = () => {
 
 	return (
 		<StyledSection>
-			<StyledButton onClick={() => setIsOpened(!isOpened)}>
+			<StyledButton onClick={() => setIsOpened((prevValue) => !prevValue)}>
 				<RxHamburgerMenu />
 				담은 목록
 			</StyledButton>
