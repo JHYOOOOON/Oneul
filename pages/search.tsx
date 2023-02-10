@@ -5,7 +5,7 @@ import { TopButton } from "@/components";
 import { Input, Result } from "@/components/Search";
 import { Cart } from "@/components/Cart";
 import { RestAPI, removeAccessToken } from "@/lib";
-import { MAX_ITEM_LEN } from "@/constants";
+import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
 
 export default function Search() {
@@ -16,7 +16,7 @@ export default function Search() {
 		retry: 0,
 		onError: () => {
 			removeAccessToken();
-			router.push("/");
+			router.push(ROUTES.HOME);
 		},
 	});
 

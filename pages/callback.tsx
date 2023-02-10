@@ -1,15 +1,17 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { saveLogin } from "../lib";
+
+import { saveLogin } from "@/lib";
+import { ROUTES } from "@/constants";
 
 const Callback = () => {
 	const router = useRouter();
 	useEffect(() => {
 		const loginSuccess = saveLogin();
 		if (loginSuccess) {
-			router.push("/search");
+			router.push(ROUTES.SEARCH);
 		} else {
-			router.push("/");
+			router.push(ROUTES.HOME);
 		}
 	}, []);
 

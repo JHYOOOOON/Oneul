@@ -7,6 +7,7 @@ import { BackButton, DownloadButton, List } from "@/components/Recommendation";
 import { removeAccessToken, RestAPI } from "@/lib";
 import { withRecommendationItems } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
+import { ROUTES } from "@/constants";
 
 export default function Recommendation() {
 	const router = useRouter();
@@ -17,12 +18,12 @@ export default function Recommendation() {
 		retry: 0,
 		onSuccess: () => {
 			if (recommendationItems.length === 0) {
-				router.push("/search");
+				router.push(ROUTES.SEARCH);
 			}
 		},
 		onError: () => {
 			removeAccessToken();
-			router.push("/");
+			router.push(ROUTES.HOME);
 		},
 	});
 
