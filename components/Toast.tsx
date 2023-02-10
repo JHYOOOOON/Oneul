@@ -56,6 +56,8 @@ const moveTopToBottom = keyframes`
 const Wrapper = styled.div<{ show: boolean }>`
 	position: fixed;
 	left: 50%;
+	width: max-content;
+	max-width: 80%;
 	transform: translate(-50%, -50%);
 	padding: 15px 25px;
 	border-radius: 5px;
@@ -65,6 +67,8 @@ const Wrapper = styled.div<{ show: boolean }>`
 	opacity: 0;
 	transition: all 0.2s;
 	animation: ${moveTopToBottom} 0.5s ease forwards;
+	line-height: 1.2;
+	word-break: keep-all;
 	${({ show }) =>
 		show &&
 		css`

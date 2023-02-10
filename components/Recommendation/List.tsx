@@ -52,7 +52,7 @@ const AlbumUl = styled.ul`
 	border-radius: 3px;
 	overflow: hidden;
 	@media screen and (max-width: 480px) {
-		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
 	}
 `;
 

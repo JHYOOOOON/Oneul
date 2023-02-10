@@ -30,8 +30,8 @@ export default TopButton;
 
 const StyledButton = styled.button`
 	position: fixed;
-	bottom: 50px;
-	right: 50px;
+	bottom: min(10%, 50px);
+	right: min(10%, 50px);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
