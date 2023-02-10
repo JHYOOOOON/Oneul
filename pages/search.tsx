@@ -1,28 +1,24 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
 import { TopButton } from "@/components";
 import { Input, Result } from "@/components/Search";
 import { Cart } from "@/components/Cart";
-import { isAccessTokenExist, RestAPI, removeAccessToken } from "@/lib";
+import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
 
 export default function Search() {
 	const router = useRouter();
-
-	useEffect(() => {
-		if (isAccessTokenExist() === false) {
+	useQuery({
+		queryKey: "checkValid",
+		queryFn: async () => await RestAPI.isTokenValid(),
+		retry: 0,
+		onError: () => {
+			removeAccessToken();
 			router.push("/");
-		}
-		(async () => {
-			const isValid = await RestAPI.isTokenValid();
-			if (isValid === false) {
-				removeAccessToken();
-				router.push("/");
-			}
-		})();
-	}, []);
+		},
+	});
 
 	return (
 		<PageWrapper>

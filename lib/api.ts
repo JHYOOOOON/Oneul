@@ -2,7 +2,6 @@ import axios, { AxiosInstance } from "axios";
 
 import config from "../config";
 import { getAccessToken } from "./auth";
-import { removeAccessToken } from ".";
 import { SEARCH_ITEM_LIMIT } from "../constants";
 
 class RestAPI {
@@ -42,13 +41,7 @@ class RestAPI {
 			},
 		});
 
-	isTokenValid = async () =>
-		new Promise(async (resolve, reject) => {
-			(await this.instance())
-				.get("/me")
-				.then(() => resolve(true))
-				.catch(() => resolve(false));
-		});
+	isTokenValid = async () => (await this.instance()).get("/me");
 }
 
 const instance = new RestAPI();

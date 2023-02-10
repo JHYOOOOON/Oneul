@@ -24,8 +24,6 @@ export const saveLogin = () => {
 
 export const getAccessToken = () => (typeof localStorage === "undefined" ? "" : localStorage.getItem("accessToken"));
 
-export const isAccessTokenExist = () => Boolean(getAccessToken());
-
 export const removeAccessToken = () => localStorage.removeItem("accessToken");
 
 const parseAccessToken = () => {

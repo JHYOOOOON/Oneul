@@ -1,31 +1,30 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 
 import { BackButton, DownloadButton, List } from "@/components/Recommendation";
-import { isAccessTokenExist, RestAPI } from "@/lib";
+import { removeAccessToken, RestAPI } from "@/lib";
 import { withRecommendationItems } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
 
 export default function Recommendation() {
 	const router = useRouter();
 	const recommendationItems = useRecoilValue(withRecommendationItems);
-
-	useEffect(() => {
-		if (isAccessTokenExist() === false) {
-			router.push("/");
-		}
-		(async () => {
-			const isValid = await RestAPI.isTokenValid();
-			if (isValid === false) {
-				router.push("/");
+	useQuery({
+		queryKey: "checkValid",
+		queryFn: async () => await RestAPI.isTokenValid(),
+		retry: 0,
+		onSuccess: () => {
+			if (recommendationItems.length === 0) {
+				router.push("/search");
 			}
-		})();
-		if (recommendationItems.length === 0) {
-			router.push("/search");
-		}
-	}, []);
+		},
+		onError: () => {
+			removeAccessToken();
+			router.push("/");
+		},
+	});
 
 	return (
 		<PageWrapper>
