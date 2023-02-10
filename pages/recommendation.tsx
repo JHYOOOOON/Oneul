@@ -1,17 +1,20 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
-import { BackButton, DownloadButton, List } from "@/components/Recommendation";
+import { BackButton, DownloadButton, List, ViewTypeButton } from "@/components/Recommendation";
 import { removeAccessToken, RestAPI } from "@/lib";
 import { withRecommendationItems } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
+import { VIEW_TYPE } from "@/types";
 import { ROUTES } from "@/constants";
 
 export default function Recommendation() {
 	const router = useRouter();
 	const recommendationItems = useRecoilValue(withRecommendationItems);
+	const [viewType, setViewType] = useState<VIEW_TYPE>("list");
 	useQuery({
 		queryKey: "checkValid",
 		queryFn: async () => await RestAPI.isTokenValid(),
@@ -29,17 +32,16 @@ export default function Recommendation() {
 
 	return (
 		<PageWrapper>
+			<TitleWrapper>
+				<BackButton />
+				<Title>추천곡 리스트</Title>
+				<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
+			</TitleWrapper>
 			<Wrapper>
-				<TitleWrapper>
-					<BackButton />
-					<Title>추천곡 리스트</Title>
-					<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
-				</TitleWrapper>
-				<DownloadButtonWrapper>
-					<DownloadButton />
-				</DownloadButtonWrapper>
+				<DownloadButton />
+				<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
 			</Wrapper>
-			<List />
+			<List viewType={viewType} />
 		</PageWrapper>
 	);
 }
@@ -47,6 +49,7 @@ export default function Recommendation() {
 const Wrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin-top: 10px;
 	margin-bottom: 15px;
 `;
 
@@ -56,9 +59,4 @@ const TitleWrapper = styled.div`
 
 const StyledDescription = styled(Description)`
 	margin-bottom: 0;
-`;
-
-const DownloadButtonWrapper = styled.div`
-	display: flex;
-	align-items: flex-end;
 `;
