@@ -411,6 +411,11 @@
     "@types/react" "*"
     csstype "^3.0.2"
 
+"@types/uuid@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.npmjs.org/@types/uuid/-/uuid-9.0.0.tgz#53ef263e5239728b56096b0a869595135b7952d2"
+  integrity sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==
+
 "@typescript-eslint/eslint-plugin@^5.45.0":
   version "5.50.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.50.0.tgz#fb48c31cadc853ffc1dc35373f56b5e2a8908fe9"
