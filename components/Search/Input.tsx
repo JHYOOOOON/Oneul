@@ -106,7 +106,8 @@ const StyledDeleteButton = styled.button`
 	font-size: ${({ theme }) => theme.textSize.xxl}rem;
 	color: ${({ theme }) => theme.color.gray};
 	cursor: pointer;
-	&:hover {
+	&:hover,
+	&:focus {
 		color: ${({ theme }) => theme.color.black100};
 		transform: rotate(90deg);
 	}
