@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { HiPlus } from "react-icons/hi";
 import styled, { css } from "styled-components";
@@ -18,7 +18,7 @@ const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, is
 	const setCartItem = useSetRecoilState(withCartItems(id));
 	const { addToast } = useToast();
 
-	const handleSelectItem = () => {
+	const handleSelectItem = (event: MouseEvent<HTMLButtonElement>) => {
 		if (isMoreSelectAvailable()) return;
 		if (isExist(id)) {
 			addToast("이미 담겨있는 곡입니다.");
@@ -33,6 +33,7 @@ const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, is
 			duration_ms,
 		});
 		addToast("정상적으로 담겼습니다.");
+		event.currentTarget.blur();
 	};
 
 	return (
