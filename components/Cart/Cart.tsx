@@ -12,6 +12,7 @@ import { withCartItemIds, withCartItems, withRecommendationItems } from "@/state
 import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Button, Theme } from "@/styles";
+import { useToast } from "../hooks";
 
 const Cart = () => {
 	const router = useRouter();
@@ -19,6 +20,7 @@ const Cart = () => {
 	const selectedItemIds = useRecoilValue(withCartItemIds);
 	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
 	const isSelectedMax = useMemo(() => selectedItemIds.length === MAX_ITEM_LEN, [selectedItemIds]);
+	const { addToast } = useToast();
 	const { refetch } = useQuery({
 		queryKey: "recommendations",
 		queryFn: async () => await RestAPI.recommendations(selectedItemIds),
@@ -55,6 +57,8 @@ const Cart = () => {
 					reset(withCartItems(id));
 				});
 				reset(withCartItemIds);
+				setIsOpened(false);
+				addToast("전체 삭제되었습니다.");
 			},
 		[]
 	);
