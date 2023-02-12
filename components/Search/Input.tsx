@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { useResetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ const Input = () => {
 	const [warning, setWarning] = useState("");
 	const { setSearchValue, getSearchDatas } = useSearch();
 	const resetPage = useResetRecoilState(withPage);
+	const inputRef = useRef<HTMLInputElement | null>(null);
 	const isValueExist = useMemo(() => value.length > 0, [value]);
 
 	const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -44,12 +45,16 @@ const Input = () => {
 		return true;
 	};
 
-	const handleDeleteValue = () => setValue("");
+	const handleDeleteValue = () => {
+		setValue("");
+		if (!inputRef.current) return;
+		inputRef.current.focus();
+	};
 
 	return (
 		<Wrapper>
 			<StyledForm onSubmit={handleSubmit}>
-				<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={value} />
+				<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={value} ref={inputRef} />
 				{isValueExist && (
 					<StyledDeleteButton type="button" onClick={handleDeleteValue}>
 						<TiDelete />
