@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
@@ -31,18 +32,23 @@ export default function Recommendation() {
 	});
 
 	return (
-		<PageWrapper>
-			<TitleWrapper>
-				<BackButton />
-				<Title>추천곡 리스트</Title>
-				<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
-			</TitleWrapper>
-			<Wrapper>
-				<DownloadButton />
-				<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
-			</Wrapper>
-			<List viewType={viewType} />
-		</PageWrapper>
+		<>
+			<Head>
+				<title>Recommendation | Oneul</title>
+			</Head>
+			<PageWrapper>
+				<TitleWrapper>
+					<BackButton />
+					<Title>추천곡 리스트</Title>
+					<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
+				</TitleWrapper>
+				<Wrapper>
+					<DownloadButton />
+					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
+				</Wrapper>
+				<List viewType={viewType} />
+			</PageWrapper>
+		</>
 	);
 }
 

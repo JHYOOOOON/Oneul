@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
@@ -20,8 +21,13 @@ export default function Home() {
 	});
 
 	return (
-		<div>
-			<LoginButton />
-		</div>
+		<>
+			<Head>
+				<title>Login | Oneul</title>
+			</Head>
+			<div>
+				<LoginButton />
+			</div>
+		</>
 	);
 }
