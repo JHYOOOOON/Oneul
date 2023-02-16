@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiMinus } from "react-icons/hi";
+import { AiFillMinusCircle } from "react-icons/ai";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
 
@@ -33,7 +33,7 @@ const CartItem = ({ id, index }: CartItemType) => {
 				test={hovered}
 				truthy={
 					<Button title={`${cartItem?.name} 삭제하기`} onClick={handleDeleteItem}>
-						<HiMinus />
+						<AiFillMinusCircle />
 					</Button>
 				}
 				falsy={<Index>{index}</Index>}
@@ -51,7 +51,14 @@ const Index = styled.p`
 
 const Button = styled.button`
 	border: none;
-	background: none;
+	background-color: transparent;
 	padding: 0;
+	color: ${({ theme }) => theme.color.red100};
+	font-size: ${({ theme }) => theme.textSize.lg}rem;
+	aspect-ratio: 1/1;
 	cursor: pointer;
+	transition: color 0.2s;
+	&:hover {
+		color: ${({ theme }) => theme.color.red};
+	}
 `;
