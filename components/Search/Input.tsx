@@ -29,6 +29,7 @@ const Input = () => {
 		resetPage();
 		setSearchValue(value);
 		getSearchDatas(value);
+		setValue("");
 	};
 
 	const isValidValue = () => {
