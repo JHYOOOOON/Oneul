@@ -14,7 +14,7 @@ type ResultType = {
 const ResultItem = ({ searchResult }: ResultType) => {
 	const cartItemIds = useRecoilValue(withCartItemIds);
 	const observeTargetRef = useRef<HTMLLIElement | null>(null);
-	const { fetchNextPage, searchValue, isFetchingNextPage } = useSearch();
+	const { fetchNextPage, searchValue, isFetchingNextPage } = useSearch("infiniteSearch");
 
 	/* 다음 페이지 데이터 가져오기 위함 */
 	useEffect(() => {
