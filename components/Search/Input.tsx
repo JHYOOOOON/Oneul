@@ -7,7 +7,7 @@ import { useSearch } from "@/components/Search/hooks";
 const Input = () => {
 	const [value, setValue] = useState("");
 	const [warning, setWarning] = useState("");
-	const { setSearchValue, getSearchDatas } = useSearch("search");
+	const { setSearchValue } = useSearch("search");
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const isValueExist = useMemo(() => value.length > 0, [value]);
 
@@ -25,7 +25,6 @@ const Input = () => {
 		setSearchValue(() => value);
 		setWarning("");
 		setValue("");
-		getSearchDatas();
 	};
 
 	const isValidValue = () => {

@@ -16,6 +16,7 @@ const useSearch = (queryKey: string) => {
 			refetchOnWindowFocus: false,
 			refetchOnMount: false,
 			refetchOnReconnect: false,
+			enabled: searchValue.length > 0,
 			getNextPageParam: (lastPage, _) => {
 				return lastPage.data.tracks.offset + SEARCH_ITEM_LIMIT;
 			},
