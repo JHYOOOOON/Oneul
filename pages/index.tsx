@@ -12,6 +12,8 @@ export default function Home() {
 		queryKey: "checkValid",
 		queryFn: async () => await RestAPI.isTokenValid(),
 		retry: 0,
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
 		onSuccess: () => {
 			router.push(ROUTES.SEARCH);
 		},

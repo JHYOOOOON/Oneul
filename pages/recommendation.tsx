@@ -20,6 +20,8 @@ export default function Recommendation() {
 		queryKey: "checkValid",
 		queryFn: async () => await RestAPI.isTokenValid(),
 		retry: 0,
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
 		onSuccess: () => {
 			if (recommendationItems.length === 0) {
 				router.push(ROUTES.SEARCH);

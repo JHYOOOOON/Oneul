@@ -25,6 +25,9 @@ const Cart = () => {
 		queryKey: "recommendations",
 		queryFn: async () => await RestAPI.recommendations(selectedItemIds),
 		enabled: false,
+		retry: 0,
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
 		onSuccess: (result) => {
 			const {
 				data: { tracks },

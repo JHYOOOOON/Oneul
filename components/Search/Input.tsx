@@ -1,16 +1,13 @@
 import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import { TiDelete } from "react-icons/ti";
-import { useResetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { useSearch } from "@/components/Search/hooks";
-import { withPage } from "@/state";
 
 const Input = () => {
 	const [value, setValue] = useState("");
 	const [warning, setWarning] = useState("");
 	const { setSearchValue, getSearchDatas } = useSearch();
-	const resetPage = useResetRecoilState(withPage);
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const isValueExist = useMemo(() => value.length > 0, [value]);
 
@@ -25,11 +22,10 @@ const Input = () => {
 		event.preventDefault();
 		const isValid = isValidValue();
 		if (isValid === false) return;
+		setSearchValue(() => value);
 		setWarning("");
-		resetPage();
-		setSearchValue(value);
-		getSearchDatas(value);
 		setValue("");
+		getSearchDatas();
 	};
 
 	const isValidValue = () => {
