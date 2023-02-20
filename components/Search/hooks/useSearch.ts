@@ -5,11 +5,11 @@ import { searchItemType, withSearchResults, withSearchValue } from "@/state";
 import { useInfiniteQuery } from "react-query";
 import { SEARCH_ITEM_LIMIT } from "@/constants";
 
-const useSearch = () => {
+const useSearch = (queryKey: string) => {
 	const [searchValue, setSearchValue] = useRecoilState(withSearchValue);
 	const setSearchResults = useSetRecoilState(withSearchResults);
 	const { refetch, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-		["search", searchValue],
+		[queryKey, searchValue],
 		({ pageParam = 0 }) => RestAPI.search(searchValue, pageParam),
 		{
 			retry: 0,
