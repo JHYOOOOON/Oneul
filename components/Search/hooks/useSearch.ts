@@ -5,30 +5,25 @@ import { searchItemType, withSearchResults, withSearchValue } from "@/state";
 import { useInfiniteQuery } from "react-query";
 import { SEARCH_ITEM_LIMIT } from "@/constants";
 
-const useSearch = (queryKey: string) => {
+const useSearch = () => {
 	const [searchValue, setSearchValue] = useRecoilState(withSearchValue);
 	const setSearchResults = useSetRecoilState(withSearchResults);
 	const { refetch, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-		[queryKey, searchValue],
-		({ pageParam = 0 }) => RestAPI.search(searchValue, pageParam),
+		["infiniteSearch"],
+		({ pageParam = SEARCH_ITEM_LIMIT }) => RestAPI.search(searchValue, pageParam),
 		{
 			retry: 0,
 			refetchOnWindowFocus: false,
 			refetchOnMount: false,
 			refetchOnReconnect: false,
-			enabled: searchValue.length > 0,
 			getNextPageParam: (lastPage, _) => {
 				return lastPage.data.tracks.offset + SEARCH_ITEM_LIMIT;
 			},
 			onSuccess: (data) => {
-				if (data.pageParams.length === 1) {
-					setSearchResults(data.pages[0].data.tracks.items);
-				} else {
-					setSearchResults((prev) => [
-						...(prev as searchItemType[]),
-						...data.pages[data.pages.length - 1].data.tracks.items,
-					]);
-				}
+				setSearchResults((prev) => [
+					...(prev as searchItemType[]),
+					...data.pages[data.pages.length - 1].data.tracks.items,
+				]);
 			},
 			onError: (error: any) => {
 				if (error.response.status === 401) {
