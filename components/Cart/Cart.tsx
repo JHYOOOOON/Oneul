@@ -125,6 +125,7 @@ const StyledSection = styled.div`
 	border-radius: 10px 10px 0 0;
 	overflow: hidden;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	z-index: 100;
 	@media screen and (max-width: 480px) {
 		max-width: auto;
 		width: 95%;
