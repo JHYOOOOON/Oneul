@@ -29,7 +29,7 @@ const StyledButton = styled.button`
 	color: ${({ theme }) => theme.color.black200};
 	background-color: transparent;
 	cursor: pointer;
-	@media screen and (max-width: 480px) {
+	${({ theme }) => theme.mediaQuery.mobile} {
 		display: none;
 	}
 `;

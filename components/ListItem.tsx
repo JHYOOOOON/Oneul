@@ -40,7 +40,7 @@ const Wrapper = styled.li`
 	&:hover {
 		background-color: ${({ theme }) => `${theme.color.primary400}`};
 	}
-	@media screen and (max-width: 480px) {
+	${({ theme }) => theme.mediaQuery.mobile} {
 		grid-template-columns: 20px 6fr;
 	}
 `;
@@ -73,7 +73,7 @@ const Name = styled.p`
 `;
 
 const mobile = css`
-	@media screen and (max-width: 480px) {
+	${({ theme }) => theme.mediaQuery.mobile} {
 		display: none;
 	}
 `;

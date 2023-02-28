@@ -51,7 +51,7 @@ const AlbumUl = styled.ul`
 	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	border-radius: 3px;
 	overflow: hidden;
-	@media screen and (max-width: 480px) {
+	${({ theme }) => theme.mediaQuery.mobile} {
 		grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
 	}
 `;

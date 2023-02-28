@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { mediaQuery } from "./theme";
 
 export default createGlobalStyle`
 	${reset}
@@ -7,7 +8,7 @@ export default createGlobalStyle`
 		font-family: "Pretendard", sans-serif !important;
 	}
 	html {
-		@media (max-width: 480px) {
+		${mediaQuery.mobile} {
 			font-size: 12px;
 		}
 		min-width: 320px;

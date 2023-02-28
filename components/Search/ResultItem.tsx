@@ -66,7 +66,7 @@ const StyledUl = styled.ul`
 	row-gap: 25px;
 	column-gap: 20px;
 	overflow: hidden;
-	@media screen and (max-width: 480px) {
+	${({ theme }) => theme.mediaQuery.mobile} {
 		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	}
 `;
