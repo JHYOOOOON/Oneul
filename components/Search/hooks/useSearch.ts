@@ -9,7 +9,7 @@ const useSearch = () => {
 	const [searchValue, setSearchValue] = useRecoilState(withSearchValue);
 	const setSearchResults = useSetRecoilState(withSearchResults);
 	const { refetch, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-		["infiniteSearch"],
+		["infiniteSearch", searchValue],
 		({ pageParam = SEARCH_ITEM_LIMIT }) => RestAPI.search(searchValue, pageParam),
 		{
 			retry: 0,
