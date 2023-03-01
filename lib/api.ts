@@ -27,7 +27,7 @@ class RestAPI {
 	search = async (term: string, offset: number = 0) =>
 		(await this.instance()).get("/search", {
 			params: {
-				q: term,
+				q: term.replaceAll(" ", ""),
 				type: "track",
 				offset,
 				limit: SEARCH_ITEM_LIMIT,

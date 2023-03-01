@@ -52,10 +52,10 @@ const Input = () => {
 			setWarning("검색어를 입력해주세요");
 			return false;
 		}
-		const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s]/g;
+		const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
 		const isInvalid = regExp.test(value);
 		if (isInvalid) {
-			setWarning("공백, 특수문자를 제외한 키워드를 입력해주세요");
+			setWarning("특수문자를 제외한 키워드를 입력해주세요");
 			return false;
 		}
 		return true;
