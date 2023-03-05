@@ -17,4 +17,5 @@ export const color = {
 	red100: "#de0a26",
 	red200: "#ff2c2c",
 	green: "#1db954",
+	green100: "#1ed760",
 };

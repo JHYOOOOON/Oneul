@@ -7,4 +7,5 @@ export const textSize = {
 	xl: 1.25, // 20px
 	xxl: 1.5, // 24px
 	xxxl: 1.875, // 30px
+	sxl: 2.5, // 40px super xlarge... 이름은 더 고민해봐야함...
 };

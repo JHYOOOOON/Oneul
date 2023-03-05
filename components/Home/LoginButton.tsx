@@ -26,4 +26,9 @@ const SpotifyLoginButton = styled.button`
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.textSize.lg}rem;
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	transition: background-color 0.2s;
+	&:hover,
+	&:focus {
+		background-color: ${({ theme }) => theme.color.green100};
+	}
 `;
