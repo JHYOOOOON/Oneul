@@ -42,7 +42,8 @@ const Input = () => {
 		event.preventDefault();
 		const isValid = isValidValue();
 		if (isValid === false) return;
-		setSearchValue(() => value);
+		const trimmedValue = value.trim();
+		setSearchValue(() => trimmedValue);
 		setWarning("");
 		setValue("");
 	};
