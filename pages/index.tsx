@@ -55,7 +55,7 @@ const Wrapper = styled(PageWrapper)`
 	flex-wrap: wrap;
 	flex: 1 0 10px;
 	width: 100vw;
-	height: 100dvh;
+	height: 100vh;
 	background: radial-gradient(circle at right, rgba(117, 184, 176, 1), rgba(215, 228, 233, 1));
 	box-sizing: border-box;
 	line-height: 1.2;
