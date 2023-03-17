@@ -42,6 +42,7 @@ export const SimpleButton = css`
 	border: none;
 	cursor: pointer;
 	color: ${({ theme }) => theme.color.black200};
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
 	&:hover {
 		color: ${({ theme }) => theme.color.black};
 	}
