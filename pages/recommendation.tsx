@@ -50,9 +50,9 @@ export default function Recommendation() {
 				<title>Recommendation | Oneul</title>
 			</Head>
 			<PageWrapper>
+				<BackButton />
 				<LogoutButton />
 				<TitleWrapper>
-					<BackButton />
 					<Title>추천곡 리스트</Title>
 					<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
 				</TitleWrapper>

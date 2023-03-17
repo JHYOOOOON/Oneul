@@ -26,7 +26,7 @@ function LogoutButton() {
 export default LogoutButton;
 
 const StyledButton = styled.button`
-	position: fixed;
+	position: absolute;
 	top: 0.6rem;
 	right: 1rem;
 	${SimpleButton}

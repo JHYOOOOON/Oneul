@@ -18,7 +18,7 @@ const BackButton = () => {
 export default BackButton;
 
 const StyledButton = styled.button`
-	position: fixed;
+	position: absolute;
 	top: 0.6rem;
 	left: 1rem;
 	${SimpleButton}
