@@ -1,5 +1,6 @@
 import config from "../config";
 import { makeURL } from "@/utils";
+import { ACCESS_TOKEN_KEY } from "@/constants";
 
 export const authorizeUser = () => {
 	const loginOptions = {
@@ -15,16 +16,16 @@ export const saveLogin = () => {
 	const accessToken = parseAccessToken();
 
 	if (accessToken) {
-		localStorage.setItem("accessToken", accessToken);
+		localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
 		return true;
 	} else {
 		return false;
 	}
 };
 
-export const getAccessToken = () => (typeof localStorage === "undefined" ? "" : localStorage.getItem("accessToken"));
+export const getAccessToken = () => (typeof localStorage === "undefined" ? "" : localStorage.getItem(ACCESS_TOKEN_KEY));
 
-export const removeAccessToken = () => localStorage.removeItem("accessToken");
+export const removeAccessToken = () => localStorage.removeItem(ACCESS_TOKEN_KEY);
 
 const parseAccessToken = () => {
 	const url = window.location.href.split("#access_token=");

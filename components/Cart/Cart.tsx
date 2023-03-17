@@ -10,7 +10,7 @@ import { Maybe } from "@/components";
 import { CartItem } from "@/components/Cart";
 import { withCartItemIds, withCartItems, withRecommendationItems } from "@/state";
 import { RestAPI, removeAccessToken } from "@/lib";
-import { MAX_ITEM_LEN, ROUTES } from "@/constants";
+import { MAX_ITEM_LEN, RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
 import { Button, Theme } from "@/styles";
 import { useToast } from "../hooks";
 
@@ -33,6 +33,7 @@ const Cart = () => {
 				data: { tracks },
 			} = result;
 			setRecommendationItems(tracks);
+			localStorage.setItem(RECOMMENDATIONS_KEY, JSON.stringify(tracks));
 			router.push(ROUTES.RECOMMENDATION);
 		},
 		onError: (error: any) => {

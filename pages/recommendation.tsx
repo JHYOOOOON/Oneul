@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
@@ -10,12 +10,12 @@ import { removeAccessToken, RestAPI } from "@/lib";
 import { withRecommendationItems } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
 import { VIEW_TYPE } from "@/types";
-import { ROUTES } from "@/constants";
+import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
 import LogoutButton from "@/components/LogoutButton";
 
 export default function Recommendation() {
 	const router = useRouter();
-	const recommendationItems = useRecoilValue(withRecommendationItems);
+	const [recommendationItems, setRecommendationItems] = useRecoilState(withRecommendationItems);
 	const [viewType, setViewType] = useState<VIEW_TYPE>("list");
 	useQuery({
 		queryKey: "checkValid",
@@ -23,16 +23,26 @@ export default function Recommendation() {
 		retry: 0,
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
-		onSuccess: () => {
-			if (recommendationItems.length === 0) {
-				router.push(ROUTES.SEARCH);
-			}
-		},
 		onError: () => {
 			removeAccessToken();
 			router.push(ROUTES.HOME);
 		},
 	});
+
+	/**
+	 * 새로고침 시에도 데이터 유지 위함
+	 * 이 url로 바로 타고 들어와도 이전 데이터가 보이긴 함
+	 */
+	useEffect(() => {
+		if (!!recommendationItems) {
+			const rawRecommendationItems = localStorage.getItem(RECOMMENDATIONS_KEY);
+			if (rawRecommendationItems) {
+				setRecommendationItems(JSON.parse(rawRecommendationItems));
+			} else {
+				router.push(ROUTES.SEARCH);
+			}
+		}
+	}, []);
 
 	return (
 		<>
