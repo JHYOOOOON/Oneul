@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Title = styled.h1`
 	font-size: ${({ theme }) => theme.textSize.xxxl}rem;
@@ -29,5 +29,20 @@ export const Button = styled.button`
 	cursor: pointer;
 	&:hover {
 		background-color: ${({ theme }) => theme.color.primary};
+	}
+`;
+
+export const SimpleButton = css`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2px;
+	padding: 0;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	color: ${({ theme }) => theme.color.black200};
+	&:hover {
+		color: ${({ theme }) => theme.color.black};
 	}
 `;

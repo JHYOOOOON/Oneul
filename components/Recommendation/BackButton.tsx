@@ -3,6 +3,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import styled from "styled-components";
 
 import { ROUTES } from "@/constants";
+import { SimpleButton } from "@/styles";
 
 const BackButton = () => {
 	const router = useRouter();
@@ -17,19 +18,8 @@ const BackButton = () => {
 export default BackButton;
 
 const StyledButton = styled.button`
-	position: absolute;
-	top: -50%;
-	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 2px;
-	padding: 0;
-	border: none;
-	color: ${({ theme }) => theme.color.black200};
-	background-color: transparent;
-	cursor: pointer;
-	${({ theme }) => theme.mediaQuery.mobile} {
-		display: none;
-	}
+	position: fixed;
+	top: 0.6rem;
+	left: 1rem;
+	${SimpleButton}
 `;
