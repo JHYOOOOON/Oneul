@@ -49,7 +49,7 @@ const Input = () => {
 	};
 
 	const isValidValue = () => {
-		if (value.length === 0) {
+		if (value.trim().length === 0) {
 			setWarning("검색어를 입력해주세요");
 			return false;
 		}
