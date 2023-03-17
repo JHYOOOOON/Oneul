@@ -11,6 +11,7 @@ import { withRecommendationItems } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { ROUTES } from "@/constants";
+import LogoutButton from "@/components/LogoutButton";
 
 export default function Recommendation() {
 	const router = useRouter();
@@ -39,6 +40,7 @@ export default function Recommendation() {
 				<title>Recommendation | Oneul</title>
 			</Head>
 			<PageWrapper>
+				<LogoutButton />
 				<TitleWrapper>
 					<BackButton />
 					<Title>추천곡 리스트</Title>

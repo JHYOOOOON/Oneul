@@ -8,6 +8,7 @@ import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
 import Head from "next/head";
+import LogoutButton from "@/components/LogoutButton";
 
 export default function Search() {
 	const router = useRouter();
@@ -29,6 +30,7 @@ export default function Search() {
 				<title>Search | Oneul</title>
 			</Head>
 			<PageWrapper>
+				<LogoutButton />
 				<Title>곡 선택하기</Title>
 				<Description>
 					즐겨듣는 곡을 선택해주세요(최대 {MAX_ITEM_LEN}개).
