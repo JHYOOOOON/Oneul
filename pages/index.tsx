@@ -7,6 +7,7 @@ import { removeAccessToken, RestAPI } from "@/lib";
 import { LoginButton } from "@/components/Home";
 import { ROUTES } from "@/constants";
 import { PageWrapper } from "@/styles";
+import { useEffect } from "react";
 
 export default function Home() {
 	const router = useRouter();
@@ -23,6 +24,16 @@ export default function Home() {
 			removeAccessToken();
 		},
 	});
+
+	/**
+	 * 뒤로/앞으로가기 이동 막음
+	 */
+	useEffect(() => {
+		history.pushState(null, "", router.asPath);
+		window.addEventListener("popstate", () => {
+			history.pushState(null, "", router.asPath);
+		});
+	}, []);
 
 	return (
 		<>
