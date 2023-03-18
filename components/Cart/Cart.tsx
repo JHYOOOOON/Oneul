@@ -131,7 +131,7 @@ const StyledSection = styled.div`
 	position: fixed;
 	right: 50px;
 	bottom: 0;
-	max-width: 85%;
+	max-width: 80%;
 	width: 550px;
 	background-color: white;
 	border-radius: 10px 10px 0 0;
