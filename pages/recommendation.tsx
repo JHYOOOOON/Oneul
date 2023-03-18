@@ -54,7 +54,7 @@ export default function Recommendation() {
 				<LogoutButton />
 				<TitleWrapper>
 					<Title>추천곡 리스트</Title>
-					<StyledDescription>담은 곡들을 바탕으로 추천드리는 20곡입니다.</StyledDescription>
+					<StyledDescription>담은 곡들을 바탕으로 추천드리는 곡 목록입니다.</StyledDescription>
 				</TitleWrapper>
 				<Wrapper>
 					<DownloadButton />
