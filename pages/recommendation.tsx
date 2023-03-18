@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
+import { LogoutButton } from "@/components";
 import { BackButton, DownloadButton, List, ViewTypeButton } from "@/components/Recommendation";
 import { removeAccessToken, RestAPI } from "@/lib";
 import { withRecommendationItems } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
-import LogoutButton from "@/components/LogoutButton";
 
 export default function Recommendation() {
 	const router = useRouter();

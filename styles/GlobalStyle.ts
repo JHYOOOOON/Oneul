@@ -4,13 +4,19 @@ import { mediaQuery } from "./theme";
 
 export default createGlobalStyle`
 	${reset}
+	
 	* {
 		font-family: "Pretendard", sans-serif !important;
 	}
+
 	html {
 		${mediaQuery.mobile} {
 			font-size: 12px;
 		}
 		min-width: 320px;
+	}
+
+	img {
+		content-visibility: auto;
 	}
 `;

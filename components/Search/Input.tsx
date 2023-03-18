@@ -1,20 +1,24 @@
-import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "react-query";
 import { TiDelete } from "react-icons/ti";
 import styled from "styled-components";
 
-import { useQuery } from "react-query";
 import { removeAccessToken, RestAPI } from "@/lib";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { withSearchResults, withSearchValue } from "@/state";
 
-const Input = () => {
+interface IInput {
+	handleLoading: (isLoading: boolean) => void;
+}
+
+const Input = ({ handleLoading }: IInput) => {
 	const [value, setValue] = useState("");
 	const [warning, setWarning] = useState("");
 	const setSearchResults = useSetRecoilState(withSearchResults);
 	const [searchValue, setSearchValue] = useRecoilState(withSearchValue);
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const isValueExist = useMemo(() => value.length > 0, [value]);
-	useQuery({
+	const { isFetching } = useQuery({
 		queryKey: ["search", searchValue],
 		queryFn: async () => await RestAPI.search(searchValue),
 		retry: 0,
@@ -30,6 +34,10 @@ const Input = () => {
 			}
 		},
 	});
+
+	useEffect(() => {
+		handleLoading(isFetching);
+	}, [isFetching]);
 
 	const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);

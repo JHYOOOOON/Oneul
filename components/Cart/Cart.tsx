@@ -13,15 +13,18 @@ import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, RECOMMENDATIONS_KEY, RECOMMENDATION_SEED_LIMIT, ROUTES } from "@/constants";
 import { Button, Theme } from "@/styles";
 import { useToast } from "../hooks";
+interface ICart {
+	handleLoading: (isLoading: boolean) => void;
+}
 
-const Cart = () => {
+const Cart = ({ handleLoading }: ICart) => {
 	const router = useRouter();
 	const [isOpened, setIsOpened] = useState(false);
 	const selectedItemIds = useRecoilValue(withCartItemIds);
 	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
 	const isSelectedMax = useMemo(() => selectedItemIds.length === MAX_ITEM_LEN, [selectedItemIds]);
 	const { addToast } = useToast();
-	const { refetch } = useQuery({
+	const { refetch, isFetching } = useQuery({
 		queryKey: "recommendations",
 		queryFn: async () => {
 			const splitedItemIds = [];
@@ -48,6 +51,10 @@ const Cart = () => {
 			}
 		},
 	});
+
+	useEffect(() => {
+		handleLoading(isFetching);
+	}, [isFetching]);
 
 	/* 최대로 담았을 때 자동으로 열리도록 함 */
 	useEffect(() => {
