@@ -1,9 +1,11 @@
+import dynamic from "next/dynamic";
 import { useRecoilValue } from "recoil";
-
-import { Loader, Maybe } from "@/components";
-import { ResultItem } from "@/components/Search";
-import { withSearchResults, withSearchValue } from "@/state";
 import styled from "styled-components";
+
+import { Maybe } from "@/components";
+import { withSearchResults, withSearchValue } from "@/state";
+const ResultItem = dynamic(() => import("../Search/ResultItem"));
+const Loader = dynamic(() => import("../Loader"));
 
 interface IResult {
 	isLoading: boolean;

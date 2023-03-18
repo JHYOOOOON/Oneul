@@ -1,15 +1,17 @@
 import { useCallback, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
-import { Loader, TopButton } from "@/components";
+import { TopButton } from "@/components";
 import { Input, Result } from "@/components/Search";
 import { Cart } from "@/components/Cart";
 import { LogoutButton } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
+const Loader = dynamic(() => import("../components/Loader"));
 
 export default function Search() {
 	const router = useRouter();
