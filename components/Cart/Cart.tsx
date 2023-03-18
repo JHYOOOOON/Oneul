@@ -10,7 +10,7 @@ import { Maybe } from "@/components";
 import { CartItem } from "@/components/Cart";
 import { withCartItemIds, withCartItems, withRecommendationItems } from "@/state";
 import { RestAPI, removeAccessToken } from "@/lib";
-import { MAX_ITEM_LEN, RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
+import { MAX_ITEM_LEN, RECOMMENDATIONS_KEY, RECOMMENDATION_SEED_LIMIT, ROUTES } from "@/constants";
 import { Button, Theme } from "@/styles";
 import { useToast } from "../hooks";
 
@@ -23,15 +23,19 @@ const Cart = () => {
 	const { addToast } = useToast();
 	const { refetch } = useQuery({
 		queryKey: "recommendations",
-		queryFn: async () => await RestAPI.recommendations(selectedItemIds),
+		queryFn: async () => {
+			const splitedItemIds = [];
+			for (let index = 0; index < selectedItemIds.length; index += RECOMMENDATION_SEED_LIMIT) {
+				splitedItemIds.push(selectedItemIds.slice(index, index + RECOMMENDATION_SEED_LIMIT));
+			}
+			return Promise.all(splitedItemIds.map((ids) => RestAPI.recommendations(ids))).then((data) => data);
+		},
 		enabled: false,
 		retry: 0,
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
 		onSuccess: (result) => {
-			const {
-				data: { tracks },
-			} = result;
+			const tracks = result.reduce((acc, cur) => acc.concat(cur.data.tracks), []);
 			setRecommendationItems(tracks);
 			localStorage.setItem(RECOMMENDATIONS_KEY, JSON.stringify(tracks));
 			router.push(ROUTES.RECOMMENDATION);

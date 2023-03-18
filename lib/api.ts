@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 import config from "../config";
 import { getAccessToken } from "./auth";
-import { SEARCH_ITEM_LIMIT } from "../constants";
+import { RECOMMENDATION_RESULT_LIMIT, SEARCH_ITEM_LIMIT } from "../constants";
 
 class RestAPI {
 	private _instance: AxiosInstance | null = null;
@@ -38,6 +38,7 @@ class RestAPI {
 		(await this.instance()).get("/recommendations", {
 			params: {
 				seed_tracks: tracks.join(","),
+				limit: RECOMMENDATION_RESULT_LIMIT,
 			},
 		});
 
