@@ -194,6 +194,8 @@ const EmptyWrapper = styled.div`
 
 const ItemWrapper = styled.ul`
 	height: max-content;
+	max-height: 380px;
+	overflow: auto;
 `;
 
 const ButtonWrapper = styled.div`
