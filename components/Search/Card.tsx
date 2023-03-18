@@ -85,7 +85,6 @@ const HoverWrapper = styled.div<{ hovered: boolean }>`
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	z-index: 5;
 
 	&:has(button:focus) {
 		${CardShowStyle}
