@@ -48,14 +48,14 @@ export default List;
 
 const AlbumUl = styled.ul`
 	display: grid;
-	grid-template-columns: repeat(10, minmax(50px, 1fr));
+	grid-template-columns: repeat(10, minmax(70px, 1fr));
 	border-radius: 3px;
 	overflow: hidden;
 	${({ theme }) => theme.mediaQuery.tablet} {
-		grid-template-columns: repeat(5, minmax(50px, 1fr));
+		grid-template-columns: repeat(5, minmax(70px, 1fr));
 	}
 	${({ theme }) => theme.mediaQuery.mobile} {
-		grid-template-columns: repeat(2, minmax(50px, 1fr));
+		grid-template-columns: repeat(2, minmax(70px, 1fr));
 	}
 `;
 
