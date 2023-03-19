@@ -35,7 +35,7 @@ function List({ viewType }: ListProps) {
 				<AlbumUl id="recommendation-list">
 					{recommendationItems.map((item, index) => (
 						<StyledLi key={`recommendation_${index}`}>
-							<img src={item.album.images[0].url} alt={item.name} />
+							<img src={item.album.images[1].url} alt={item.name} />
 						</StyledLi>
 					))}
 				</AlbumUl>
@@ -48,21 +48,18 @@ export default List;
 
 const AlbumUl = styled.ul`
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	grid-template-columns: repeat(10, minmax(50px, 1fr));
 	border-radius: 3px;
 	overflow: hidden;
+	${({ theme }) => theme.mediaQuery.tablet} {
+		grid-template-columns: repeat(5, minmax(50px, 1fr));
+	}
 	${({ theme }) => theme.mediaQuery.mobile} {
-		grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+		grid-template-columns: repeat(2, minmax(50px, 1fr));
 	}
 `;
 
 const StyledLi = styled.li`
-	&:first-child {
-		grid-column-start: 1;
-		grid-column-end: 3;
-		grid-row-start: 1;
-		grid-row-end: 3;
-	}
 	img {
 		width: 100%;
 		height: 100%;

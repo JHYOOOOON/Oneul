@@ -14,7 +14,7 @@ const ListItem = ({ onMouseEnter, onMouseLeave, children, name, artists, album, 
 		<Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			{children}
 			<SongInfo>
-				<AlbumImage src={album.images[1].url} alt={name} />
+				<AlbumImage src={album.images[2].url} alt={name} />
 				<SongWrapper>
 					<Title>{name}</Title>
 					<Name>{artists.map((artists) => artists.name).join(", ")}</Name>

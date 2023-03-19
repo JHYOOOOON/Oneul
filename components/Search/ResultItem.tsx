@@ -62,11 +62,11 @@ export default ResultItem;
 
 const StyledUl = styled.ul`
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 	row-gap: 25px;
 	column-gap: 20px;
 	overflow: hidden;
 	${({ theme }) => theme.mediaQuery.mobile} {
-		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
 	}
 `;
