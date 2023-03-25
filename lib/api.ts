@@ -43,6 +43,13 @@ class RestAPI {
 		});
 
 	isTokenValid = async () => (await this.instance()).get("/me");
+
+	createPlaylist = async (userId: string, body: { name: string; description: string }) => {
+		return (await this.instance()).post(`/users/${userId}/playlists`, body);
+	};
+
+	addTracksPlaylist = async (playlistId: string, parameter: { uris: string[] }) =>
+		(await this.instance()).post(`/playlists/${playlistId}/tracks`, parameter);
 }
 
 const instance = new RestAPI();

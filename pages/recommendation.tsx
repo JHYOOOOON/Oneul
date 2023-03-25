@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
 import { LogoutButton } from "@/components";
-import { BackButton, DownloadButton, List, ViewTypeButton } from "@/components/Recommendation";
+import { BackButton, CreatePlaylistButton, DownloadButton, List, ViewTypeButton } from "@/components/Recommendation";
 import { removeAccessToken, RestAPI } from "@/lib";
-import { withRecommendationItems } from "@/state";
+import { withRecommendationItems, withUserId } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
@@ -16,6 +16,7 @@ import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
 export default function Recommendation() {
 	const router = useRouter();
 	const [recommendationItems, setRecommendationItems] = useRecoilState(withRecommendationItems);
+	const setUserId = useSetRecoilState(withUserId);
 	const [viewType, setViewType] = useState<VIEW_TYPE>("list");
 	useQuery({
 		queryKey: "checkValid",
@@ -23,6 +24,12 @@ export default function Recommendation() {
 		retry: 0,
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
+		onSuccess: (res) => {
+			const {
+				data: { id },
+			} = res;
+			setUserId(id);
+		},
 		onError: () => {
 			removeAccessToken();
 			router.push(ROUTES.HOME);
@@ -57,7 +64,10 @@ export default function Recommendation() {
 					<StyledDescription>담은 곡들을 바탕으로 추천드리는 곡 목록입니다.</StyledDescription>
 				</TitleWrapper>
 				<Wrapper>
-					<DownloadButton />
+					<div>
+						<CreatePlaylistButton />
+						<DownloadButton />
+					</div>
 					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
 				</Wrapper>
 				<List viewType={viewType} />

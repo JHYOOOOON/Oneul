@@ -35,3 +35,8 @@ export const showToast = atom<boolean>({
 	key: "atom/showToast",
 	default: false,
 });
+
+export const userId = atom<string>({
+	key: "atom/userId",
+	default: "",
+});

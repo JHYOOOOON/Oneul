@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
@@ -11,18 +12,26 @@ import { LogoutButton } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
+import { withUserId } from "@/state";
 const Loader = dynamic(() => import("../components/Loader"));
 
 export default function Search() {
 	const router = useRouter();
 	const [isLoadingResult, setIsLoadingResult] = useState(false);
 	const [isLoadingRecommend, setIsLoadingRecommend] = useState(false);
+	const setUserId = useSetRecoilState(withUserId);
 	useQuery({
 		queryKey: "checkValid",
 		queryFn: async () => await RestAPI.isTokenValid(),
 		retry: 0,
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
+		onSuccess: (res) => {
+			const {
+				data: { id },
+			} = res;
+			setUserId(id);
+		},
 		onError: () => {
 			removeAccessToken();
 			router.push(ROUTES.HOME);

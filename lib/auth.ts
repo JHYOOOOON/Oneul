@@ -7,6 +7,7 @@ export const authorizeUser = () => {
 		client_id: config.SPOTIFY_CLIENT_ID as string,
 		redirect_uri: config.CALLBACK_URL,
 		response_type: "token",
+		scope: "playlist-modify-public",
 	};
 
 	window.location.href = makeURL(config.SPOTIFY_AUTHORIZE_URL, loginOptions);

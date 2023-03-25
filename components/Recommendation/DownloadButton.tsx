@@ -31,11 +31,7 @@ function DownloadButton() {
 		downloadImage(url);
 	};
 
-	return <StyledButton onClick={handleSaveList}>목록 내려받기</StyledButton>;
+	return <Button onClick={handleSaveList}>이미지로 저장</Button>;
 }
 
 export default DownloadButton;
-
-const StyledButton = styled(Button)`
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
-`;

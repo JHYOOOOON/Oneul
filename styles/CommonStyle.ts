@@ -23,7 +23,7 @@ export const Button = styled.button`
 	padding: 7px 10px;
 	border-radius: 5px;
 	transition: background-color 0.2s;
-	font-size: ${({ theme }) => theme.textSize.base}rem;
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	background-color: ${({ theme }) => theme.color.primary100};
 	color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
