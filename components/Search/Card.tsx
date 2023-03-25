@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { HiPlus } from "react-icons/hi";
 import styled, { css } from "styled-components";
@@ -6,10 +6,11 @@ import styled, { css } from "styled-components";
 import { searchItemType } from "@/state/types";
 import { withCartItems } from "@/state";
 import { useToast } from "../hooks";
+import { MAX_ITEM_LEN } from "@/constants";
 
 type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
 	index: number;
-	isMoreSelectAvailable: () => boolean;
+	isMoreSelectAvailable: boolean;
 	isExist: (id: string) => boolean;
 };
 
@@ -19,7 +20,9 @@ const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, is
 	const { addToast } = useToast();
 
 	const handleSelectItem = (event: MouseEvent<HTMLButtonElement>) => {
-		if (isMoreSelectAvailable()) return;
+		if (isMoreSelectAvailable) {
+			alert(`곡은 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있습니다`);
+		}
 		if (isExist(id)) {
 			addToast("이미 담겨있는 곡입니다.");
 			return;

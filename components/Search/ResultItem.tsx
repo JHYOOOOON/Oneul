@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -15,6 +15,7 @@ const ResultItem = ({ searchResult }: ResultType) => {
 	const cartItemIds = useRecoilValue(withCartItemIds);
 	const observeTargetRef = useRef<HTMLLIElement | null>(null);
 	const { fetchNextPage, searchValue, isFetchingNextPage } = useSearch();
+	const isMoreSelectAvailable = useMemo(() => cartItemIds.length === MAX_ITEM_LEN, [cartItemIds]);
 
 	/* 다음 페이지 데이터 가져오기 위함 */
 	useEffect(() => {
@@ -28,15 +29,7 @@ const ResultItem = ({ searchResult }: ResultType) => {
 		return () => io.disconnect();
 	}, [searchValue]);
 
-	const isMoreSelectAvailable = useCallback(() => {
-		if (cartItemIds.length === MAX_ITEM_LEN) {
-			alert(`곡은 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있습니다`);
-			return true;
-		}
-		return false;
-	}, [cartItemIds]);
-
-	const isExist = (id: string) => cartItemIds.includes(id);
+	const isExist = useCallback((id: string) => cartItemIds.includes(id), [cartItemIds]);
 
 	return (
 		<StyledUl>
