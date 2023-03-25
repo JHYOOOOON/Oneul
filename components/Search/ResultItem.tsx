@@ -60,6 +60,6 @@ const StyledUl = styled.ul`
 	column-gap: 20px;
 	overflow: hidden;
 	${({ theme }) => theme.mediaQuery.mobile} {
-		grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 	}
 `;

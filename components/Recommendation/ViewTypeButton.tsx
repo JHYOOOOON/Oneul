@@ -15,11 +15,11 @@ const ViewTypeButton = ({ viewType, handleViewType }: ViewTypeButton) => {
 		<Wrapper>
 			<StyledButton className={cx({ active: viewType === "list" })} onClick={() => handleViewType("list")}>
 				<RiListUnordered />
-				<p>리스트</p>
+				<Title>리스트</Title>
 			</StyledButton>
 			<StyledButton className={cx({ active: viewType === "album" })} onClick={() => handleViewType("album")}>
 				<IoAlbumsOutline />
-				<p>앨범</p>
+				<Title>앨범</Title>
 			</StyledButton>
 		</Wrapper>
 	);
@@ -52,5 +52,11 @@ const StyledButton = styled.button`
 	}
 	&:hover {
 		background-color: ${({ theme }) => theme.color.primary};
+	}
+`;
+
+const Title = styled.p`
+	${({ theme }) => theme.mediaQuery.mobile} {
+		display: none;
 	}
 `;
