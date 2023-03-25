@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { AiFillMinusCircle } from "react-icons/ai";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -9,9 +9,12 @@ import { withCartItems } from "@/state";
 type CartItemType = {
 	id: string;
 	index: number;
+	isDeleteView: boolean;
+	isDeletePick: boolean;
+	handleSaveDeleteItem: (id: string) => void;
 };
 
-const CartItem = ({ id, index }: CartItemType) => {
+const CartItem = ({ id, index, isDeleteView, isDeletePick, handleSaveDeleteItem }: CartItemType) => {
 	const [hovered, setHovered] = useState(false);
 	const cartItem = useRecoilValue(withCartItems(id));
 	const deleteCartItem = useResetRecoilState(withCartItems(id));
@@ -30,19 +33,33 @@ const CartItem = ({ id, index }: CartItemType) => {
 			onMouseLeave={() => setHovered(false)}
 		>
 			<Maybe
-				test={hovered}
+				test={isDeleteView}
 				truthy={
-					<Button title={`${cartItem?.name} 삭제하기`} onClick={handleDeleteItem}>
-						<AiFillMinusCircle />
-					</Button>
+					<input
+						type="checkbox"
+						checked={isDeletePick}
+						onChange={() => {
+							handleSaveDeleteItem(id);
+						}}
+					/>
 				}
-				falsy={<Index>{index}</Index>}
+				falsy={
+					<Maybe
+						test={hovered}
+						truthy={
+							<Button title={`${cartItem?.name} 삭제하기`} onClick={handleDeleteItem}>
+								<AiFillMinusCircle />
+							</Button>
+						}
+						falsy={<Index>{index}</Index>}
+					/>
+				}
 			/>
 		</ListItem>
 	);
 };
 
-export default CartItem;
+export default React.memo(CartItem);
 
 const Index = styled.p`
 	text-align: center;

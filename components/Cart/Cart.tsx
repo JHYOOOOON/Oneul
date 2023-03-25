@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import styled, { css, keyframes } from "styled-components";
 import { useRecoilCallback, useRecoilValue, useSetRecoilState } from "recoil";
@@ -20,6 +20,9 @@ interface ICart {
 const Cart = ({ handleLoading }: ICart) => {
 	const router = useRouter();
 	const [isOpened, setIsOpened] = useState(false);
+	const [isDeletePickView, setIsDeletePickView] = useState(false);
+	const [pickedDeleteItems, setPickedDeleteItems] = useState<string[]>([]);
+	const [selectAll, setSelectAll] = useState(false);
 	const selectedItemIds = useRecoilValue(withCartItemIds);
 	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
 	const isSelectedMax = useMemo(() => selectedItemIds.length === MAX_ITEM_LEN, [selectedItemIds]);
@@ -63,7 +66,52 @@ const Cart = ({ handleLoading }: ICart) => {
 		}
 	}, [isSelectedMax]);
 
+	/* 닫혔을 때 선택삭제 뷰, 담긴 아이템 초기화 */
+	useEffect(() => {
+		if (isOpened === false) {
+			setIsDeletePickView(false);
+			setPickedDeleteItems([]);
+		}
+	}, [isOpened]);
+
 	const handleRecommendation = () => refetch();
+
+	const handleSelectAll = useCallback(() => {
+		// 전체 선택된 상태
+		if (selectAll) {
+			setPickedDeleteItems([]);
+			setSelectAll(false);
+		} else {
+			setPickedDeleteItems(selectedItemIds);
+			setSelectAll(true);
+		}
+	}, [selectAll, selectedItemIds]);
+
+	const cancelDeleteView = () => {
+		setPickedDeleteItems([]);
+		setIsDeletePickView(false);
+	};
+
+	const removePickedItems = useRecoilCallback(
+		({ set, reset }) =>
+			() => {
+				pickedDeleteItems.forEach((id) => {
+					reset(withCartItems(id));
+				});
+				const filteredCartItems = selectedItemIds.filter((item) => pickedDeleteItems.includes(item) === false);
+				set(withCartItemIds, filteredCartItems);
+				setPickedDeleteItems([]);
+				setIsDeletePickView(false);
+				addToast("선택하신 곡들이 삭제되었습니다.");
+			},
+		[selectedItemIds, pickedDeleteItems]
+	);
+
+	const handleSaveDeleteItem = useCallback((id: string) => {
+		setPickedDeleteItems((prevValue) =>
+			prevValue.includes(id) ? prevValue.filter((item) => item !== id) : [...prevValue, id]
+		);
+	}, []);
 
 	const removeAllItems = useRecoilCallback(
 		({ reset }) =>
@@ -99,7 +147,14 @@ const Cart = ({ handleLoading }: ICart) => {
 							falsy={
 								<ItemWrapper>
 									{selectedItemIds?.map((id, index) => (
-										<CartItem key={`selectedItem_${id}`} id={id} index={index + 1} />
+										<CartItem
+											key={`selectedItem_${id}`}
+											id={id}
+											index={index + 1}
+											isDeleteView={isDeletePickView}
+											isDeletePick={pickedDeleteItems.includes(id)}
+											handleSaveDeleteItem={handleSaveDeleteItem}
+										/>
 									))}
 								</ItemWrapper>
 							}
@@ -107,18 +162,43 @@ const Cart = ({ handleLoading }: ICart) => {
 					}
 				/>
 				{selectedItemIds.length > 0 && (
-					<ButtonWrapper>
-						<AllDeleteButton title="전체 삭제" onClick={removeAllItems}>
-							전체 삭제
-						</AllDeleteButton>
-						<RecommendationButton
-							title="추천받기"
-							onClick={handleRecommendation}
-							className={cx({ active: isSelectedMax })}
-						>
-							추천곡 확인
-						</RecommendationButton>
-					</ButtonWrapper>
+					<Maybe
+						test={isDeletePickView}
+						truthy={
+							<ButtonWrapper>
+								<Button title={selectAll ? "전체 해제" : "전체 선택"} onClick={handleSelectAll}>
+									{selectAll ? "전체 해제" : "전체 선택"}
+								</Button>
+								<div>
+									<CancelDeleteView title="취소" onClick={cancelDeleteView}>
+										취소
+									</CancelDeleteView>
+									<DeleteButton title="삭제" onClick={removePickedItems}>
+										삭제
+									</DeleteButton>
+								</div>
+							</ButtonWrapper>
+						}
+						falsy={
+							<ButtonWrapper>
+								<div>
+									<DeletePickButton title="선택 삭제" onClick={() => setIsDeletePickView(true)}>
+										선택 삭제
+									</DeletePickButton>
+									<DeleteButton title="전체 삭제" onClick={removeAllItems}>
+										전체 삭제
+									</DeleteButton>
+								</div>
+								<RecommendationButton
+									title="추천받기"
+									onClick={handleRecommendation}
+									className={cx({ active: isSelectedMax })}
+								>
+									추천곡 확인
+								</RecommendationButton>
+							</ButtonWrapper>
+						}
+					/>
 				)}
 			</SelectedItemWrapper>
 		</StyledSection>
@@ -211,11 +291,23 @@ const ButtonWrapper = styled.div`
 	padding: 10px 20px;
 `;
 
-const AllDeleteButton = styled(Button)`
+const DeleteButton = styled(Button)`
 	background-color: ${({ theme }) => theme.color.red100};
 	&:hover {
 		background-color: ${({ theme }) => theme.color.red};
 	}
+`;
+
+const CancelDeleteView = styled(Button)`
+	margin-right: 5px;
+	background-color: ${({ theme }) => theme.color.gray100};
+	&:hover {
+		background-color: ${({ theme }) => theme.color.gray};
+	}
+`;
+
+const DeletePickButton = styled(DeleteButton)`
+	margin-right: 5px;
 `;
 
 const RecommendationButton = styled(Button)`
