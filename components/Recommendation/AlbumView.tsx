@@ -1,37 +1,21 @@
-import styled from "styled-components";
-import { ListItem } from "@/components";
+import React from "react";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 
 import { withRecommendationItems } from "@/state";
-import { VIEW_TYPE } from "@/types";
-import Maybe from "../Maybe";
+import { Maybe } from "..";
 
-type ListProps = {
-	viewType: VIEW_TYPE;
+type AlbumViewProps = {
+	isActive: boolean;
 };
 
-function List({ viewType }: ListProps) {
+function AlbumView({ isActive }: AlbumViewProps) {
 	const recommendationItems = useRecoilValue(withRecommendationItems);
 
 	return (
 		<Maybe
-			test={viewType === "list"}
+			test={isActive}
 			truthy={
-				<StyledUl id="recommendation-list">
-					{recommendationItems.map((item, index) => (
-						<ListItem
-							key={`recommendation_${index}`}
-							name={item.name}
-							artists={item.artists}
-							album={item.album}
-							duration_ms={item.duration_ms}
-						>
-							{<Index>{index + 1}</Index>}
-						</ListItem>
-					))}
-				</StyledUl>
-			}
-			falsy={
 				<AlbumUl id="recommendation-list">
 					{recommendationItems.map((item, index) => (
 						<StyledLi key={`recommendation_${index}`}>
@@ -40,11 +24,11 @@ function List({ viewType }: ListProps) {
 					))}
 				</AlbumUl>
 			}
+			falsy={null}
 		/>
 	);
 }
-
-export default List;
+export default React.memo(AlbumView);
 
 const AlbumUl = styled.ul`
 	display: grid;
@@ -65,15 +49,4 @@ const StyledLi = styled.li`
 		height: 100%;
 		object-fit: cover;
 	}
-`;
-
-const StyledUl = styled.ul`
-	border: 1px solid ${({ theme }) => theme.color.primary400};
-	border-radius: 3px;
-	overflow: hidden;
-`;
-
-const Index = styled.p`
-	text-align: center;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;

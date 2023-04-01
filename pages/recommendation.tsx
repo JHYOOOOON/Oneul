@@ -5,8 +5,17 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
-import { LogoutButton } from "@/components";
-import { BackButton, CreatePlaylistButton, DownloadButton, List, ViewTypeButton } from "@/components/Recommendation";
+import { LogoutButton, Maybe } from "@/components";
+import {
+	AlbumView,
+	BackButton,
+	CreatePlaylistButton,
+	DownloadButton,
+	ListView,
+	PrevListenButton,
+	PrevListenView,
+	ViewTypeButton,
+} from "@/components/Recommendation";
 import { removeAccessToken, RestAPI } from "@/lib";
 import { withRecommendationItems, withUserId } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
@@ -18,6 +27,7 @@ export default function Recommendation() {
 	const [recommendationItems, setRecommendationItems] = useRecoilState(withRecommendationItems);
 	const setUserId = useSetRecoilState(withUserId);
 	const [viewType, setViewType] = useState<VIEW_TYPE>("list");
+	const [createdPlaylistId, setCreatedPlaylistId] = useState<string>("");
 	useQuery({
 		queryKey: "checkValid",
 		queryFn: async () => await RestAPI.isTokenValid(),
@@ -64,13 +74,21 @@ export default function Recommendation() {
 					<StyledDescription>담은 곡들을 바탕으로 추천드리는 곡 목록입니다.</StyledDescription>
 				</TitleWrapper>
 				<Wrapper>
-					<div>
-						<CreatePlaylistButton />
+					<LeftButtonWrapper>
+						<Maybe
+							test={createdPlaylistId.length === 0}
+							truthy={
+								<CreatePlaylistButton handleCreatedPlaylistId={setCreatedPlaylistId} handleViewType={setViewType} />
+							}
+							falsy={<PrevListenButton handleViewType={setViewType} isActive={viewType === "prev-listen"} />}
+						/>
 						<DownloadButton />
-					</div>
+					</LeftButtonWrapper>
 					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
 				</Wrapper>
-				<List viewType={viewType} />
+				<ListView isActive={viewType === "list"} />
+				<AlbumView isActive={viewType === "album"} />
+				<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
 			</PageWrapper>
 		</>
 	);
@@ -89,4 +107,9 @@ const TitleWrapper = styled.div`
 
 const StyledDescription = styled(Description)`
 	margin-bottom: 0;
+`;
+
+const LeftButtonWrapper = styled.div`
+	display: flex;
+	gap: 5px;
 `;
