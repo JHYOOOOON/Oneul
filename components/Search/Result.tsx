@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { Maybe } from "@/components";
 import { withSearchResults, withSearchValue } from "@/state";
+import { NotFound } from ".";
 const ResultItem = dynamic(() => import("../Search/ResultItem"));
 const Loader = dynamic(() => import("../Loader"));
 
@@ -25,7 +26,7 @@ const Result = ({ isLoading }: IResult) => {
 					{searchValue && <SearchTitle>"{searchValue}" 검색 결과</SearchTitle>}
 					<Maybe
 						test={searchResult?.length === 0}
-						truthy={<div>결과 없음</div>}
+						truthy={<NotFound />}
 						falsy={<ResultItem searchResult={searchResult} />}
 					/>
 				</Wrapper>
