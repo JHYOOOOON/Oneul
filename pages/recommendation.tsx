@@ -82,7 +82,7 @@ export default function Recommendation() {
 							}
 							falsy={<PrevListenButton handleViewType={setViewType} isActive={viewType === "prev-listen"} />}
 						/>
-						<DownloadButton />
+						{viewType !== "prev-listen" && <DownloadButton />}
 					</LeftButtonWrapper>
 					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
 				</Wrapper>
