@@ -74,6 +74,18 @@ const Cart = ({ handleLoading }: ICart) => {
 		}
 	}, [isOpened]);
 
+	/* 카트 바깥영역 클릭 시, 닫힘처리 */
+	useEffect(() => {
+		const handleCloseCart = (event: MouseEvent) => {
+			const target = event.target as HTMLElement;
+			if (target.closest("#cart") === null) {
+				setIsOpened(false);
+			}
+		};
+		document.addEventListener("click", handleCloseCart);
+		return () => document.removeEventListener("click", handleCloseCart);
+	}, []);
+
 	const handleRecommendation = () => refetch();
 
 	const handleSelectAll = useCallback(() => {
@@ -127,7 +139,7 @@ const Cart = ({ handleLoading }: ICart) => {
 	);
 
 	return (
-		<StyledSection>
+		<StyledSection id="cart">
 			<StyledButton onClick={() => setIsOpened((prevValue) => !prevValue)}>
 				<RxHamburgerMenu />
 				담은 목록
