@@ -23,17 +23,18 @@ export function Cart() {
 	const cartRef = useRef<HTMLDivElement>(null);
 
 	/* 카트 바깥영역 클릭 시, 닫힘처리 */
-	useEffect(() => {
-		const handleCloseCart = (event: MouseEvent) => {
-			const target = event.target as HTMLElement;
-			if (target.closest("#cart") === null) {
-				setIsOpened(false);
-			}
-		};
+	// TODO 카트 내부 - 클릭 시에 닫히는 문제 개선 필요
+	// useEffect(() => {
+	// 	const handleCloseCart = (event: MouseEvent) => {
+	// 		const target = event.target as HTMLElement;
+	// 		if (target.closest("#cart") === null) {
+	// 			setIsOpened(false);
+	// 		}
+	// 	};
 
-		document.addEventListener("click", handleCloseCart);
-		return () => document.removeEventListener("click", handleCloseCart);
-	}, []);
+	// 	document.addEventListener("click", handleCloseCart);
+	// 	return () => document.removeEventListener("click", handleCloseCart);
+	// }, []);
 
 	/* 최대로 담았을 때 자동으로 열리도록 함 */
 	useEffect(() => {
