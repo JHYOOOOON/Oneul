@@ -8,7 +8,7 @@ type PrevListenViewProps = {
 	playlistId: string;
 };
 
-function PrevListenView({ isActive, playlistId }: PrevListenViewProps) {
+export function PrevListenView({ isActive, playlistId }: PrevListenViewProps) {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -42,8 +42,6 @@ function PrevListenView({ isActive, playlistId }: PrevListenViewProps) {
 		</Wrapper>
 	);
 }
-
-export default PrevListenView;
 
 const Wrapper = styled.div`
 	position: relative;

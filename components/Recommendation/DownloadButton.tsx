@@ -1,10 +1,9 @@
-import styled from "styled-components";
 import html2canvas from "html2canvas";
 
 import { Button } from "@/styles";
 import { useToast } from "../hooks";
 
-function DownloadButton() {
+export function DownloadButton() {
 	const { addToast } = useToast();
 
 	const downloadImage = (url: string) => {
@@ -33,5 +32,3 @@ function DownloadButton() {
 
 	return <Button onClick={handleSaveList}>이미지로 저장</Button>;
 }
-
-export default DownloadButton;

@@ -1,2 +1,2 @@
-export { default as makeURL } from "./makeURL";
+export * from "./makeURL";
 export { default as formatTime } from "./msToTime";

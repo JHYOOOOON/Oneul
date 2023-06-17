@@ -19,7 +19,12 @@ interface INormalViewButtons {
 	isSelectedMax: boolean;
 }
 
-function NormalViewButtons({ selectedItemIds, setIsDeletePickView, setCartOpened, isSelectedMax }: INormalViewButtons) {
+export function NormalViewButtons({
+	selectedItemIds,
+	setIsDeletePickView,
+	setCartOpened,
+	isSelectedMax,
+}: INormalViewButtons) {
 	const router = useRouter();
 	const { addToast } = useToast();
 	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
@@ -85,8 +90,6 @@ function NormalViewButtons({ selectedItemIds, setIsDeletePickView, setCartOpened
 		</ButtonWrapper>
 	);
 }
-
-export default NormalViewButtons;
 
 const DeletePickButton = styled(DeleteButton)`
 	margin-right: 5px;

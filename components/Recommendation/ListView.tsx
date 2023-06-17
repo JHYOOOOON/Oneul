@@ -9,7 +9,7 @@ type ListViewProps = {
 	isActive: boolean;
 };
 
-function ListView({ isActive }: ListViewProps) {
+export function ListView({ isActive }: ListViewProps) {
 	const recommendationItems = useRecoilValue(withRecommendationItems);
 
 	return (
@@ -34,7 +34,6 @@ function ListView({ isActive }: ListViewProps) {
 		/>
 	);
 }
-export default React.memo(ListView);
 
 const StyledUl = styled.ul`
 	border: 1px solid ${({ theme }) => theme.color.primary400};

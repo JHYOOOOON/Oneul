@@ -14,7 +14,9 @@ import {
 import { withCartItemIds } from "@/state";
 import { MAX_ITEM_LEN } from "@/constants";
 
-const Cart = () => {
+const MemoizedCartItem = React.memo(CartItem);
+
+export function Cart() {
 	const [isOpened, setIsOpened] = useState(false);
 	const [isDeletePickView, setIsDeletePickView] = useState<IsDeletePickViewType>(false);
 	const [pickedDeleteItems, setPickedDeleteItems] = useState<PickedDeleteItemsType>([]);
@@ -74,7 +76,7 @@ const Cart = () => {
 						<>
 							<ItemWrapper>
 								{selectedItemIds?.map((id, index) => (
-									<CartItem
+									<MemoizedCartItem
 										key={`selectedItem_${id}`}
 										id={id}
 										index={index + 1}
@@ -109,9 +111,7 @@ const Cart = () => {
 			</SelectedItemWrapper>
 		</StyledSection>
 	);
-};
-
-export default Cart;
+}
 
 const StyledSection = styled.div`
 	position: fixed;

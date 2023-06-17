@@ -12,7 +12,7 @@ type CreatePlaylistButtonProps = {
 	handleViewType: Dispatch<SetStateAction<VIEW_TYPE>>;
 };
 
-function CreatePlaylistButton({ handleCreatedPlaylistId, handleViewType }: CreatePlaylistButtonProps) {
+export function CreatePlaylistButton({ handleCreatedPlaylistId, handleViewType }: CreatePlaylistButtonProps) {
 	const userId = useRecoilValue(withUserId);
 	const recommendationItems = useRecoilValue(withRecommendationItems);
 	const { addToast } = useToast();
@@ -39,5 +39,3 @@ function CreatePlaylistButton({ handleCreatedPlaylistId, handleViewType }: Creat
 
 	return <Button onClick={savePlaylist}>플레이리스트에 추가</Button>;
 }
-
-export default CreatePlaylistButton;

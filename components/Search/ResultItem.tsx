@@ -11,7 +11,7 @@ type ResultType = {
 	searchResult: SearchResultsType;
 };
 
-const ResultItem = ({ searchResult }: ResultType) => {
+function ResultItem({ searchResult }: ResultType) {
 	const cartItemIds = useRecoilValue(withCartItemIds);
 	const observeTargetRef = useRef<HTMLLIElement | null>(null);
 	const { fetchNextPage, searchValue, isFetchingNextPage } = useSearch();
@@ -49,9 +49,7 @@ const ResultItem = ({ searchResult }: ResultType) => {
 			<li ref={observeTargetRef}></li>
 		</StyledUl>
 	);
-};
-
-export default ResultItem;
+}
 
 const StyledUl = styled.ul`
 	display: grid;

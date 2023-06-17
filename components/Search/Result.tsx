@@ -7,7 +7,7 @@ import { withSearchResults, withSearchValue } from "@/state";
 import { NotFound } from ".";
 const ResultItem = dynamic(() => import("../Search/ResultItem"));
 
-const Result = () => {
+export function Result() {
 	const searchValue = useRecoilValue(withSearchValue);
 	const searchResult = useRecoilValue(withSearchResults);
 
@@ -27,9 +27,7 @@ const Result = () => {
 			}
 		/>
 	);
-};
-
-export default Result;
+}
 
 const SearchTitle = styled.h2`
 	font-size: ${({ theme }) => theme.textSize.xl}rem;

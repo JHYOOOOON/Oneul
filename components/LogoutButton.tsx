@@ -7,7 +7,7 @@ import { removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
 import { SimpleButton } from "@/styles";
 
-function LogoutButton() {
+export function LogoutButton() {
 	const router = useRouter();
 
 	const handleLogout = () => {
@@ -22,8 +22,6 @@ function LogoutButton() {
 		</StyledButton>
 	);
 }
-
-export default LogoutButton;
 
 const StyledButton = styled.button`
 	position: absolute;

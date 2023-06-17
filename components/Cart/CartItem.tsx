@@ -14,7 +14,7 @@ type CartItemType = {
 	handleSaveDeleteItem: (id: string) => void;
 };
 
-const CartItem = ({ id, index, isDeleteView, isDeletePick, handleSaveDeleteItem }: CartItemType) => {
+export function CartItem({ id, index, isDeleteView, isDeletePick, handleSaveDeleteItem }: CartItemType) {
 	const [hovered, setHovered] = useState(false);
 	const cartItem = useRecoilValue(withCartItems(id));
 	const deleteCartItem = useResetRecoilState(withCartItems(id));
@@ -57,9 +57,7 @@ const CartItem = ({ id, index, isDeleteView, isDeletePick, handleSaveDeleteItem 
 			/>
 		</ListItem>
 	);
-};
-
-export default React.memo(CartItem);
+}
 
 const Index = styled.p`
 	text-align: center;

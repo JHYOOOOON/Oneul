@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { ROUTES } from "@/constants";
 import { SimpleButton } from "@/styles";
 
-const BackButton = () => {
+export function BackButton() {
 	const router = useRouter();
 	return (
 		<StyledButton onClick={() => router.push(ROUTES.SEARCH)} title="뒤로가기">
@@ -13,9 +13,7 @@ const BackButton = () => {
 			<p>뒤로가기</p>
 		</StyledButton>
 	);
-};
-
-export default BackButton;
+}
 
 const StyledButton = styled.button`
 	position: absolute;

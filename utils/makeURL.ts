@@ -2,7 +2,7 @@ type queryType = {
 	[key: string]: string;
 };
 
-const makeURL = (url: string, query: queryType) => {
+export const makeURL = (url: string, query: queryType) => {
 	let queryStringURL = url;
 
 	queryStringURL +=
@@ -15,5 +15,3 @@ const makeURL = (url: string, query: queryType) => {
 
 	return queryStringURL;
 };
-
-export default makeURL;

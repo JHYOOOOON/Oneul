@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { authorizeUser } from "@/lib";
 
-function LoginButton() {
+export function LoginButton() {
 	return (
 		<SpotifyLoginButton onClick={authorizeUser}>
 			<Image src="/assets/images/spotify-logo.png" alt="스포티파이 로고" width="25" height="25" />
@@ -11,8 +11,6 @@ function LoginButton() {
 		</SpotifyLoginButton>
 	);
 }
-
-export default LoginButton;
 
 const SpotifyLoginButton = styled.button`
 	display: flex;

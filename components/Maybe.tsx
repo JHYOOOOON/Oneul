@@ -4,7 +4,7 @@ interface MaybeType {
 	falsy: JSX.Element | null;
 }
 
-const Maybe = ({ test, truthy, falsy }: MaybeType) => {
+export function Maybe({ test, truthy, falsy }: MaybeType) {
 	const returnByTest = () => {
 		if (test) {
 			return truthy;
@@ -14,6 +14,4 @@ const Maybe = ({ test, truthy, falsy }: MaybeType) => {
 	};
 
 	return returnByTest();
-};
-
-export default Maybe;
+}

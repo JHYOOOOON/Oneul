@@ -1,11 +1,11 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { removeAccessToken, RestAPI } from "@/lib";
-import { searchItemType, withSearchResults, withSearchValue } from "@/state";
+import { SearchItemType, withSearchResults, withSearchValue } from "@/state";
 import { useInfiniteQuery } from "react-query";
 import { SEARCH_ITEM_LIMIT } from "@/constants";
 
-const useSearch = () => {
+export const useSearch = () => {
 	const [searchValue, setSearchValue] = useRecoilState(withSearchValue);
 	const setSearchResults = useSetRecoilState(withSearchResults);
 	const { refetch, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
@@ -21,7 +21,7 @@ const useSearch = () => {
 			},
 			onSuccess: (data) => {
 				setSearchResults((prev) => [
-					...(prev as searchItemType[]),
+					...(prev as SearchItemType[]),
 					...data.pages[data.pages.length - 1].data.tracks.items,
 				]);
 			},
@@ -41,5 +41,3 @@ const useSearch = () => {
 		isFetchingNextPage,
 	};
 };
-
-export default useSearch;

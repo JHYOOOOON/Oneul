@@ -5,13 +5,11 @@ import styled, { css, keyframes } from "styled-components";
 import { withShowToast, withToast } from "@/state";
 import { useToast } from "./hooks";
 
-const ToastConatiner = () => {
+export function ToastConatiner() {
 	const toast = useRecoilValue(withToast);
 
 	return <>{toast.length > 0 && toast.map((item) => <Toast key={item.id} id={item.id} text={item.text} />)}</>;
-};
-
-export default ToastConatiner;
+}
 
 type ToastProps = {
 	id: string;

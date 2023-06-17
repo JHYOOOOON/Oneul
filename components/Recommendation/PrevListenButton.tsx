@@ -9,12 +9,10 @@ type PrevListenButtonProps = {
 	handleViewType: Dispatch<SetStateAction<VIEW_TYPE>>;
 };
 
-function PrevListenButton({ isActive, handleViewType }: PrevListenButtonProps) {
+export function PrevListenButton({ isActive, handleViewType }: PrevListenButtonProps) {
 	return (
 		<Button className={cx({ active: isActive })} onClick={() => handleViewType("prev-listen")}>
 			미리 듣기
 		</Button>
 	);
 }
-
-export default PrevListenButton;

@@ -10,7 +10,7 @@ type ViewTypeButton = {
 	handleViewType: (value: VIEW_TYPE) => void;
 };
 
-const ViewTypeButton = ({ viewType, handleViewType }: ViewTypeButton) => {
+export function ViewTypeButton({ viewType, handleViewType }: ViewTypeButton) {
 	return (
 		<Wrapper>
 			<StyledButton className={cx({ active: viewType === "list" })} onClick={() => handleViewType("list")}>
@@ -23,9 +23,7 @@ const ViewTypeButton = ({ viewType, handleViewType }: ViewTypeButton) => {
 			</StyledButton>
 		</Wrapper>
 	);
-};
-
-export default ViewTypeButton;
+}
 
 const Wrapper = styled.div`
 	display: flex;

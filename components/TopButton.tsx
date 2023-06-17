@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { throttle } from "lodash";
 import cx from "classnames";
 
-const TopButton = () => {
+export function TopButton() {
 	const [isShow, setIsShow] = useState(false);
 
 	useEffect(() => {
@@ -24,9 +24,7 @@ const TopButton = () => {
 			<RiArrowUpSLine />
 		</StyledButton>
 	);
-};
-
-export default TopButton;
+}
 
 const StyledButton = styled.button`
 	position: fixed;

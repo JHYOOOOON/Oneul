@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { TiDelete } from "react-icons/ti";
 import styled from "styled-components";
@@ -7,7 +7,7 @@ import { removeAccessToken, RestAPI } from "@/lib";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { withSearchResults, withSearchValue } from "@/state";
 
-const Input = () => {
+export function Input() {
 	const [value, setValue] = useState("");
 	const [warning, setWarning] = useState("");
 	const setSearchResults = useSetRecoilState(withSearchResults);
@@ -82,9 +82,7 @@ const Input = () => {
 			<Warning>{warning}</Warning>
 		</Wrapper>
 	);
-};
-
-export default Input;
+}
 
 const Wrapper = styled.div`
 	display: flex;

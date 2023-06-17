@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -21,6 +21,9 @@ import { withRecommendationItems, withUserId } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
+
+const MemoizedAlbumView = React.memo(AlbumView);
+const MemoizedListView = React.memo(ListView);
 
 export default function Recommendation() {
 	const router = useRouter();
@@ -51,7 +54,7 @@ export default function Recommendation() {
 	 * 이 url로 바로 타고 들어와도 이전 데이터가 보이긴 함
 	 */
 	useEffect(() => {
-		if (!!recommendationItems) {
+		if (recommendationItems) {
 			const rawRecommendationItems = localStorage.getItem(RECOMMENDATIONS_KEY);
 			if (rawRecommendationItems) {
 				setRecommendationItems(JSON.parse(rawRecommendationItems));
@@ -86,8 +89,8 @@ export default function Recommendation() {
 					</LeftButtonWrapper>
 					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
 				</Wrapper>
-				<ListView isActive={viewType === "list"} />
-				<AlbumView isActive={viewType === "album"} />
+				<MemoizedListView isActive={viewType === "list"} />
+				<MemoizedAlbumView isActive={viewType === "album"} />
 				<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
 			</PageWrapper>
 		</>

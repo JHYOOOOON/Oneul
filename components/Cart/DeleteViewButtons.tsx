@@ -15,7 +15,7 @@ interface IDeleteViewButtons {
 	setIsDeletePickView: Dispatch<SetStateAction<IsDeletePickViewType>>;
 }
 
-function DeleteViewButtons({
+export function DeleteViewButtons({
 	selectedItemIds,
 	setIsDeletePickView,
 	pickedDeleteItems,
@@ -71,8 +71,6 @@ function DeleteViewButtons({
 		</ButtonWrapper>
 	);
 }
-
-export default DeleteViewButtons;
 
 const CancelDeleteView = styled(Button)`
 	margin-right: 5px;

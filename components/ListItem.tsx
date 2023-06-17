@@ -1,15 +1,15 @@
 import styled, { css } from "styled-components";
 
-import { searchItemType } from "@/state";
+import { SearchItemType } from "@/state";
 import { formatTime } from "@/utils";
 
-type ListItemType = Pick<searchItemType, "name" | "artists" | "album" | "duration_ms"> & {
+type ListItemType = Pick<SearchItemType, "name" | "artists" | "album" | "duration_ms"> & {
 	onMouseEnter?: () => void;
 	onMouseLeave?: () => void;
 	children: React.ReactNode;
 };
 
-const ListItem = ({ onMouseEnter, onMouseLeave, children, name, artists, album, duration_ms }: ListItemType) => {
+export function ListItem({ onMouseEnter, onMouseLeave, children, name, artists, album, duration_ms }: ListItemType) {
 	return (
 		<Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			{children}
@@ -24,9 +24,7 @@ const ListItem = ({ onMouseEnter, onMouseLeave, children, name, artists, album, 
 			<Time>{formatTime(duration_ms)}</Time>
 		</Wrapper>
 	);
-};
-
-export default ListItem;
+}
 
 const Wrapper = styled.li`
 	display: grid;

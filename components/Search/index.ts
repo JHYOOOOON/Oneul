@@ -1,5 +1,5 @@
-export { default as Input } from "./Input";
-export { default as Card } from "./Card";
-export { default as Result } from "./Result";
-export { default as ResultItem } from "./ResultItem";
-export { default as NotFound } from "./NotFound";
+export * from "./Input";
+export * from "./Card";
+export * from "./Result";
+export * from "./ResultItem";
+export * from "./NotFound";

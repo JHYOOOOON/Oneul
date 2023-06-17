@@ -3,18 +3,18 @@ import { useSetRecoilState } from "recoil";
 import { HiPlus } from "react-icons/hi";
 import styled, { css } from "styled-components";
 
-import { searchItemType } from "@/state/types";
+import { SearchItemType } from "@/state/types";
 import { withCartItems } from "@/state";
 import { useToast } from "../hooks";
 import { MAX_ITEM_LEN } from "@/constants";
 
-type ResultItemType = Pick<searchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
+type ResultItemType = Pick<SearchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
 	index: number;
 	isMoreSelectAvailable: boolean;
 	isExist: (id: string) => boolean;
 };
 
-const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) => {
+export function Card({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) {
 	const [hovered, setHovered] = useState(false);
 	const setCartItem = useSetRecoilState(withCartItems(id));
 	const { addToast } = useToast();
@@ -55,9 +55,7 @@ const Card = ({ id, name, artists, album, duration_ms, isMoreSelectAvailable, is
 			</SongWrapper>
 		</Wrapper>
 	);
-};
-
-export default Card;
+}
 
 const Wrapper = styled.li`
 	position: relative;

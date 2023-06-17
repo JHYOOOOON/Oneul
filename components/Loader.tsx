@@ -9,7 +9,7 @@ interface ILoading {
 	position: positionType;
 }
 
-function Loading({ size, position }: ILoading) {
+export function Loading({ size, position }: ILoading) {
 	return (
 		<Wrapper size={size} position={position}>
 			<ImageWrapper>
@@ -20,8 +20,6 @@ function Loading({ size, position }: ILoading) {
 		</Wrapper>
 	);
 }
-
-export default Loading;
 
 const Wrapper = styled.div<{ size: sizeType; position: positionType }>`
 	display: flex;

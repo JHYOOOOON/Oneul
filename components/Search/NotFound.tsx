@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function NotFound() {
+export function NotFound() {
 	return (
 		<Wrapper>
 			<ImageWrapper>
@@ -15,8 +15,6 @@ function NotFound() {
 		</Wrapper>
 	);
 }
-
-export default NotFound;
 
 const Wrapper = styled.div`
 	display: flex;

@@ -9,7 +9,7 @@ type AlbumViewProps = {
 	isActive: boolean;
 };
 
-function AlbumView({ isActive }: AlbumViewProps) {
+export function AlbumView({ isActive }: AlbumViewProps) {
 	const recommendationItems = useRecoilValue(withRecommendationItems);
 
 	return (
@@ -28,7 +28,6 @@ function AlbumView({ isActive }: AlbumViewProps) {
 		/>
 	);
 }
-export default React.memo(AlbumView);
 
 const AlbumUl = styled.ul`
 	display: grid;
