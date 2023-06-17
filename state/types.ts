@@ -13,6 +13,7 @@ export type CartItemType = {
 export type SearchResultsType = SearchItemType[] | null;
 
 export type SearchItemType = {
+	album: AlbumType;
 	artists: ArtistsType[];
 	disc_number: number;
 	duration_ms: number;
