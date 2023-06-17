@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled, { css, keyframes } from "styled-components";
 import { useRecoilCallback, useRecoilValue, useSetRecoilState } from "recoil";
@@ -27,6 +27,7 @@ const Cart = ({ handleLoading }: ICart) => {
 	const setRecommendationItems = useSetRecoilState(withRecommendationItems);
 	const isSelectedMax = useMemo(() => selectedItemIds.length === MAX_ITEM_LEN, [selectedItemIds]);
 	const { addToast } = useToast();
+	const cartRef = useRef<HTMLDivElement>(null);
 	const { refetch, isFetching } = useQuery({
 		queryKey: "recommendations",
 		queryFn: async () => {
@@ -54,6 +55,19 @@ const Cart = ({ handleLoading }: ICart) => {
 			}
 		},
 	});
+
+	/* 카트 바깥영역 클릭 시, 닫힘처리 */
+	useEffect(() => {
+		const handleCloseCart = (event: MouseEvent) => {
+			const target = event.target as HTMLElement;
+			if (target.closest("#cart") === null) {
+				setIsOpened(false);
+			}
+		};
+
+		document.addEventListener("click", handleCloseCart);
+		return () => document.removeEventListener("click", handleCloseCart);
+	}, []);
 
 	useEffect(() => {
 		handleLoading(isFetching);
@@ -107,6 +121,8 @@ const Cart = ({ handleLoading }: ICart) => {
 		[selectedItemIds, pickedDeleteItems]
 	);
 
+	const handleClickDeletePick = () => setIsDeletePickView(true);
+
 	const handleSaveDeleteItem = useCallback((id: string) => {
 		setPickedDeleteItems((prevValue) =>
 			prevValue.includes(id) ? prevValue.filter((item) => item !== id) : [...prevValue, id]
@@ -127,7 +143,7 @@ const Cart = ({ handleLoading }: ICart) => {
 	);
 
 	return (
-		<StyledSection id="cart">
+		<StyledSection id="cart" ref={cartRef}>
 			<StyledButton onClick={() => setIsOpened((prevValue) => !prevValue)}>
 				<RxHamburgerMenu />
 				담은 목록
@@ -182,7 +198,7 @@ const Cart = ({ handleLoading }: ICart) => {
 						falsy={
 							<ButtonWrapper>
 								<div>
-									<DeletePickButton title="선택 삭제" onClick={() => setIsDeletePickView(true)}>
+									<DeletePickButton title="선택 삭제" onClick={handleClickDeletePick}>
 										선택 삭제
 									</DeletePickButton>
 									<DeleteButton title="전체 삭제" onClick={removeAllItems}>
