@@ -1,5 +1,5 @@
 import { atom, atomFamily } from "recoil";
-import { cartItemsType, recommendationType, searchResultsType, toastType } from "./types";
+import { cartItemsType, idsType, recommendationType, searchResultsType, toastType } from "./types";
 
 export const searchResults = atom<searchResultsType>({
 	key: "atom/searchResults",
@@ -11,7 +11,7 @@ export const cartItems = atomFamily<cartItemsType, string>({
 	default: null,
 });
 
-export const cartItemIds = atom<string[]>({
+export const cartItemIds = atom<idsType>({
 	key: "atom/cartItemIds",
 	default: [],
 });

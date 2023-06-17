@@ -1,3 +1,5 @@
+export type idsType = string[];
+
 export type cartItemsType = cartItemType | null;
 
 export type cartItemType = {
