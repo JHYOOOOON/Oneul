@@ -13,11 +13,8 @@ import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, RECOMMENDATIONS_KEY, RECOMMENDATION_SEED_LIMIT, ROUTES } from "@/constants";
 import { Button, Theme } from "@/styles";
 import { useToast } from "../hooks";
-interface ICart {
-	handleLoading: (isLoading: boolean) => void;
-}
 
-const Cart = ({ handleLoading }: ICart) => {
+const Cart = () => {
 	const router = useRouter();
 	const [isOpened, setIsOpened] = useState(false);
 	const [isDeletePickView, setIsDeletePickView] = useState(false);
@@ -28,7 +25,7 @@ const Cart = ({ handleLoading }: ICart) => {
 	const isSelectedMax = useMemo(() => selectedItemIds.length === MAX_ITEM_LEN, [selectedItemIds]);
 	const { addToast } = useToast();
 	const cartRef = useRef<HTMLDivElement>(null);
-	const { refetch, isFetching } = useQuery({
+	const { refetch } = useQuery({
 		queryKey: "recommendations",
 		queryFn: async () => {
 			const splitedItemIds = [];
@@ -37,6 +34,7 @@ const Cart = ({ handleLoading }: ICart) => {
 			}
 			return Promise.all(splitedItemIds.map((ids) => RestAPI.recommendations(ids))).then((data) => data);
 		},
+		suspense: true,
 		enabled: false,
 		retry: 0,
 		refetchOnWindowFocus: false,
@@ -68,10 +66,6 @@ const Cart = ({ handleLoading }: ICart) => {
 		document.addEventListener("click", handleCloseCart);
 		return () => document.removeEventListener("click", handleCloseCart);
 	}, []);
-
-	useEffect(() => {
-		handleLoading(isFetching);
-	}, [isFetching]);
 
 	/* 최대로 담았을 때 자동으로 열리도록 함 */
 	useEffect(() => {

@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useState } from "react";
+import { Suspense } from "react";
 import { useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -15,7 +15,6 @@ import { withUserId } from "@/state";
 
 export default function Search() {
 	const router = useRouter();
-	const [isLoadingRecommend, setIsLoadingRecommend] = useState(false);
 	const setUserId = useSetRecoilState(withUserId);
 	useQuery({
 		queryKey: "checkValid",
@@ -35,10 +34,6 @@ export default function Search() {
 		},
 	});
 
-	const handleLoadingRecommend = useCallback((isLoading: boolean) => {
-		setIsLoadingRecommend(isLoading);
-	}, []);
-
 	return (
 		<>
 			<Head>
@@ -46,7 +41,6 @@ export default function Search() {
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
-					{isLoadingRecommend && <Loader size="full" position="center" />}
 					<LogoutButton />
 					<Title>곡 선택하기</Title>
 					<Description>
@@ -56,7 +50,7 @@ export default function Search() {
 					</Description>
 					<Input />
 					<Result />
-					<Cart handleLoading={handleLoadingRecommend} />
+					<Cart />
 					<TopButton />
 				</PageWrapper>
 			</Suspense>
