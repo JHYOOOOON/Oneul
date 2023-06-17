@@ -7,20 +7,17 @@ import { removeAccessToken, RestAPI } from "@/lib";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { withSearchResults, withSearchValue } from "@/state";
 
-interface IInput {
-	handleLoading: (isLoading: boolean) => void;
-}
-
-const Input = ({ handleLoading }: IInput) => {
+const Input = () => {
 	const [value, setValue] = useState("");
 	const [warning, setWarning] = useState("");
 	const setSearchResults = useSetRecoilState(withSearchResults);
 	const [searchValue, setSearchValue] = useRecoilState(withSearchValue);
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const isValueExist = useMemo(() => value.length > 0, [value]);
-	const { isFetching } = useQuery({
+	useQuery({
 		queryKey: ["search", searchValue],
 		queryFn: async () => await RestAPI.search(searchValue),
+		suspense: true,
 		retry: 0,
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
@@ -34,10 +31,6 @@ const Input = ({ handleLoading }: IInput) => {
 			}
 		},
 	});
-
-	useEffect(() => {
-		handleLoading(isFetching);
-	}, [isFetching]);
 
 	const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);

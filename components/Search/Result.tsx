@@ -6,13 +6,8 @@ import { Maybe } from "@/components";
 import { withSearchResults, withSearchValue } from "@/state";
 import { NotFound } from ".";
 const ResultItem = dynamic(() => import("../Search/ResultItem"));
-const Loader = dynamic(() => import("../Loader"));
 
-interface IResult {
-	isLoading: boolean;
-}
-
-const Result = ({ isLoading }: IResult) => {
+const Result = () => {
 	const searchValue = useRecoilValue(withSearchValue);
 	const searchResult = useRecoilValue(withSearchResults);
 
@@ -22,7 +17,6 @@ const Result = ({ isLoading }: IResult) => {
 			truthy={null}
 			falsy={
 				<Wrapper>
-					{isLoading && <Loader size="parent" position="top" />}
 					{searchValue && <SearchTitle>"{searchValue}" 검색 결과</SearchTitle>}
 					<Maybe
 						test={searchResult?.length === 0}
