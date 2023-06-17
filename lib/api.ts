@@ -24,7 +24,7 @@ class RestAPI {
 			resolve(this._instance);
 		});
 
-	search = async (term: string, offset: number = 0) =>
+	search = async (term: string, offset = 0) =>
 		(await this.instance()).get("/search", {
 			params: {
 				q: term.replaceAll(" ", ""),
