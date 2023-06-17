@@ -3,12 +3,12 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { MAX_ITEM_LEN } from "@/constants";
-import { withCartItemIds, searchResultsType } from "@/state";
+import { withCartItemIds, SearchResultsType } from "@/state";
 import { useSearch } from "@/components/Search/hooks";
 import { Card } from "@/components/Search";
 
 type ResultType = {
-	searchResult: searchResultsType;
+	searchResult: SearchResultsType;
 };
 
 const ResultItem = ({ searchResult }: ResultType) => {

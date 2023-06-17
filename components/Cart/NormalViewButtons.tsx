@@ -7,13 +7,13 @@ import cx from "classnames";
 
 import { Button, Theme } from "@/styles";
 import { RestAPI, removeAccessToken } from "@/lib";
-import { idsType, withCartItemIds, withCartItems, withRecommendationItems } from "@/state";
+import { IdsType, withCartItemIds, withCartItems, withRecommendationItems } from "@/state";
 import { RECOMMENDATIONS_KEY, RECOMMENDATION_SEED_LIMIT, ROUTES } from "@/constants";
 import { ButtonWrapper, DeleteButton } from "./CommonStyle";
 import { useToast } from "../hooks";
 
 interface INormalViewButtons {
-	selectedItemIds: idsType;
+	selectedItemIds: IdsType;
 	setIsDeletePickView: Dispatch<SetStateAction<boolean>>;
 	setCartOpened: Dispatch<SetStateAction<boolean>>;
 	isSelectedMax: boolean;

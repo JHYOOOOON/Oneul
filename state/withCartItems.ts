@@ -1,9 +1,9 @@
 import { DefaultValue, selectorFamily } from "recoil";
 
 import { cartItemIds, cartItems } from "./atom";
-import { cartItemsType } from "./types";
+import { CartItemsType } from "./types";
 
-export const withCartItems = selectorFamily<cartItemsType, string>({
+export const withCartItems = selectorFamily<CartItemsType, string>({
 	key: "selector/withCartItems",
 	get:
 		(id) =>

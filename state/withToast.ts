@@ -1,9 +1,9 @@
 import { selector } from "recoil";
 
 import { showToast, toast } from "./atom";
-import { toastType } from "./types";
+import { ToastType } from "./types";
 
-export const withToast = selector<toastType>({
+export const withToast = selector<ToastType>({
 	key: "selector/withToast",
 	get: ({ get }) => get(toast),
 	set: ({ set }, newValue) => {

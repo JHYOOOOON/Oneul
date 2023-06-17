@@ -1,9 +1,9 @@
 import { selector } from "recoil";
 
 import { searchResults } from "./atom";
-import { searchResultsType } from "./types";
+import { SearchResultsType } from "./types";
 
-export const withSearchResults = selector<searchResultsType>({
+export const withSearchResults = selector<SearchResultsType>({
 	key: "selector/withSearchResults",
 	get: ({ get }) => get(searchResults),
 	set: ({ set }, newValue) => set(searchResults, newValue),

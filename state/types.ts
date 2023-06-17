@@ -1,20 +1,19 @@
-export type idsType = string[];
+export type IdsType = string[];
 
-export type cartItemsType = cartItemType | null;
+export type CartItemsType = CartItemType | null;
 
-export type cartItemType = {
+export type CartItemType = {
 	id: string;
 	name: string;
-	artists: artistsType[];
-	album: albumType;
+	artists: ArtistsType[];
+	album: AlbumType;
 	duration_ms: number;
 };
 
-export type searchResultsType = searchItemType[] | null;
+export type SearchResultsType = SearchItemType[] | null;
 
-export type searchItemType = {
-	album: albumType;
-	artists: artistsType[];
+export type SearchItemType = {
+	artists: ArtistsType[];
 	disc_number: number;
 	duration_ms: number;
 	explicit: boolean;
@@ -29,9 +28,9 @@ export type searchItemType = {
 	uri: string;
 };
 
-type albumType = {
+type AlbumType = {
 	album_type: string;
-	artists: artistsType[];
+	artists: ArtistsType[];
 	href: string;
 	id: string;
 	name: string;
@@ -39,23 +38,23 @@ type albumType = {
 	release_date_precision: string;
 	total_tracks: number;
 	type: string;
-	images: imageType[];
+	images: ImageType[];
 };
 
-type artistsType = {
+type ArtistsType = {
 	id: string;
 	name: string;
 };
 
-export type imageType = {
+type ImageType = {
 	width: number;
 	height: number;
 	url: string;
 };
 
-export type trackType = {
-	album: albumType;
-	artists: artistsType[];
+type TrackType = {
+	album: AlbumType;
+	artists: ArtistsType[];
 	duration_ms: number;
 	explicit: boolean;
 	href: string;
@@ -68,11 +67,11 @@ export type trackType = {
 	uri: string;
 };
 
-export type recommendationType = trackType[];
+export type RecommendationType = TrackType[];
 
-type toastItemType = {
+type ToastItemType = {
 	text: string;
 	id: string;
 };
 
-export type toastType = toastItemType[];
+export type ToastType = ToastItemType[];

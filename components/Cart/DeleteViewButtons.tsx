@@ -4,12 +4,12 @@ import { useRecoilCallback } from "recoil";
 
 import { Button } from "@/styles";
 import { ButtonWrapper, DeleteButton } from "./CommonStyle";
-import { idsType, withCartItemIds, withCartItems } from "@/state";
+import { IdsType, withCartItemIds, withCartItems } from "@/state";
 import { IsDeletePickViewType, PickedDeleteItemsType } from ".";
 import { useToast } from "../hooks";
 
 interface IDeleteViewButtons {
-	selectedItemIds: idsType;
+	selectedItemIds: IdsType;
 	pickedDeleteItems: PickedDeleteItemsType;
 	setPickedDeleteItems: Dispatch<SetStateAction<PickedDeleteItemsType>>;
 	setIsDeletePickView: Dispatch<SetStateAction<IsDeletePickViewType>>;
