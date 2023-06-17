@@ -11,7 +11,7 @@ type ResultType = {
 	searchResult: SearchResultsType;
 };
 
-function ResultItem({ searchResult }: ResultType) {
+export function ResultItem({ searchResult }: ResultType) {
 	const cartItemIds = useRecoilValue(withCartItemIds);
 	const observeTargetRef = useRef<HTMLLIElement | null>(null);
 	const { fetchNextPage, searchValue, isFetchingNextPage } = useSearch();

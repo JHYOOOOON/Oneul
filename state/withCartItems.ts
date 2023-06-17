@@ -21,5 +21,3 @@ export const withCartItems = selectorFamily<CartItemsType, string>({
 			set(cartItemIds, (prev) => Array.from(new Set([...prev, id])));
 		},
 });
-
-export default withCartItems;

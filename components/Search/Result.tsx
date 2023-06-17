@@ -1,11 +1,9 @@
-import dynamic from "next/dynamic";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { Maybe } from "@/components";
 import { withSearchResults, withSearchValue } from "@/state";
-import { NotFound } from ".";
-const ResultItem = dynamic(() => import("../Search/ResultItem"));
+import { NotFound, ResultItem } from ".";
 
 export function Result() {
 	const searchValue = useRecoilValue(withSearchValue);

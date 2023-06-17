@@ -22,9 +22,6 @@ import { Description, PageWrapper, Title } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
 
-const MemoizedAlbumView = React.memo(AlbumView);
-const MemoizedListView = React.memo(ListView);
-
 export default function Recommendation() {
 	const router = useRouter();
 	const [recommendationItems, setRecommendationItems] = useRecoilState(withRecommendationItems);
@@ -89,8 +86,8 @@ export default function Recommendation() {
 					</LeftButtonWrapper>
 					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
 				</Wrapper>
-				<MemoizedListView isActive={viewType === "list"} />
-				<MemoizedAlbumView isActive={viewType === "album"} />
+				<ListView isActive={viewType === "list"} />
+				<AlbumView isActive={viewType === "album"} />
 				<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
 			</PageWrapper>
 		</>

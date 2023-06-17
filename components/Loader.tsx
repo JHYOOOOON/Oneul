@@ -4,12 +4,12 @@ import styled, { css } from "styled-components";
 type sizeType = "full" | "parent";
 type positionType = "center" | "top";
 
-interface ILoading {
+interface ILoader {
 	size: sizeType;
 	position: positionType;
 }
 
-export function Loading({ size, position }: ILoading) {
+export function Loader({ size, position }: ILoader) {
 	return (
 		<Wrapper size={size} position={position}>
 			<ImageWrapper>
