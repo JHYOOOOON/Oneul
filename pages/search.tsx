@@ -12,6 +12,7 @@ import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
 import { withUserId } from "@/state";
+import styled from "styled-components";
 
 export default function Search() {
 	const router = useRouter();
@@ -49,11 +50,19 @@ export default function Search() {
 						담은 곡은 하단의 담은 목록에서 확인 가능합니다.
 					</Description>
 					<Input />
-					<Result />
-					<Cart />
-					<TopButton />
+					<Wrapper>
+						<Suspense fallback={<Loader position="top" size="parent" />}>
+							<Result />
+							<Cart />
+							<TopButton />
+						</Suspense>
+					</Wrapper>
 				</PageWrapper>
 			</Suspense>
 		</>
 	);
 }
+
+const Wrapper = styled.div`
+	position: relative;
+`;

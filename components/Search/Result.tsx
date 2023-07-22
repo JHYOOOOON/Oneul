@@ -1,13 +1,32 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { Maybe } from "@/components";
 import { withSearchResults, withSearchValue } from "@/state";
 import { NotFound, ResultItem } from ".";
+import { useQuery } from "react-query";
+import { RestAPI, removeAccessToken } from "@/lib";
 
 export function Result() {
 	const searchValue = useRecoilValue(withSearchValue);
-	const searchResult = useRecoilValue(withSearchResults);
+	const [searchResult, setSearchResults] = useRecoilState(withSearchResults);
+	useQuery({
+		queryKey: ["search", searchValue],
+		queryFn: async () => await RestAPI.search(searchValue),
+		suspense: true,
+		retry: 0,
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+		enabled: searchValue.length > 0,
+		onSuccess: (data) => {
+			setSearchResults(data.data.tracks.items);
+		},
+		onError: (error: any) => {
+			if (error.response.status === 401) {
+				removeAccessToken();
+			}
+		},
+	});
 
 	return (
 		<Maybe
