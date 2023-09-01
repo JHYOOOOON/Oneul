@@ -9,7 +9,7 @@ const Callback = () => {
 	useEffect(() => {
 		const loginSuccess = saveLogin();
 		if (loginSuccess) {
-			router.push(ROUTES.SEARCH);
+			router.push(ROUTES.MAIN);
 		} else {
 			router.push(ROUTES.HOME);
 		}

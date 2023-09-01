@@ -3,4 +3,5 @@ export const ROUTES = {
 	SEARCH: "/search",
 	RECOMMENDATION: "/recommendation",
 	RECENT: "/recent",
+	MAIN: "/main",
 };
