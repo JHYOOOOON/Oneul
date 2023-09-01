@@ -29,7 +29,7 @@ export default function Search() {
 		queryFn: async () => await RestAPI.topTracks(term),
 		retry: 0,
 		refetchOnWindowFocus: false,
-		refetchOnMount: false,
+		refetchOnMount: true,
 		onSuccess: (res) => {
 			const {
 				data: { items },
