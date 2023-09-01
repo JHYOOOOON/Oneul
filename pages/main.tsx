@@ -8,7 +8,7 @@ import { ROUTES } from "@/constants";
 import { Button, PageWrapper } from "@/styles";
 import styled from "styled-components";
 
-export default function Search() {
+export default function Main() {
 	const router = useRouter();
 
 	return (
