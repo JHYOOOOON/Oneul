@@ -4,3 +4,4 @@ export * from "./TopButton";
 export * from "./Toast";
 export * from "./Loader";
 export * from "./LogoutButton";
+export * from "./Tooltip";
