@@ -42,8 +42,8 @@ export default function Search() {
 		},
 	});
 
-	const handleTermChange = (event) => {
-		setTerm(event.target.value);
+	const handleTermChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		setTerm(event.target.value as TIME_RANGE_TYPE);
 	};
 
 	return (
