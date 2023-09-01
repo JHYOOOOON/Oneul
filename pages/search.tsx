@@ -13,6 +13,7 @@ import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
 import { withUserId } from "@/state";
 import styled from "styled-components";
+import { BackButton } from "@/components/Recommendation";
 
 export default function Search() {
 	const router = useRouter();
@@ -42,6 +43,7 @@ export default function Search() {
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
+					<BackButton />
 					<LogoutButton />
 					<Title>곡 선택하기</Title>
 					<Description>
