@@ -1,19 +1,15 @@
-import { Suspense } from "react";
-import { useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { Suspense } from "react";
+import { useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
+import styled from "styled-components";
 
-import { Loader, TopButton } from "@/components";
-import { Input, Result } from "@/components/Search";
-import { Cart } from "@/components/Cart";
-import { LogoutButton } from "@/components";
+import { Loader, TopButton, BackButton, Input, Result, Cart, LogoutButton } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { MAX_ITEM_LEN, ROUTES } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
 import { withUserId } from "@/state";
-import styled from "styled-components";
-import { BackButton } from "@/components/Recommendation";
 
 export default function Search() {
 	const router = useRouter();
