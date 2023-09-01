@@ -50,6 +50,13 @@ class RestAPI {
 
 	addTracksPlaylist = async (playlistId: string, parameter: { uris: string[] }) =>
 		(await this.instance()).post(`/playlists/${playlistId}/tracks`, parameter);
+
+	topTracks = async (time_range: string) =>
+		(await this.instance()).get("/me/top/tracks", {
+			params: {
+				time_range,
+			},
+		});
 }
 
 const instance = new RestAPI();

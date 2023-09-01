@@ -18,7 +18,7 @@ export default function Home() {
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
 		onSuccess: () => {
-			router.push(ROUTES.SEARCH);
+			router.push(ROUTES.MAIN);
 		},
 		onError: () => {
 			removeAccessToken();

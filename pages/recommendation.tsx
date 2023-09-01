@@ -56,7 +56,7 @@ export default function Recommendation() {
 			if (rawRecommendationItems) {
 				setRecommendationItems(JSON.parse(rawRecommendationItems));
 			} else {
-				router.push(ROUTES.SEARCH);
+				router.push(ROUTES.MAIN);
 			}
 		}
 	}, []);
