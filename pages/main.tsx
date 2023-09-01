@@ -20,10 +20,12 @@ export default function Search() {
 				<PageWrapper>
 					<LogoutButton />
 					<Wrapper>
-						<Tooltip contents={<p>평소 즐겨듣는 곡을 담은 후, 이를 바탕으로 추천곡을 받아볼 수 있습니다.</p>}>
+						<Tooltip contents={<p>평소 즐겨듣는 곡을 담은 후, 해당 목록으로 추천곡을 받아볼 수 있습니다.</p>}>
 							<StyledButton onClick={() => router.push(ROUTES.SEARCH)}>추천곡 찾기</StyledButton>
 						</Tooltip>
-						<Tooltip contents={<p>최근 몇 개월 내에 많이 들은 곡을 확인할 수 있습니다.</p>}>
+						<Tooltip
+							contents={<p>최근 몇 개월 내에 많이 들은 곡을 확인 후, 이를 바탕으로 추천곡을 받아볼 수 있습니다.</p>}
+						>
 							<StyledButton onClick={() => router.push(ROUTES.RECENT)}>많이 들은 곡</StyledButton>
 						</Tooltip>
 					</Wrapper>
