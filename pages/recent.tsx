@@ -2,13 +2,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Suspense, useState } from "react";
 import { useQuery } from "react-query";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { Loader, BackButton, LogoutButton, ListItem } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
 import { Button, Description, PageWrapper, Title } from "@/styles";
-import { RecommendationType } from "@/state";
+import { RecommendationType, withUserId } from "@/state";
+import { useToast } from "@/components/hooks";
 
 /* TODO 개선 어떻게 할지 생각 필요 */
 const TIME_RANGE = {
@@ -23,6 +25,25 @@ export default function Search() {
 	const router = useRouter();
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
+	const [userId, setUserId] = useRecoilState(withUserId);
+	const { addToast } = useToast();
+	useQuery({
+		queryKey: "checkValid",
+		queryFn: async () => await RestAPI.isTokenValid(),
+		retry: 0,
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+		onSuccess: (res) => {
+			const {
+				data: { id },
+			} = res;
+			setUserId(id);
+		},
+		onError: () => {
+			removeAccessToken();
+			router.push(ROUTES.HOME);
+		},
+	});
 
 	useQuery({
 		queryKey: ["topTracks", term],
@@ -46,6 +67,29 @@ export default function Search() {
 		setTerm(event.target.value as TIME_RANGE_TYPE);
 	};
 
+	const handleCreatePlaylist = async () => {
+		try {
+			const DATE = {
+				[TIME_RANGE.ONE_MONTH]: "1개월",
+				[TIME_RANGE.SIX_MONTH]: "6개월",
+				[TIME_RANGE.ALL]: "전체기간",
+			};
+			const date = new Date().toDateString();
+			const body = {
+				name: `ᕷ₊· ${DATE[term]}동안 많이 들은 곡 | 𝑶𝒏𝒆𝒖𝒍 ·₊ᕷ`,
+				description: `${date}`,
+			};
+			const {
+				data: { id },
+			} = await RestAPI.createPlaylist(userId, body);
+			const uris = recentList.map((item) => item.uri);
+			await RestAPI.addTracksPlaylist(id, { uris });
+			addToast("플레이리스트가 저장되었습니다.");
+		} catch (error: any) {
+			addToast("알 수 없는 오류가 발생했습니다.");
+		}
+	};
+
 	return (
 		<>
 			<Head>
@@ -67,7 +111,7 @@ export default function Search() {
 										<option value="long_term">전체기간</option>
 									</select>
 								</SelectboxWrapper>
-								<Button>플레이리스트 저장</Button>
+								<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>
 							</HeaderWrapper>
 							<StyledUl>
 								{recentList.map((item, index) => (
