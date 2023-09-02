@@ -1,28 +1,17 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import styled, { keyframes } from "styled-components";
-import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 
-import { removeAccessToken, RestAPI } from "@/lib";
 import { LoginButton } from "@/components/Home";
-import { ROUTES } from "@/constants";
 import { PageWrapper } from "@/styles";
-import { useEffect } from "react";
+import { useValidation } from "@/components/hooks";
+import { ROUTES } from "@/constants";
 
 export default function Home() {
 	const router = useRouter();
-	useQuery({
-		queryKey: "checkValid",
-		queryFn: async () => await RestAPI.isTokenValid(),
-		retry: 0,
-		refetchOnWindowFocus: false,
-		refetchOnMount: false,
-		onSuccess: () => {
-			router.push(ROUTES.MAIN);
-		},
-		onError: () => {
-			removeAccessToken();
-		},
+	useValidation(() => {
+		router.push(ROUTES.MAIN);
 	});
 
 	/**

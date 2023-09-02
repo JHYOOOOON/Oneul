@@ -2,15 +2,14 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Suspense, useState } from "react";
 import { useQuery } from "react-query";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { Loader, BackButton, LogoutButton, ListItem } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
 import { Button, Description, PageWrapper, Title } from "@/styles";
-import { RecommendationType, withUserId } from "@/state";
-import { useSavePlaylist, useToast } from "@/components/hooks";
+import { RecommendationType } from "@/state";
+import { useSavePlaylist, useToast, useValidation } from "@/components/hooks";
 
 /* TODO 개선 어떻게 할지 생각 필요 */
 const TIME_RANGE = {
@@ -25,26 +24,9 @@ export default function Search() {
 	const router = useRouter();
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
-	const setUserId = useSetRecoilState(withUserId);
 	const { addToast } = useToast();
 	const { save } = useSavePlaylist();
-	useQuery({
-		queryKey: "checkValid",
-		queryFn: async () => await RestAPI.isTokenValid(),
-		retry: 0,
-		refetchOnWindowFocus: false,
-		refetchOnMount: false,
-		onSuccess: (res) => {
-			const {
-				data: { id },
-			} = res;
-			setUserId(id);
-		},
-		onError: () => {
-			removeAccessToken();
-			router.push(ROUTES.HOME);
-		},
-	});
+	useValidation();
 
 	useQuery({
 		queryKey: ["topTracks", term],
