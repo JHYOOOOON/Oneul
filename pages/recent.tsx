@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Loader, BackButton, LogoutButton, ListItem } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
-import { Description, PageWrapper, Title } from "@/styles";
+import { Button, Description, PageWrapper, Title } from "@/styles";
 import { RecommendationType } from "@/state";
 
 /* TODO 개선 어떻게 할지 생각 필요 */
@@ -59,11 +59,16 @@ export default function Search() {
 					<Description>최근 몇 개월 간 많이 들은 곡을 확인할 수 있습니다.</Description>
 					<Wrapper>
 						<Suspense fallback={<Loader position="top" size="parent" />}>
-							<select defaultValue={TIME_RANGE.ONE_MONTH} onChange={handleTermChange}>
-								<option value="short_term">최근 1개월</option>
-								<option value="medium_term">최근 6개월</option>
-								<option value="long_term">전체기간</option>
-							</select>
+							<HeaderWrapper>
+								<SelectboxWrapper>
+									<select defaultValue={TIME_RANGE.ONE_MONTH} onChange={handleTermChange}>
+										<option value="short_term">최근 1개월</option>
+										<option value="medium_term">최근 6개월</option>
+										<option value="long_term">전체기간</option>
+									</select>
+								</SelectboxWrapper>
+								<Button>플레이리스트 저장</Button>
+							</HeaderWrapper>
 							<StyledUl>
 								{recentList.map((item, index) => (
 									<ListItem
@@ -87,6 +92,16 @@ export default function Search() {
 
 const Wrapper = styled.div`
 	position: relative;
+`;
+
+const HeaderWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+const SelectboxWrapper = styled.div`
+	display: flex;
+	align-items: center;
 `;
 
 const StyledUl = styled.ul`
