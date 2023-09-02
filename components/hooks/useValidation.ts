@@ -6,7 +6,7 @@ import { ROUTES } from "@/constants";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { withUserId } from "@/state";
 
-export function useValidation(onSuccess: () => void) {
+export function useValidation(onSuccess?: () => void) {
 	const router = useRouter();
 	const [userId, setUserId] = useRecoilState(withUserId);
 	useQuery({
