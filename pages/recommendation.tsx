@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 import styled from "styled-components";
 
 import { LogoutButton, Maybe } from "@/components";
@@ -16,35 +15,18 @@ import {
 	PrevListenView,
 	ViewTypeButton,
 } from "@/components/Recommendation";
-import { removeAccessToken, RestAPI } from "@/lib";
-import { withRecommendationItems, withUserId } from "@/state";
+import { withRecommendationItems } from "@/state";
 import { Description, PageWrapper, Title } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
+import { useValidation } from "@/components/hooks";
 
 export default function Recommendation() {
 	const router = useRouter();
 	const [recommendationItems, setRecommendationItems] = useRecoilState(withRecommendationItems);
-	const setUserId = useSetRecoilState(withUserId);
 	const [viewType, setViewType] = useState<VIEW_TYPE>("list");
 	const [createdPlaylistId, setCreatedPlaylistId] = useState<string>("");
-	useQuery({
-		queryKey: "checkValid",
-		queryFn: async () => await RestAPI.isTokenValid(),
-		retry: 0,
-		refetchOnWindowFocus: false,
-		refetchOnMount: false,
-		onSuccess: (res) => {
-			const {
-				data: { id },
-			} = res;
-			setUserId(id);
-		},
-		onError: () => {
-			removeAccessToken();
-			router.push(ROUTES.HOME);
-		},
-	});
+	useValidation();
 
 	/**
 	 * 새로고침 시에도 데이터 유지 위함

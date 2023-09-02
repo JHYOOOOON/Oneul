@@ -7,8 +7,9 @@ import styled from "styled-components";
 import { Loader, BackButton, LogoutButton, ListItem } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
-import { Description, PageWrapper, Title } from "@/styles";
+import { Button, Description, PageWrapper, Title } from "@/styles";
 import { RecommendationType } from "@/state";
+import { useSavePlaylist, useToast, useValidation } from "@/components/hooks";
 
 /* TODO 개선 어떻게 할지 생각 필요 */
 const TIME_RANGE = {
@@ -23,6 +24,9 @@ export default function Search() {
 	const router = useRouter();
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
+	const { addToast } = useToast();
+	const { save } = useSavePlaylist();
+	useValidation();
 
 	useQuery({
 		queryKey: ["topTracks", term],
@@ -46,6 +50,20 @@ export default function Search() {
 		setTerm(event.target.value as TIME_RANGE_TYPE);
 	};
 
+	const handleCreatePlaylist = async () => {
+		try {
+			const DATE = {
+				[TIME_RANGE.ONE_MONTH]: "1개월",
+				[TIME_RANGE.SIX_MONTH]: "6개월",
+				[TIME_RANGE.ALL]: "전체기간",
+			};
+			const uris = recentList.map((item) => item.uri);
+			save(`ᕷ₊· ${DATE[term]}동안 많이 들은 곡 | 𝑶𝒏𝒆𝒖𝒍 ·₊ᕷ`, uris);
+		} catch (error: any) {
+			addToast("알 수 없는 오류가 발생했습니다.");
+		}
+	};
+
 	return (
 		<>
 			<Head>
@@ -59,11 +77,16 @@ export default function Search() {
 					<Description>최근 몇 개월 간 많이 들은 곡을 확인할 수 있습니다.</Description>
 					<Wrapper>
 						<Suspense fallback={<Loader position="top" size="parent" />}>
-							<select defaultValue={TIME_RANGE.ONE_MONTH} onChange={handleTermChange}>
-								<option value="short_term">최근 1개월</option>
-								<option value="medium_term">최근 6개월</option>
-								<option value="long_term">전체기간</option>
-							</select>
+							<HeaderWrapper>
+								<SelectboxWrapper>
+									<select defaultValue={TIME_RANGE.ONE_MONTH} onChange={handleTermChange}>
+										<option value="short_term">최근 1개월</option>
+										<option value="medium_term">최근 6개월</option>
+										<option value="long_term">전체기간</option>
+									</select>
+								</SelectboxWrapper>
+								<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>
+							</HeaderWrapper>
 							<StyledUl>
 								{recentList.map((item, index) => (
 									<ListItem
@@ -87,6 +110,16 @@ export default function Search() {
 
 const Wrapper = styled.div`
 	position: relative;
+`;
+
+const HeaderWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+const SelectboxWrapper = styled.div`
+	display: flex;
+	align-items: center;
 `;
 
 const StyledUl = styled.ul`

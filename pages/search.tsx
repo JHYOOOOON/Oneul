@@ -1,36 +1,14 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { Suspense } from "react";
-import { useSetRecoilState } from "recoil";
-import { useQuery } from "react-query";
 import styled from "styled-components";
 
 import { Loader, TopButton, BackButton, Input, Result, Cart, LogoutButton } from "@/components";
-import { RestAPI, removeAccessToken } from "@/lib";
-import { MAX_ITEM_LEN, ROUTES } from "@/constants";
+import { MAX_ITEM_LEN } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
-import { withUserId } from "@/state";
+import { useValidation } from "@/components/hooks";
 
 export default function Search() {
-	const router = useRouter();
-	const setUserId = useSetRecoilState(withUserId);
-	useQuery({
-		queryKey: "checkValid",
-		queryFn: async () => await RestAPI.isTokenValid(),
-		retry: 0,
-		refetchOnWindowFocus: false,
-		refetchOnMount: false,
-		onSuccess: (res) => {
-			const {
-				data: { id },
-			} = res;
-			setUserId(id);
-		},
-		onError: () => {
-			removeAccessToken();
-			router.push(ROUTES.HOME);
-		},
-	});
+	useValidation();
 
 	return (
 		<>
