@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Suspense, useState } from "react";
 import { useQuery } from "react-query";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { Loader, BackButton, LogoutButton, ListItem } from "@/components";
@@ -10,7 +10,7 @@ import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
 import { Button, Description, PageWrapper, Title } from "@/styles";
 import { RecommendationType, withUserId } from "@/state";
-import { useToast } from "@/components/hooks";
+import { useSavePlaylist, useToast } from "@/components/hooks";
 
 /* TODO 개선 어떻게 할지 생각 필요 */
 const TIME_RANGE = {
@@ -25,8 +25,9 @@ export default function Search() {
 	const router = useRouter();
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
-	const [userId, setUserId] = useRecoilState(withUserId);
+	const setUserId = useSetRecoilState(withUserId);
 	const { addToast } = useToast();
+	const { save } = useSavePlaylist();
 	useQuery({
 		queryKey: "checkValid",
 		queryFn: async () => await RestAPI.isTokenValid(),
@@ -74,17 +75,8 @@ export default function Search() {
 				[TIME_RANGE.SIX_MONTH]: "6개월",
 				[TIME_RANGE.ALL]: "전체기간",
 			};
-			const date = new Date().toDateString();
-			const body = {
-				name: `ᕷ₊· ${DATE[term]}동안 많이 들은 곡 | 𝑶𝒏𝒆𝒖𝒍 ·₊ᕷ`,
-				description: `${date}`,
-			};
-			const {
-				data: { id },
-			} = await RestAPI.createPlaylist(userId, body);
 			const uris = recentList.map((item) => item.uri);
-			await RestAPI.addTracksPlaylist(id, { uris });
-			addToast("플레이리스트가 저장되었습니다.");
+			save(`ᕷ₊· ${DATE[term]}동안 많이 들은 곡 | 𝑶𝒏𝒆𝒖𝒍 ·₊ᕷ`, uris);
 		} catch (error: any) {
 			addToast("알 수 없는 오류가 발생했습니다.");
 		}
