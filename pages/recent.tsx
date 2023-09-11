@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
-import { Loader, BackButton, LogoutButton, ListItem } from "@/components";
+import { Loader, BackButton, LogoutButton, ListItem, Maybe } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
 import { Button, Description, PageWrapper, Title } from "@/styles";
@@ -25,7 +25,7 @@ export default function Search() {
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
 	const { addToast } = useToast();
-	const { save } = useSavePlaylist();
+	const { save, playlistUrl, setPlaylistUrl } = useSavePlaylist();
 	useValidation();
 
 	useQuery({
@@ -48,6 +48,7 @@ export default function Search() {
 
 	const handleTermChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setTerm(event.target.value as TIME_RANGE_TYPE);
+		setPlaylistUrl("");
 	};
 
 	const handleCreatePlaylist = async () => {
@@ -85,7 +86,11 @@ export default function Search() {
 										<option value="long_term">전체기간</option>
 									</select>
 								</SelectboxWrapper>
-								<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>
+								<Maybe
+									test={playlistUrl.length > 0}
+									truthy={<Button onClick={() => window.open(playlistUrl)}>저장된 플레이리스트로 이동</Button>}
+									falsy={<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>}
+								/>
 							</HeaderWrapper>
 							<StyledUl>
 								{recentList.map((item, index) => (

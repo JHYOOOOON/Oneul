@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { RestAPI } from "@/lib";
@@ -5,6 +6,7 @@ import { withUserId } from "@/state";
 import { useToast } from "./useToast";
 
 export function useSavePlaylist() {
+	const [playlistUrl, setPlaylistUrl] = useState("");
 	const userId = useRecoilValue(withUserId);
 	const { addToast } = useToast();
 
@@ -16,9 +18,10 @@ export function useSavePlaylist() {
 				description: `${date}`,
 			};
 			const {
-				data: { id },
+				data: { id, uri },
 			} = await RestAPI.createPlaylist(userId, body);
 			await RestAPI.addTracksPlaylist(id, { uris });
+			setPlaylistUrl(uri);
 			addToast("플레이리스트가 저장되었습니다.");
 			callback && callback(id);
 		} catch (error: any) {
@@ -26,5 +29,5 @@ export function useSavePlaylist() {
 		}
 	};
 
-	return { save };
+	return { save, playlistUrl, setPlaylistUrl };
 }
