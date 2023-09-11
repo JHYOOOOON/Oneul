@@ -68,7 +68,7 @@ export default function Search() {
 	return (
 		<>
 			<Head>
-				<title>Search | Oneul</title>
+				<title>Recent | Oneul</title>
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
