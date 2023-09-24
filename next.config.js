@@ -2,9 +2,11 @@
 const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
-	ssr: false,
 	eslint: {
 		ignoreDuringBuilds: true,
+	},
+	compiler: {
+		// styledComponents: true,
 	},
 };
 
