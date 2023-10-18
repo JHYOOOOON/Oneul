@@ -17,10 +17,7 @@ class RestAPI {
 
 	instance = (): Promise<AxiosInstance> =>
 		new Promise((resolve) => {
-			if (this._instance === null) {
-				this._instance = this.getInstance();
-				resolve(this._instance);
-			}
+			this._instance = this.getInstance();
 			resolve(this._instance);
 		});
 

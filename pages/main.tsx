@@ -1,15 +1,17 @@
 import { Suspense } from "react";
+import styled from "styled-components";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { Loader, Tooltip } from "@/components";
 import { LogoutButton } from "@/components";
+import { useValidation } from "@/components/hooks";
 import { ROUTES } from "@/constants";
 import { Button, PageWrapper } from "@/styles";
-import styled from "styled-components";
 
 export default function Main() {
 	const router = useRouter();
+	useValidation();
 
 	return (
 		<>
