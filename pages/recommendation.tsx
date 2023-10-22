@@ -56,7 +56,8 @@ export default function Recommendation() {
 					<StyledDescription>담은 곡들을 바탕으로 추천드리는 곡 목록입니다.</StyledDescription>
 				</TitleWrapper>
 				<Wrapper>
-					<LeftButtonWrapper>
+					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
+					<ButtonWrapper>
 						<Maybe
 							test={createdPlaylistId.length === 0}
 							truthy={
@@ -65,8 +66,7 @@ export default function Recommendation() {
 							falsy={<PrevListenButton handleViewType={setViewType} isActive={viewType === "prev-listen"} />}
 						/>
 						{viewType !== "prev-listen" && <DownloadButton />}
-					</LeftButtonWrapper>
-					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
+					</ButtonWrapper>
 				</Wrapper>
 				<ListView isActive={viewType === "list"} />
 				<AlbumView isActive={viewType === "album"} />
@@ -79,8 +79,8 @@ export default function Recommendation() {
 const Wrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
-	margin-top: 10px;
-	margin-bottom: 15px;
+	margin-top: 15px;
+	margin-bottom: 10px;
 `;
 
 const TitleWrapper = styled.div`
@@ -91,7 +91,7 @@ const StyledDescription = styled(Description)`
 	margin-bottom: 0;
 `;
 
-const LeftButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
 	display: flex;
 	gap: 5px;
 `;
