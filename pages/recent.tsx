@@ -9,7 +9,7 @@ import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
 import { Button, Description, PageWrapper, Title } from "@/styles";
 import { RecommendationType } from "@/state";
-import { useSavePlaylist, useToast, useValidation } from "@/components/hooks";
+import { useRecommendation, useSavePlaylist, useToast, useValidation } from "@/components/hooks";
 
 /* TODO 개선 어떻게 할지 생각 필요 */
 const TIME_RANGE = {
@@ -26,6 +26,8 @@ export default function Search() {
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
 	const { addToast } = useToast();
 	const { save, playlistUrl, setPlaylistUrl } = useSavePlaylist();
+	const songIds = recentList.map((item) => item.id);
+	const { getRecommendation } = useRecommendation({ selectedItemIds: songIds });
 	useValidation();
 
 	useQuery({
@@ -86,11 +88,16 @@ export default function Search() {
 										<option value="long_term">전체기간</option>
 									</select>
 								</SelectboxWrapper>
-								<Maybe
-									test={playlistUrl.length > 0}
-									truthy={<Button onClick={() => window.open(playlistUrl)}>저장된 플레이리스트로 이동</Button>}
-									falsy={<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>}
-								/>
+								<div>
+									<RecommendationButton title="추천받기" onClick={() => getRecommendation()}>
+										추천곡 확인
+									</RecommendationButton>
+									<Maybe
+										test={playlistUrl.length > 0}
+										truthy={<Button onClick={() => window.open(playlistUrl)}>저장된 플레이리스트로 이동</Button>}
+										falsy={<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>}
+									/>
+								</div>
 							</HeaderWrapper>
 							<StyledUl>
 								{recentList.map((item, index) => (
@@ -137,4 +144,8 @@ const StyledUl = styled.ul`
 const Index = styled.p`
 	text-align: center;
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
+`;
+
+const RecommendationButton = styled(Button)`
+	margin-right: 5px;
 `;
