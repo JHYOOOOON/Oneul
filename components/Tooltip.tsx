@@ -10,7 +10,7 @@ interface ITooltip {
 
 export function Tooltip({ position = "bottom", children, contents }: ITooltip) {
 	return (
-		<Wrapper>
+		<Wrapper data-testid="tooltip">
 			{children}
 			<Contents position={position}>{contents}</Contents>
 		</Wrapper>
