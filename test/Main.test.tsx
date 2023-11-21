@@ -1,47 +1,18 @@
 import { useRouter } from "next/router";
-import { RecoilRoot } from "recoil";
-import { ThemeProvider } from "styled-components";
-import { QueryClient, QueryClientProvider } from "react-query";
+
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import Home from "@/pages/index";
+import { Template } from "./utils";
 import Main from "@/pages/main";
-import { Theme } from "@/styles";
-
-const queryClient = new QueryClient();
-
-const Template = ({ children }: { children: React.ReactNode }) => {
-	return (
-		<RecoilRoot>
-			<ThemeProvider theme={Theme}>
-				<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-			</ThemeProvider>
-		</RecoilRoot>
-	);
-};
 
 jest.mock("next/router", () => ({
 	useRouter: jest.fn(),
 }));
 
-describe("로그인페이지", () => {
-	(useRouter as jest.Mock).mockReturnValue({ query: {} });
-	it("로그인 버튼 잘 있나?", () => {
-		render(
-			<Template>
-				<Home />
-			</Template>
-		);
-
-		const loginButton = screen.getByText("스포티파이로 로그인");
-		expect(loginButton).toBeInTheDocument();
-	});
-});
-
-describe("메인페이지", () => {
+describe("UI 배치", () => {
 	(useRouter as jest.Mock).mockReturnValue({ query: {} });
 
-	test.each(["추천곡 찾기", "많이 들은 곡"])("버튼 잘 있나?", (value) => {
+	test.each(["추천곡 찾기", "많이 들은 곡"])("버튼", (value) => {
 		render(
 			<Template>
 				<Main />
@@ -50,7 +21,7 @@ describe("메인페이지", () => {
 		const button = screen.getByText(value);
 		expect(button).toBeInTheDocument();
 	});
-	it("툴팁 잘 뜨나?", () => {
+	it("툴팁", () => {
 		render(
 			<Template>
 				<Main />
