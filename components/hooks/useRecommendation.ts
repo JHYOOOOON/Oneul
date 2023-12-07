@@ -23,7 +23,6 @@ export function useRecommendation({ selectedItemIds }: IUseRecommendation) {
 			}
 			return Promise.all(splitedItemIds.map((ids) => RestAPI.recommendations(ids))).then((data) => data);
 		},
-		suspense: true,
 		enabled: false,
 		retry: 0,
 		refetchOnWindowFocus: false,
