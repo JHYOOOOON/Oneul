@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from "react";
+import React, { MouseEvent } from "react";
 import { useSetRecoilState } from "recoil";
 import { HiPlus } from "react-icons/hi";
 import styled, { css } from "styled-components";
@@ -15,7 +15,6 @@ type ResultItemType = Pick<SearchItemType, "id" | "name" | "artists" | "album" |
 };
 
 export function Card({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) {
-	const [hovered, setHovered] = useState(false);
 	const setCartItem = useSetRecoilState(withCartItems(id));
 	const { addToast } = useToast();
 
@@ -40,8 +39,8 @@ export function Card({ id, name, artists, album, duration_ms, isMoreSelectAvaila
 	};
 
 	return (
-		<Wrapper onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-			<HoverWrapper hovered={hovered}>
+		<Wrapper>
+			<HoverWrapper>
 				<StyledButton onClick={handleSelectItem} title={`${name} 담기`} aria-label={`${name} 담기`}>
 					<HiPlus />
 				</StyledButton>
@@ -79,7 +78,7 @@ const CardShowStyle = css`
 	transition: opacity 0.2s;
 `;
 
-const HoverWrapper = styled.div<{ hovered: boolean }>`
+const HoverWrapper = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -90,7 +89,9 @@ const HoverWrapper = styled.div<{ hovered: boolean }>`
 	&:has(button:focus) {
 		${CardShowStyle}
 	}
-	${({ hovered }) => hovered && CardShowStyle}
+	${Wrapper}:hover & {
+		${CardShowStyle}
+	}
 `;
 
 const StyledButton = styled.button`
