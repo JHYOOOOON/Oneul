@@ -61,7 +61,7 @@ export function Cart() {
 		<StyledSection id="cart" ref={cartRef}>
 			<StyledButton onClick={() => setIsOpened((prevValue) => !prevValue)}>
 				<RxHamburgerMenu />
-				담은 목록
+				담은 목록 [{selectedItemIds.length}]
 			</StyledButton>
 			<SelectedItemWrapper isOpened={isOpened}>
 				<Maybe
@@ -179,4 +179,10 @@ const ItemWrapper = styled.ul`
 	height: max-content;
 	max-height: 380px;
 	overflow: auto;
+	&::-webkit-scrollbar-thumb {
+		border-radius: 100px;
+	}
+	&::-webkit-scrollbar-track {
+		background-color: red;
+	}
 `;
