@@ -43,7 +43,6 @@ const AlbumUl = styled.ul`
 `;
 
 const StyledLi = styled.li`
-	aspect-ratio: 1/1;
 	img {
 		width: 100%;
 		height: 100%;
