@@ -36,7 +36,7 @@ export function ListView({ isActive }: ListViewProps) {
 }
 
 const List = styled.ul`
-	overflow: auto;
+	padding: 5px;
 `;
 
 const Index = styled.p`
