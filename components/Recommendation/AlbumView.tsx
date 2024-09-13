@@ -31,18 +31,27 @@ export function AlbumView({ isActive }: AlbumViewProps) {
 
 const AlbumUl = styled.ul`
 	display: grid;
-	grid-template-columns: repeat(10, minmax(70px, 1fr));
-	border-radius: 3px;
+	grid-template-columns: repeat(8, 1fr); /* 5개의 열 */
 	overflow: hidden;
-	${({ theme }) => theme.mediaQuery.tablet} {
-		grid-template-columns: repeat(5, minmax(70px, 1fr));
-	}
-	${({ theme }) => theme.mediaQuery.mobile} {
-		grid-template-columns: repeat(2, minmax(70px, 1fr));
-	}
+	background-color: ${({ theme }) => theme.color.primary400};
 `;
 
 const StyledLi = styled.li`
+	&:first-child {
+		grid-column: 1 / span 5; /* 3개의 열 차지 */
+		grid-row: 1 / span 4; /* 3개의 행 차지 */
+	}
+
+	&:nth-child(2) {
+		grid-column: 6 / span 3;
+		grid-row: 1 / span 2;
+	}
+
+	&:nth-child(3) {
+		grid-column: 6 / span 2;
+		grid-row: 3 / span 2;
+	}
+
 	img {
 		width: 100%;
 		height: 100%;
