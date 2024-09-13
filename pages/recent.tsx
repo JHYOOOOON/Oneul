@@ -83,7 +83,7 @@ export default function Search() {
 							<Suspense fallback={<Loader position="top" size="parent" />}>
 								<HeaderWrapper>
 									<SelectboxWrapper>
-										<select defaultValue={TIME_RANGE.ONE_MONTH} onChange={handleTermChange}>
+										<select value={term} onChange={handleTermChange}>
 											<option value="short_term">최근 1개월</option>
 											<option value="medium_term">최근 6개월</option>
 											<option value="long_term">전체기간</option>
