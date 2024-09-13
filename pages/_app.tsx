@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import { GlobalStyle, Theme } from "@/styles";
 import { ToastConatiner } from "@/components";
@@ -15,10 +15,29 @@ export default function App({ Component, pageProps }: AppProps) {
 			<GlobalStyle />
 			<ThemeProvider theme={Theme}>
 				<QueryClientProvider client={queryClient}>
-					<Component {...pageProps} />
-					<ToastConatiner />
+					<Wrapper>
+						<div className="content">
+							<Component {...pageProps} />
+							<ToastConatiner />
+						</div>
+					</Wrapper>
 				</QueryClientProvider>
 			</ThemeProvider>
 		</RecoilRoot>
 	);
 }
+
+const Wrapper = styled.div`
+	width: 100%;
+	height: 100vh;
+	background-color: #f5f5f7;
+
+	.content {
+		max-width: 500px;
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		background-color: ${({ theme }) => theme.color.white};
+		overflow: hidden;
+	}
+`;
