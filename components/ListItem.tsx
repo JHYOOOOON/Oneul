@@ -20,7 +20,7 @@ export function ListItem({ onMouseEnter, onMouseLeave, children, name, artists, 
 					<Name>{artists.map((artists) => artists.name).join(", ")}</Name>
 				</SongWrapper>
 			</SongInfo>
-			<AlbumTitle>{album.name}</AlbumTitle>
+			<AlbumTitle title={album.name}>{album.name}</AlbumTitle>
 			<Time>{formatTime(duration_ms)}</Time>
 		</Wrapper>
 	);
@@ -33,6 +33,7 @@ const Wrapper = styled.li`
 	padding: 7px 10px;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+	background-color: ${({ theme }) => theme.color.white};
 `;
 
 const AlbumImage = styled.img`
@@ -72,6 +73,12 @@ const mobile = css`
 
 const AlbumTitle = styled.p`
 	width: 70px;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-break: keep-all;
 	color: ${({ theme }) => theme.color.black200};
 	font-size: ${({ theme }) => theme.textSize.xs}rem;
 	text-align: left;
