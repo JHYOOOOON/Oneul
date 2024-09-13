@@ -16,7 +16,7 @@ export function ListView({ isActive }: ListViewProps) {
 		<Maybe
 			test={isActive}
 			truthy={
-				<StyledUl id="recommendation-list">
+				<List id="recommendation-list">
 					{recommendationItems.map((item, index) => (
 						<ListItem
 							key={`recommendation_${index}`}
@@ -28,20 +28,20 @@ export function ListView({ isActive }: ListViewProps) {
 							{<Index>{index + 1}</Index>}
 						</ListItem>
 					))}
-				</StyledUl>
+				</List>
 			}
 			falsy={null}
 		/>
 	);
 }
 
-const StyledUl = styled.ul`
-	border: 1px solid ${({ theme }) => theme.color.primary400};
-	border-radius: 3px;
-	overflow: hidden;
+const List = styled.ul`
+	overflow: auto;
 `;
 
 const Index = styled.p`
+	width: 20px;
+	font-family: "Moirai" !important;
+	font-size: ${({ theme }) => theme.textSize.lg}rem;
 	text-align: center;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;

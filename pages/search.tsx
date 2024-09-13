@@ -19,20 +19,22 @@ export default function Search() {
 				<PageWrapper>
 					<BackButton />
 					<LogoutButton />
-					<Title>곡 선택하기</Title>
-					<Description>
-						즐겨듣는 곡을 선택해주세요(최대 {MAX_ITEM_LEN}개).
-						<br />
-						담은 곡은 하단의 담은 목록에서 확인 가능합니다.
-					</Description>
-					<Input />
-					<Wrapper>
-						<Suspense fallback={<Loader position="top" size="parent" />}>
-							<Result />
-							<Cart />
-							<TopButton />
-						</Suspense>
-					</Wrapper>
+					<ContentWrapper>
+						<Title>곡 선택하기</Title>
+						<Description>
+							즐겨듣는 곡을 선택해주세요(최대 {MAX_ITEM_LEN}개).
+							<br />
+							담은 곡은 하단의 담은 목록에서 확인 가능합니다.
+						</Description>
+						<Input />
+						<Wrapper>
+							<Suspense fallback={<Loader position="top" size="parent" />}>
+								<Result />
+								<Cart />
+								<TopButton />
+							</Suspense>
+						</Wrapper>
+					</ContentWrapper>
 				</PageWrapper>
 			</Suspense>
 		</>
@@ -41,4 +43,15 @@ export default function Search() {
 
 const Wrapper = styled.div`
 	position: relative;
+	flex: 1;
+	overflow: auto;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
+const ContentWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 `;

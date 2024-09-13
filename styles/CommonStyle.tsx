@@ -15,7 +15,11 @@ export const Description = styled.p`
 
 export const PageWrapper = styled.div`
 	position: relative;
-	padding: min(7%, 70px) min(9%, 90px);
+	width: 100%;
+	height: 100%;
+	padding: 40px 25px;
+	box-sizing: border-box;
+	overflow: hidden;
 `;
 
 export const Button = styled.button`

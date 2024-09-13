@@ -51,26 +51,30 @@ export default function Recommendation() {
 			<PageWrapper>
 				<BackButton />
 				<LogoutButton />
-				<TitleWrapper>
-					<Title>추천곡 리스트</Title>
-					<StyledDescription>담은 곡들을 바탕으로 추천드리는 곡 목록입니다.</StyledDescription>
-				</TitleWrapper>
-				<Wrapper>
-					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
-					<ButtonWrapper>
-						<Maybe
-							test={createdPlaylistId.length === 0}
-							truthy={
-								<CreatePlaylistButton handleCreatedPlaylistId={setCreatedPlaylistId} handleViewType={setViewType} />
-							}
-							falsy={<PrevListenButton handleViewType={setViewType} isActive={viewType === "prev-listen"} />}
-						/>
-						{viewType !== "prev-listen" && <DownloadButton />}
-					</ButtonWrapper>
-				</Wrapper>
-				<ListView isActive={viewType === "list"} />
-				<AlbumView isActive={viewType === "album"} />
-				<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
+				<ContentWrapper>
+					<TitleWrapper>
+						<Title>추천곡 리스트</Title>
+						<StyledDescription>담은 곡들을 바탕으로 추천드리는 곡 목록입니다.</StyledDescription>
+					</TitleWrapper>
+					<Wrapper>
+						<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
+						<ButtonWrapper>
+							<Maybe
+								test={createdPlaylistId.length === 0}
+								truthy={
+									<CreatePlaylistButton handleCreatedPlaylistId={setCreatedPlaylistId} handleViewType={setViewType} />
+								}
+								falsy={<PrevListenButton handleViewType={setViewType} isActive={viewType === "prev-listen"} />}
+							/>
+							{viewType !== "prev-listen" && <DownloadButton />}
+						</ButtonWrapper>
+					</Wrapper>
+					<ListWrapper>
+						<ListView isActive={viewType === "list"} />
+						<AlbumView isActive={viewType === "album"} />
+						<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
+					</ListWrapper>
+				</ContentWrapper>
 			</PageWrapper>
 		</>
 	);
@@ -81,6 +85,19 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	margin-top: 15px;
 	margin-bottom: 10px;
+`;
+
+const ContentWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+`;
+
+const ListWrapper = styled.div`
+	overflow: auto;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const TitleWrapper = styled.div`

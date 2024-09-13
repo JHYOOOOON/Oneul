@@ -23,7 +23,7 @@ type TIME_RANGE_TYPE = "short_term" | "medium_term" | "long_term";
 export default function Search() {
 	const router = useRouter();
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
-	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
+	const [term, setTerm] = useState<TIME_RANGE_TYPE>("long_term");
 	const { addToast } = useToast();
 	const { save, playlistUrl, setPlaylistUrl } = useSavePlaylist();
 	const songIds = recentList.map((item) => item.id);
@@ -76,44 +76,46 @@ export default function Search() {
 				<PageWrapper>
 					<BackButton />
 					<LogoutButton />
-					<Title>많이 들은 곡</Title>
-					<Description>최근 몇 개월 간 많이 들은 곡을 확인할 수 있습니다.</Description>
-					<Wrapper>
-						<Suspense fallback={<Loader position="top" size="parent" />}>
-							<HeaderWrapper>
-								<SelectboxWrapper>
-									<select defaultValue={TIME_RANGE.ONE_MONTH} onChange={handleTermChange}>
-										<option value="short_term">최근 1개월</option>
-										<option value="medium_term">최근 6개월</option>
-										<option value="long_term">전체기간</option>
-									</select>
-								</SelectboxWrapper>
-								<div>
-									<RecommendationButton title="추천받기" onClick={() => getRecommendation()}>
-										추천곡 확인
-									</RecommendationButton>
-									<Maybe
-										test={playlistUrl.length > 0}
-										truthy={<Button onClick={() => window.open(playlistUrl)}>저장된 플레이리스트로 이동</Button>}
-										falsy={<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>}
-									/>
-								</div>
-							</HeaderWrapper>
-							<StyledUl>
-								{recentList.map((item, index) => (
-									<ListItem
-										key={`recent_${index}`}
-										name={item.name}
-										artists={item.artists}
-										album={item.album}
-										duration_ms={item.duration_ms}
-									>
-										<Index>{index + 1}</Index>
-									</ListItem>
-								))}
-							</StyledUl>
-						</Suspense>
-					</Wrapper>
+					<ContentWrapper>
+						<Title>많이 들은 곡</Title>
+						<Description>최근 몇 개월 간 많이 들은 곡을 확인할 수 있습니다.</Description>
+						<Wrapper>
+							<Suspense fallback={<Loader position="top" size="parent" />}>
+								<HeaderWrapper>
+									<SelectboxWrapper>
+										<select defaultValue={TIME_RANGE.ONE_MONTH} onChange={handleTermChange}>
+											<option value="short_term">최근 1개월</option>
+											<option value="medium_term">최근 6개월</option>
+											<option value="long_term">전체기간</option>
+										</select>
+									</SelectboxWrapper>
+									<div>
+										<RecommendationButton title="추천받기" onClick={() => getRecommendation()}>
+											추천곡 확인
+										</RecommendationButton>
+										<Maybe
+											test={playlistUrl.length > 0}
+											truthy={<Button onClick={() => window.open(playlistUrl)}>저장된 플레이리스트로 이동</Button>}
+											falsy={<Button onClick={handleCreatePlaylist}>플레이리스트 저장</Button>}
+										/>
+									</div>
+								</HeaderWrapper>
+								<StyledUl>
+									{recentList.map((item, index) => (
+										<ListItem
+											key={`recent_${index}`}
+											name={item.name}
+											artists={item.artists}
+											album={item.album}
+											duration_ms={item.duration_ms}
+										>
+											<Index>{index + 1}</Index>
+										</ListItem>
+									))}
+								</StyledUl>
+							</Suspense>
+						</Wrapper>
+					</ContentWrapper>
 				</PageWrapper>
 			</Suspense>
 		</>
@@ -122,11 +124,20 @@ export default function Search() {
 
 const Wrapper = styled.div`
 	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 `;
 
 const HeaderWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
+`;
+
+const ContentWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 `;
 
 const SelectboxWrapper = styled.div`
@@ -136,14 +147,19 @@ const SelectboxWrapper = styled.div`
 
 const StyledUl = styled.ul`
 	margin-top: 10px;
-	border: 1px solid ${({ theme }) => theme.color.primary400};
-	border-radius: 3px;
-	overflow: hidden;
+	overflow: auto;
+	gap: 7px;
+	padding: 5px;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const Index = styled.p`
+	width: 20px;
+	font-family: "Moirai" !important;
+	font-size: ${({ theme }) => theme.textSize.lg}rem;
 	text-align: center;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
 `;
 
 const RecommendationButton = styled(Button)`

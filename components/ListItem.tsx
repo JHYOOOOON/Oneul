@@ -27,47 +27,41 @@ export function ListItem({ onMouseEnter, onMouseLeave, children, name, artists, 
 }
 
 const Wrapper = styled.li`
-	display: grid;
-	grid-template-columns: 20px 6fr 2.2fr minmax(30px, 45px);
+	display: flex;
 	align-items: center;
-	gap: 10px;
-	padding: 10px 10px;
-	&:nth-child(2n) {
-		background-color: ${({ theme }) => `${theme.color.primary400}50`};
-	}
-	&:hover {
-		background-color: ${({ theme }) => `${theme.color.primary400}`};
-	}
-	${({ theme }) => theme.mediaQuery.mobile} {
-		grid-template-columns: 20px 6fr;
-	}
+	gap: 5px;
+	padding: 7px 10px;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 `;
 
 const AlbumImage = styled.img`
-	width: 50px;
-	height: 50px;
+	width: 45px;
+	height: 45px;
 	object-fit: cover;
 `;
 
 const SongInfo = styled.div`
 	display: flex;
 	gap: 10px;
+	flex: 1;
 `;
 
 const SongWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	gap: 5px;
+	gap: 3px;
 `;
 
 const Title = styled.p`
 	line-height: 1.15;
-	font-size: ${({ theme }) => theme.textSize.lg}rem;
+	font-size: ${({ theme }) => theme.textSize.base}rem;
 `;
 
 const Name = styled.p`
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
+	color: ${({ theme }) => theme.color.black200};
 `;
 
 const mobile = css`
@@ -77,13 +71,16 @@ const mobile = css`
 `;
 
 const AlbumTitle = styled.p`
+	width: 70px;
+	color: ${({ theme }) => theme.color.black200};
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
+	text-align: left;
 	line-height: 1.15;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	${mobile}
 `;
 
 const Time = styled.p`
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
+	color: ${({ theme }) => theme.color.black200};
 	line-height: 1.15;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
-	${mobile}
 `;

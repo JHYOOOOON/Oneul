@@ -54,8 +54,8 @@ const Wrapper = styled(PageWrapper)`
 	align-items: center;
 	flex-wrap: wrap;
 	flex: 1 0 10px;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	background: radial-gradient(circle at right, rgba(117, 184, 176, 1), rgba(215, 228, 233, 1));
 	box-sizing: border-box;
 	line-height: 1.2;
