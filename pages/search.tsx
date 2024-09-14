@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Suspense } from "react";
 import styled from "styled-components";
 
-import { Loader, TopButton, BackButton, Input, Result, Cart, LogoutButton } from "@/components";
+import { Loader, TopButton, Input, Result, Cart } from "@/components";
 import { MAX_ITEM_LEN } from "@/constants";
 import { Description, PageWrapper, Title } from "@/styles";
 import { useValidation } from "@/components/hooks";
@@ -17,8 +17,6 @@ export default function Search() {
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
-					<BackButton />
-					<LogoutButton />
 					<ContentWrapper>
 						<Title>곡 선택하기</Title>
 						<Description>

@@ -29,7 +29,7 @@ export function ListItem({ onMouseEnter, onMouseLeave, children, name, artists, 
 const Wrapper = styled.li`
 	display: flex;
 	align-items: center;
-	gap: 5px;
+	gap: 7px;
 	padding: 7px 10px;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
