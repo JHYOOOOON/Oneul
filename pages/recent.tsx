@@ -57,6 +57,7 @@ export default function Search() {
 
 	useEffect(() => {
 		const handleClick = (event: MouseEvent) => {
+			console.log((event.target as HTMLElement).closest(".select-box"));
 			if (!(event.target as HTMLElement).closest(".select-box")) {
 				setIsOpen(false);
 			}
@@ -98,7 +99,12 @@ export default function Search() {
 							<Wrapper>
 								<SelectboxWrapper>
 									<Selectbox className="select-box">
-										<Option onClick={() => setIsOpen((prev) => !prev)}>
+										<Option
+											onClick={(event) => {
+												event.stopPropagation();
+												setIsOpen((prev) => !prev);
+											}}
+										>
 											{DATE[term]}
 											{isOpen ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
 										</Option>
