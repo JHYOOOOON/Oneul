@@ -94,7 +94,6 @@ const ContentWrapper = styled.div`
 `;
 
 const ListWrapper = styled.div`
-	margin: 0 -5px;
 	overflow: auto;
 	&::-webkit-scrollbar {
 		display: none;

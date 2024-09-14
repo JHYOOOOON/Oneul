@@ -146,8 +146,10 @@ const SelectboxWrapper = styled.div`
 `;
 
 const StyledUl = styled.ul`
-	margin-top: 10px;
+	margin-bottom: 0;
 	overflow: auto;
+	display: flex;
+	flex-direction: column;
 	gap: 7px;
 	padding: 5px;
 	&::-webkit-scrollbar {
