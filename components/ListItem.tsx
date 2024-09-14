@@ -32,7 +32,9 @@ const Wrapper = styled.li`
 	gap: 7px;
 	padding: 7px 10px;
 	border-radius: 10px;
-	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+	border-bottom: 3px solid rgba(0, 0, 0, 0.05);
+	border-right: 1px solid rgba(0, 0, 0, 0.02);
+	/* box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; */
 	background-color: ${({ theme }) => theme.color.white};
 `;
 
@@ -78,7 +80,7 @@ const AlbumTitle = styled.p`
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	word-break: keep-all;
+	word-break: auto-phrase;
 	color: ${({ theme }) => theme.color.black200};
 	font-size: ${({ theme }) => theme.textSize.xs}rem;
 	text-align: left;
