@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
+import cx from "classnames";
 import { IoHeadset } from "react-icons/io5";
 import { RiPlayListFill } from "react-icons/ri";
 import { FaRegThumbsUp } from "react-icons/fa";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 import { Loader, ListItem, Maybe } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
@@ -14,19 +16,21 @@ import { Button, Description, PageWrapper, Title } from "@/styles";
 import { RecommendationType } from "@/state";
 import { useRecommendation, useSavePlaylist, useToast, useValidation } from "@/components/hooks";
 
-/* TODO 개선 어떻게 할지 생각 필요 */
-const TIME_RANGE = {
-	ONE_MONTH: "short_term",
-	SIX_MONTH: "medium_term",
-	ALL: "long_term",
-};
-
 type TIME_RANGE_TYPE = "short_term" | "medium_term" | "long_term";
+
+const DATE: { [key: string]: string } = {
+	short_term: "최근 1개월",
+	medium_term: "최근 6개월",
+	long_term: "전체기간",
+} as const;
+
+console.log(DATE);
 
 export default function Search() {
 	const router = useRouter();
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
-	const [term, setTerm] = useState<TIME_RANGE_TYPE>("long_term");
+	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
+	const [isOpen, setIsOpen] = useState(false);
 	const { addToast } = useToast();
 	const { save, playlistUrl, setPlaylistUrl } = useSavePlaylist();
 	const songIds = recentList.map((item) => item.id);
@@ -51,18 +55,26 @@ export default function Search() {
 		},
 	});
 
-	const handleTermChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setTerm(event.target.value as TIME_RANGE_TYPE);
+	useEffect(() => {
+		const handleClick = (event: MouseEvent) => {
+			if (!(event.target as HTMLElement).closest(".select-box")) {
+				setIsOpen(false);
+			}
+		};
+
+		window.addEventListener("click", handleClick);
+
+		return () => window.removeEventListener("click", handleClick);
+	}, []);
+
+	const handleTermChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setTerm((event.target as HTMLButtonElement).value as TIME_RANGE_TYPE);
 		setPlaylistUrl("");
+		setIsOpen(false);
 	};
 
 	const handleCreatePlaylist = async () => {
 		try {
-			const DATE = {
-				[TIME_RANGE.ONE_MONTH]: "1개월",
-				[TIME_RANGE.SIX_MONTH]: "6개월",
-				[TIME_RANGE.ALL]: "전체기간",
-			};
 			const uris = recentList.map((item) => item.uri);
 			save(`ᕷ₊· ${DATE[term]}동안 많이 들은 곡 | 𝑶𝒏𝒆𝒖𝒍 ·₊ᕷ`, uris);
 		} catch (error: any) {
@@ -85,11 +97,23 @@ export default function Search() {
 						<Suspense fallback={<Loader position="top" size="parent" />}>
 							<Wrapper>
 								<SelectboxWrapper>
-									<select value={term} onChange={handleTermChange}>
-										<option value="short_term">최근 1개월</option>
-										<option value="medium_term">최근 6개월</option>
-										<option value="long_term">전체기간</option>
-									</select>
+									<Selectbox className="select-box">
+										<Option onClick={() => setIsOpen((prev) => !prev)}>
+											{DATE[term]}
+											{isOpen ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+										</Option>
+										{isOpen && (
+											<OptionList>
+												{["short_term", "medium_term", "long_term"].map((value) => (
+													<li>
+														<Option className={cx({ active: term === value })} onClick={handleTermChange} value={value}>
+															{DATE[value]}
+														</Option>
+													</li>
+												))}
+											</OptionList>
+										)}
+									</Selectbox>
 								</SelectboxWrapper>
 								<StyledUl>
 									{recentList.map((item, index) => (
@@ -156,8 +180,51 @@ const SelectboxWrapper = styled.div`
 	padding: 0 10px;
 	margin-bottom: 10px;
 	display: flex;
-	justify-content: end;
 	align-items: center;
+`;
+
+const Selectbox = styled.div`
+	position: relative;
+	border: 1px solid ${({ theme }) => theme.color.primary300};
+	border-radius: 3px;
+`;
+
+const Option = styled.button`
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	width: 100%;
+	background: none;
+	border: none;
+	padding: 5px 7px;
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
+	background-color: ${({ theme }) => theme.color.white};
+	cursor: pointer;
+	&.active,
+	&:hover {
+		background-color: ${({ theme }) => theme.color.primary300};
+	}
+`;
+
+const OptionList = styled.ul`
+	position: absolute;
+	top: 1px;
+	right: 2px;
+	display: flex;
+	flex-direction: column;
+	width: max-content;
+	height: max-content;
+	border-radius: 3px;
+	border: 1px solid ${({ theme }) => theme.color.primary400};
+	background-color: ${({ theme }) => theme.color.white};
+	button {
+		border-bottom: 1px solid ${({ theme }) => theme.color.primary400};
+	}
+	li:last-child {
+		button {
+			border-bottom: none;
+		}
+	}
 `;
 
 const StyledUl = styled.ul`

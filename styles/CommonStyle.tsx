@@ -31,7 +31,7 @@ export const Button = styled.button<{
 	justify-content: center;
 	gap: 4px;
 	border: none;
-	border-radius: 5px;
+	border-radius: 3px;
 	transition: background-color 0.1s;
 	cursor: pointer;
 	${({ $fullWidth }) =>
