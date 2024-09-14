@@ -214,8 +214,8 @@ const Option = styled.button`
 
 const OptionList = styled.ul`
 	position: absolute;
-	top: 1px;
-	right: 2px;
+	top: 50%;
+	left: calc(100% - 20px);
 	display: flex;
 	flex-direction: column;
 	width: max-content;
