@@ -18,11 +18,11 @@ export default function Search() {
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
 					<ContentWrapper>
-						<Title>곡 선택하기</Title>
+						<Title>노래 선택하기</Title>
 						<Description>
-							즐겨듣는 곡을 선택해주세요(최대 {MAX_ITEM_LEN}개).
+							즐겨듣는 노래를 담아주세요(최대 {MAX_ITEM_LEN}개).
 							<br />
-							담은 곡은 하단의 담은 목록에서 확인 가능합니다.
+							담은 곡은 하단의 노래주머니에서 확인 가능해요 🧺
 						</Description>
 						<Input />
 						<Wrapper>
@@ -49,6 +49,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+	padding: 15px 10px;
 	display: flex;
 	flex-direction: column;
 	height: 100%;

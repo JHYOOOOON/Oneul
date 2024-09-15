@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
-import { TiDelete } from "react-icons/ti";
 import styled from "styled-components";
+import { TiDelete } from "react-icons/ti";
+import { IoIosSearch } from "react-icons/io";
 
 import { useSetRecoilState } from "recoil";
 import { withSearchValue } from "@/state";
@@ -52,7 +53,13 @@ export function Input() {
 	return (
 		<Wrapper>
 			<StyledForm onSubmit={handleSubmit}>
-				<StyledInput placeholder="어떤 곡을 자주 들으시나요?" onChange={handleChange} value={value} ref={inputRef} />
+				{value === "" && (
+					<Placeholder>
+						<IoIosSearch />
+						<p>어떤 곡을 즐겨 들으세요?</p>
+					</Placeholder>
+				)}
+				<StyledInput onChange={handleChange} value={value} ref={inputRef} />
 				{isValueExist && (
 					<StyledDeleteButton type="button" onClick={handleDeleteValue}>
 						<TiDelete />
@@ -70,24 +77,43 @@ const Wrapper = styled.div`
 	margin-bottom: 15px;
 `;
 
+const Placeholder = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 5px 7px;
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
+	color: ${({ theme }) => theme.color.gray100};
+`;
+
 const StyledForm = styled.form`
 	position: relative;
 	display: flex;
-	width: 350px;
-	max-width: 80%;
+	width: 80%;
+	max-width: 300px;
 	height: 32px;
 	border-radius: 3px 3px 0 0;
 	border-bottom: 2px solid ${({ theme }) => theme.color.primary300};
 	background-color: ${({ theme }) => theme.color.gray400};
 	overflow: hidden;
+	transition: border 0.1s;
+	&:has(input:focus) {
+		border-bottom: 2px solid ${({ theme }) => theme.color.primary200};
+	}
 `;
 
 const StyledInput = styled.input`
+	position: absolute;
+	top: 0;
+	left: 7px;
+	width: calc(100% - 7px - 32px - 5px);
+	height: 100%;
+	display: flex;
+	align-items: center;
 	flex: 1;
 	border-radius: 3px 3px 0 0;
 	border: none;
-	padding: 5px 7px;
-	font-size: ${({ theme }) => theme.textSize.base}rem;
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	background-color: transparent;
 	transition: border 0.2s;
 	&:focus {
@@ -105,11 +131,11 @@ const StyledDeleteButton = styled.button`
 	border: none;
 	transition: all 0.2s;
 	font-size: ${({ theme }) => theme.textSize.xxl}rem;
-	color: ${({ theme }) => theme.color.gray};
+	color: ${({ theme }) => theme.color.gray100};
 	cursor: pointer;
 	&:hover,
 	&:focus {
-		color: ${({ theme }) => theme.color.black100};
+		color: ${({ theme }) => theme.color.gray};
 		transform: rotate(90deg);
 	}
 `;

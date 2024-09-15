@@ -10,7 +10,7 @@ export const Description = styled.p`
 	margin-bottom: 15px;
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	color: ${({ theme }) => theme.color.black100};
-	line-height: 1.15;
+	line-height: 1.3;
 `;
 
 export const PageWrapper = styled.div`
