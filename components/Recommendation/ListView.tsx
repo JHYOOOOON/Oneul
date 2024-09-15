@@ -18,14 +18,11 @@ export function ListView({ isActive }: ListViewProps) {
 			truthy={
 				<List id="recommendation-list">
 					{recommendationItems.map((item, index) => (
-						<ListItem
-							key={`recommendation_${index}`}
-							name={item.name}
-							artists={item.artists}
-							album={item.album}
-							duration_ms={item.duration_ms}
-						>
-							{<Index>{index + 1}</Index>}
+						<ListItem key={`recommendation_${index}`}>
+							<ListItem.Index>{index + 1}</ListItem.Index>
+							<ListItem.SongInform album={item.album} name={item.name} artists={item.artists} />
+							<ListItem.AlbumTitle album={item.album} />
+							<ListItem.Duration duration_ms={item.duration_ms} />
 						</ListItem>
 					))}
 				</List>

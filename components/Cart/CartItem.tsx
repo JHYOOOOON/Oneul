@@ -24,14 +24,11 @@ export function CartItem({ id, index, isDeleteView, isDeletePick, handleSaveDele
 	};
 
 	return (
-		<ListItem
-			name={cartItem!.name}
-			artists={cartItem!.artists}
-			album={cartItem!.album}
-			duration_ms={cartItem!.duration_ms}
-			onMouseEnter={() => setHovered(true)}
-			onMouseLeave={() => setHovered(false)}
-		>
+		<ListItem onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+			<ListItem.Index>{index + 1}</ListItem.Index>
+			<ListItem.SongInform album={cartItem!.album} name={cartItem!.name} artists={cartItem!.artists} />
+			<ListItem.AlbumTitle album={cartItem!.album} />
+			<ListItem.Duration duration_ms={cartItem!.duration_ms} />
 			<Maybe
 				test={isDeleteView}
 				truthy={

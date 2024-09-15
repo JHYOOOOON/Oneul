@@ -2,29 +2,55 @@ import styled, { css } from "styled-components";
 
 import { SearchItemType } from "@/state";
 import { formatTime } from "@/utils";
+import React from "react";
 
-type ListItemType = Pick<SearchItemType, "name" | "artists" | "album" | "duration_ms"> & {
+type ListItemType = {
 	onMouseEnter?: () => void;
 	onMouseLeave?: () => void;
 	children: React.ReactNode;
 };
 
-export function ListItem({ onMouseEnter, onMouseLeave, children, name, artists, album, duration_ms }: ListItemType) {
+export function ListItem({ onMouseEnter, onMouseLeave, children }: ListItemType) {
 	return (
 		<Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			{children}
-			<SongInfo>
-				<AlbumImage src={album.images[2].url} alt={name} />
-				<SongWrapper>
-					<Title>{name}</Title>
-					<Name>{artists.map((artists) => artists.name).join(", ")}</Name>
-				</SongWrapper>
-			</SongInfo>
-			<AlbumTitle title={album.name}>{album.name}</AlbumTitle>
-			<Time>{formatTime(duration_ms)}</Time>
 		</Wrapper>
 	);
 }
+
+const Index = ({ children }: React.PropsWithChildren) => <StyledIndex>{children}</StyledIndex>;
+
+type SongInformType = Pick<SearchItemType, "name" | "artists" | "album">;
+
+const SongInform = ({ album, name, artists }: SongInformType) => {
+	return (
+		<SongInfo>
+			<AlbumImage src={album.images[2].url} alt={name} />
+			<SongWrapper>
+				<Title>{name}</Title>
+				<Name>{artists.map((artists) => artists.name).join(", ")}</Name>
+			</SongWrapper>
+		</SongInfo>
+	);
+};
+
+const AlbumTitle = ({ album }: Pick<SearchItemType, "album">) => (
+	<StyledAlbumTitle title={album.name}>{album.name}</StyledAlbumTitle>
+);
+
+const Duration = ({ duration_ms }: Pick<SearchItemType, "duration_ms">) => <Time>{formatTime(duration_ms)}</Time>;
+
+ListItem.Index = Index;
+ListItem.SongInform = SongInform;
+ListItem.AlbumTitle = AlbumTitle;
+ListItem.Duration = Duration;
+
+const StyledIndex = styled.p`
+	width: 20px;
+	font-family: "Moirai" !important;
+	font-size: ${({ theme }) => theme.textSize.lg}rem;
+	text-align: center;
+`;
 
 const Wrapper = styled.li`
 	display: flex;
@@ -73,7 +99,7 @@ const mobile = css`
 	}
 `;
 
-const AlbumTitle = styled.p`
+const StyledAlbumTitle = styled.p`
 	width: 70px;
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
