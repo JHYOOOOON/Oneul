@@ -54,55 +54,79 @@ export function Cart() {
 	}, []);
 
 	return (
-		<StyledSection id="cart" ref={cartRef} $isOpened={isOpened}>
-			<StyledButton
-				className={cx({ active: selectedItemIds.length > 0 })}
-				onClick={() => setIsOpened((prevValue) => !prevValue)}
-			>
-				<PiMusicNoteSimpleFill />
-				노래주머니
-				<Maybe test={selectedItemIds.length > 0} truthy={<p>{selectedItemIds.length}</p>} falsy={null} />
-			</StyledButton>
-			<SelectedItemWrapper isOpened={isOpened}>
-				<Maybe
-					test={selectedItemIds?.length === 0}
-					truthy={
-						<EmptyWrapper>
-							<p>텅 비었네요</p>
-						</EmptyWrapper>
-					}
-					falsy={
-						<>
-							<ListItem.Header>
-								<ListItem.HeaderIndex />
-								<ListItem.HeaderTitle />
-								<ListItem.HeaderButton />
-							</ListItem.Header>
-							<ItemWrapper>
-								{selectedItemIds?.map((id, index) => (
-									<CartItem
-										key={`selectedItem_${id}`}
-										id={id}
-										index={index + 1}
-										isDeleteView={isDeletePickView}
-										isDeletePick={pickedDeleteItems.includes(id)}
-										handleSaveDeleteItem={handleSaveDeleteItem}
-									/>
-								))}
-							</ItemWrapper>
-							<NormalViewButtons
-								selectedItemIds={selectedItemIds}
-								setIsDeletePickView={setIsDeletePickView}
-								setCartOpened={setIsOpened}
-								isSelectedMax={isSelectedMax}
-							/>
-						</>
-					}
-				/>
-			</SelectedItemWrapper>
-		</StyledSection>
+		<>
+			{isOpened && <Background onClick={() => setIsOpened(false)} />}
+			<StyledSection id="cart" ref={cartRef} $isOpened={isOpened}>
+				<StyledButton
+					className={cx({ active: selectedItemIds.length > 0 })}
+					onClick={() => setIsOpened((prevValue) => !prevValue)}
+				>
+					<PiMusicNoteSimpleFill />
+					노래주머니
+					<Maybe test={selectedItemIds.length > 0} truthy={<p>{selectedItemIds.length}</p>} falsy={null} />
+				</StyledButton>
+				<SelectedItemWrapper isOpened={isOpened}>
+					<Maybe
+						test={selectedItemIds?.length === 0}
+						truthy={
+							<EmptyWrapper>
+								<p>텅 비었네요</p>
+							</EmptyWrapper>
+						}
+						falsy={
+							<>
+								<ListItem.Header>
+									<ListItem.HeaderIndex />
+									<ListItem.HeaderTitle />
+									<ListItem.HeaderButton />
+								</ListItem.Header>
+								<ItemWrapper>
+									{selectedItemIds?.map((id, index) => (
+										<CartItem
+											key={`selectedItem_${id}`}
+											id={id}
+											index={index + 1}
+											isDeleteView={isDeletePickView}
+											isDeletePick={pickedDeleteItems.includes(id)}
+											handleSaveDeleteItem={handleSaveDeleteItem}
+										/>
+									))}
+								</ItemWrapper>
+								<NormalViewButtons
+									selectedItemIds={selectedItemIds}
+									setIsDeletePickView={setIsDeletePickView}
+									setCartOpened={setIsOpened}
+									isSelectedMax={isSelectedMax}
+								/>
+							</>
+						}
+					/>
+				</SelectedItemWrapper>
+			</StyledSection>
+		</>
 	);
 }
+
+const opacity = keyframes`
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+`;
+
+const Background = styled.div`
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	height: 100%;
+	max-width: 500px;
+	background-color: rgba(0, 0, 0, 0.3);
+	animation: ${opacity} 1.5s;
+`;
 
 const StyledSection = styled.div<{ $isOpened: boolean }>`
 	position: absolute;
@@ -115,7 +139,7 @@ const StyledSection = styled.div<{ $isOpened: boolean }>`
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 	background-color: ${({ theme }) => theme.color.white};
 	border-radius: 20px 20px 0 0;
-	z-index: 100;
+	z-index: 1000;
 	transition: max-height 0.6s;
 	${({ $isOpened }) =>
 		$isOpened

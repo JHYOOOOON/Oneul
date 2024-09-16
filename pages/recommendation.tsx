@@ -85,6 +85,7 @@ const Wrapper = styled.div`
 	position: absolute;
 	bottom: 60px;
 	right: 20px;
+	z-index: 1;
 `;
 
 const ContentWrapper = styled.div`
