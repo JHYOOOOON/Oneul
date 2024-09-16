@@ -1,22 +1,49 @@
+import React, { MouseEventHandler, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
+import { BsCartPlus } from "react-icons/bs";
+import { PiTrashLight } from "react-icons/pi";
 
 import { SearchItemType } from "@/state";
 import { formatTime } from "@/utils";
-import React from "react";
 
 type ListItemType = {
-	onMouseEnter?: () => void;
-	onMouseLeave?: () => void;
-	children: React.ReactNode;
+	variant?: "rounded" | "simple";
+} & PropsWithChildren;
+
+export function ListItem({ variant = "rounded", children }: ListItemType) {
+	return <Wrapper $variant={variant}>{children}</Wrapper>;
+}
+
+type AddType = {
+	onClick: MouseEventHandler<HTMLButtonElement>;
+	title: string;
 };
 
-export function ListItem({ onMouseEnter, onMouseLeave, children }: ListItemType) {
-	return (
-		<Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-			{children}
-		</Wrapper>
-	);
-}
+const Header = ({ children }: PropsWithChildren) => {
+	return <StyledHeader>{children}</StyledHeader>;
+};
+
+const HeaderIndex = () => <StyledIndex>#</StyledIndex>;
+
+const HeaderTitle = () => <SongInfo>곡 정보</SongInfo>;
+
+const HeaderAlbum = () => <StyledAlbumTitle>앨범 제목</StyledAlbumTitle>;
+
+const HeaderDuration = () => <Time>재생 시간</Time>;
+
+const HeaderButton = () => <StyledAdd />;
+
+const Add = ({ onClick, title }: AddType) => (
+	<StyledAdd onClick={onClick} title={title}>
+		<BsCartPlus />
+	</StyledAdd>
+);
+
+const Remove = ({ onClick, title }: AddType) => (
+	<StyledAdd onClick={onClick} title={title}>
+		<PiTrashLight />
+	</StyledAdd>
+);
 
 const Index = ({ children }: React.PropsWithChildren) => <StyledIndex>{children}</StyledIndex>;
 
@@ -40,10 +67,52 @@ const AlbumTitle = ({ album }: Pick<SearchItemType, "album">) => (
 
 const Duration = ({ duration_ms }: Pick<SearchItemType, "duration_ms">) => <Time>{formatTime(duration_ms)}</Time>;
 
+ListItem.Add = Add;
+ListItem.Remove = Remove;
 ListItem.Index = Index;
 ListItem.SongInform = SongInform;
 ListItem.AlbumTitle = AlbumTitle;
 ListItem.Duration = Duration;
+ListItem.Header = Header;
+ListItem.HeaderIndex = HeaderIndex;
+ListItem.HeaderTitle = HeaderTitle;
+ListItem.HeaderAlbum = HeaderAlbum;
+ListItem.HeaderDuration = HeaderDuration;
+ListItem.HeaderButton = HeaderButton;
+
+const StyledAdd = styled.button`
+	width: 35px;
+	display: flex;
+	align-items: center;
+	background: none;
+	border: none;
+	font-size: ${({ theme }) => theme.textSize.xxl}rem;
+	color: ${({ theme }) => theme.color.bk200};
+	cursor: pointer;
+`;
+
+const StyledHeader = styled.div`
+	position: relative;
+	display: flex;
+	align-items: center;
+	height: 30px;
+	gap: 7px;
+	padding: 2px 10px;
+	background-color: ${({ theme }) => theme.color.white};
+	color: ${({ theme }) => theme.color.bk100};
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
+
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: calc(100% - 10px);
+		height: 1px;
+		margin-left: 5px;
+		background-color: ${({ theme }) => theme.color.gray400};
+	}
+`;
 
 const StyledIndex = styled.p`
 	width: 20px;
@@ -52,16 +121,38 @@ const StyledIndex = styled.p`
 	text-align: center;
 `;
 
-const Wrapper = styled.li`
+const Wrapper = styled.li<{ $variant: "rounded" | "simple" }>`
+	position: relative;
 	display: flex;
 	align-items: center;
 	gap: 7px;
 	padding: 7px 10px;
-	border-radius: 10px;
-	border-bottom: 3px solid rgba(0, 0, 0, 0.05);
-	border-right: 1px solid rgba(0, 0, 0, 0.02);
 	/* box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; */
 	background-color: ${({ theme }) => theme.color.white};
+	${({ $variant }) => {
+		switch ($variant) {
+			case "simple": {
+				return css`
+					&::after {
+						content: "";
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						width: calc(100% - 10px);
+						height: 1px;
+						margin-left: 5px;
+						background-color: ${({ theme }) => theme.color.gray400};
+					}
+				`;
+			}
+			default:
+				return css`
+					border-radius: 10px;
+					border-bottom: 3px solid rgba(0, 0, 0, 0.05);
+					border-right: 1px solid rgba(0, 0, 0, 0.02);
+				`;
+		}
+	}}
 `;
 
 const AlbumImage = styled.img`

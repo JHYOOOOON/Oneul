@@ -40,7 +40,6 @@ export default function Search() {
 }
 
 const Wrapper = styled.div`
-	position: relative;
 	flex: 1;
 	overflow: auto;
 	&::-webkit-scrollbar {

@@ -53,6 +53,5 @@ const SearchTitle = styled.h2`
 `;
 
 const Wrapper = styled.div`
-	position: relative;
 	min-height: 500px;
 `;

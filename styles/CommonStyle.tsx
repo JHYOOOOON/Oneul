@@ -96,6 +96,9 @@ export const Button = styled.button<{
 				return css`
 					padding: 7px 10px;
 					font-size: ${({ theme }) => theme.textSize.sm}rem;
+					${({ theme }) => theme.mediaQuery.mobile} {
+						padding: 5px 7px;
+					}
 				`;
 			}
 		}

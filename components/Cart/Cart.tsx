@@ -1,18 +1,14 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { useRecoilValue } from "recoil";
-import { RxHamburgerMenu } from "react-icons/rx";
+import { PiMusicNoteSimpleFill } from "react-icons/pi";
+import cx from "classnames";
 
-import { Maybe } from "@/components";
-import {
-	CartItem,
-	DeleteViewButtons,
-	IsDeletePickViewType,
-	NormalViewButtons,
-	PickedDeleteItemsType,
-} from "@/components/Cart";
+import { ListItem, Maybe } from "@/components";
+import { CartItem, IsDeletePickViewType, NormalViewButtons, PickedDeleteItemsType } from "@/components/Cart";
 import { withCartItemIds } from "@/state";
 import { MAX_ITEM_LEN } from "@/constants";
+import { Theme } from "@/styles";
 
 export function Cart() {
 	const [isOpened, setIsOpened] = useState(false);
@@ -58,10 +54,14 @@ export function Cart() {
 	}, []);
 
 	return (
-		<StyledSection id="cart" ref={cartRef}>
-			<StyledButton onClick={() => setIsOpened((prevValue) => !prevValue)}>
-				<RxHamburgerMenu />
-				담은 목록 [{selectedItemIds.length}]
+		<StyledSection id="cart" ref={cartRef} $isOpened={isOpened}>
+			<StyledButton
+				className={cx({ active: selectedItemIds.length > 0 })}
+				onClick={() => setIsOpened((prevValue) => !prevValue)}
+			>
+				<PiMusicNoteSimpleFill />
+				노래주머니
+				<Maybe test={selectedItemIds.length > 0} truthy={<p>{selectedItemIds.length}</p>} falsy={null} />
 			</StyledButton>
 			<SelectedItemWrapper isOpened={isOpened}>
 				<Maybe
@@ -73,6 +73,11 @@ export function Cart() {
 					}
 					falsy={
 						<>
+							<ListItem.Header>
+								<ListItem.HeaderIndex />
+								<ListItem.HeaderTitle />
+								<ListItem.HeaderButton />
+							</ListItem.Header>
 							<ItemWrapper>
 								{selectedItemIds?.map((id, index) => (
 									<CartItem
@@ -85,24 +90,11 @@ export function Cart() {
 									/>
 								))}
 							</ItemWrapper>
-							<Maybe
-								test={isDeletePickView}
-								truthy={
-									<DeleteViewButtons
-										selectedItemIds={selectedItemIds}
-										pickedDeleteItems={pickedDeleteItems}
-										setPickedDeleteItems={setPickedDeleteItems}
-										setIsDeletePickView={setIsDeletePickView}
-									/>
-								}
-								falsy={
-									<NormalViewButtons
-										selectedItemIds={selectedItemIds}
-										setIsDeletePickView={setIsDeletePickView}
-										setCartOpened={setIsOpened}
-										isSelectedMax={isSelectedMax}
-									/>
-								}
+							<NormalViewButtons
+								selectedItemIds={selectedItemIds}
+								setIsDeletePickView={setIsDeletePickView}
+								setCartOpened={setIsOpened}
+								isSelectedMax={isSelectedMax}
 							/>
 						</>
 					}
@@ -112,50 +104,71 @@ export function Cart() {
 	);
 }
 
-const StyledSection = styled.div`
-	position: fixed;
-	right: 50px;
+const StyledSection = styled.div<{ $isOpened: boolean }>`
+	position: absolute;
+	left: 0;
 	bottom: 0;
-	max-width: 80%;
-	width: 550px;
-	background-color: white;
-	border-radius: 10px 10px 0 0;
-	overflow: hidden;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+	background-color: ${({ theme }) => theme.color.white};
+	border-radius: 20px 20px 0 0;
 	z-index: 100;
-	${({ theme }) => theme.mediaQuery.mobile} {
-		max-width: auto;
-		width: 95%;
-		left: 0;
-		right: 0;
-		margin-left: auto;
-		margin-right: auto;
+	transition: max-height 0.6s;
+	${({ $isOpened }) =>
+		$isOpened
+			? css`
+					max-height: 400px;
+			  `
+			: css`
+					max-height: 34px;
+			  `}
+`;
+
+const borderAnimation = keyframes`
+	from {
+		border-color: ${Theme.color.primary};
+	}
+	to {
+		border-color: ${Theme.color.primary200};
 	}
 `;
 
 const StyledButton = styled.button`
 	display: flex;
 	align-items: center;
-	gap: 5px;
+	gap: 2px;
 	width: 100%;
-	background-color: ${({ theme }) => theme.color.primary100};
 	border: none;
-	color: white;
 	text-align: left;
-	padding: 7px 10px;
-	font-size: ${({ theme }) => theme.textSize.base}rem;
+	padding: 8px 10px;
+	border-radius: 20px 20px 0 0;
+	background-color: ${({ theme }) => theme.color.primary400};
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	transition: all 0.2s;
+	cursor: pointer;
 	&:hover {
-		background-color: ${({ theme }) => theme.color.primary};
+		background-color: ${({ theme }) => theme.color.primary300};
+	}
+	&.active {
+		animation: ${borderAnimation} 1.5s ease-in-out infinite;
 	}
 	svg {
-		font-size: ${({ theme }) => theme.textSize.xl}rem;
+		font-size: ${({ theme }) => theme.textSize.lg}rem;
+	}
+	p {
+		color: ${({ theme }) => theme.color.primary};
+		font-weight: 700;
 	}
 `;
 
 const SelectedItemWrapper = styled.div<{ isOpened: boolean }>`
+	flex: 1;
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 	${({ isOpened }) =>
 		isOpened
 			? css`
@@ -176,13 +189,16 @@ const EmptyWrapper = styled.div`
 `;
 
 const ItemWrapper = styled.ul`
-	height: max-content;
-	max-height: 380px;
+	flex: 1;
 	overflow: auto;
-	&::-webkit-scrollbar-thumb {
-		border-radius: 100px;
+	padding-bottom: 20px;
+	&::-webkit-scrollbar {
+		display: none;
 	}
-	&::-webkit-scrollbar-track {
-		background-color: red;
+	li:nth-child(2n) {
+		background-color: ${({ theme }) => theme.color.primary400}35;
+	}
+	li:last-child::after {
+		content: none;
 	}
 `;

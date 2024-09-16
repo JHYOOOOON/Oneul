@@ -15,7 +15,6 @@ type CartItemType = {
 };
 
 export function CartItem({ id, index, isDeleteView, isDeletePick, handleSaveDeleteItem }: CartItemType) {
-	const [hovered, setHovered] = useState(false);
 	const cartItem = useRecoilValue(withCartItems(id));
 	const deleteCartItem = useResetRecoilState(withCartItems(id));
 
@@ -24,11 +23,7 @@ export function CartItem({ id, index, isDeleteView, isDeletePick, handleSaveDele
 	};
 
 	return (
-		<ListItem onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-			<ListItem.Index>{index + 1}</ListItem.Index>
-			<ListItem.SongInform album={cartItem!.album} name={cartItem!.name} artists={cartItem!.artists} />
-			<ListItem.AlbumTitle album={cartItem!.album} />
-			<ListItem.Duration duration_ms={cartItem!.duration_ms} />
+		<ListItem variant="simple">
 			<Maybe
 				test={isDeleteView}
 				truthy={
@@ -40,37 +35,11 @@ export function CartItem({ id, index, isDeleteView, isDeletePick, handleSaveDele
 						}}
 					/>
 				}
-				falsy={
-					<Maybe
-						test={hovered}
-						truthy={
-							<Button title={`${cartItem?.name} 삭제하기`} onClick={handleDeleteItem}>
-								<AiFillMinusCircle />
-							</Button>
-						}
-						falsy={<Index>{index}</Index>}
-					/>
-				}
+				falsy={<ListItem.Index>{index}</ListItem.Index>}
 			/>
+
+			<ListItem.SongInform album={cartItem!.album} name={cartItem!.name} artists={cartItem!.artists} />
+			<ListItem.Remove onClick={handleDeleteItem} title={`${cartItem?.name} 삭제하기`} />
 		</ListItem>
 	);
 }
-
-const Index = styled.p`
-	text-align: center;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
-`;
-
-const Button = styled.button`
-	border: none;
-	background-color: transparent;
-	padding: 0;
-	color: ${({ theme }) => theme.color.red100};
-	font-size: ${({ theme }) => theme.textSize.lg}rem;
-	aspect-ratio: 1/1;
-	cursor: pointer;
-	transition: color 0.2s;
-	&:hover {
-		color: ${({ theme }) => theme.color.red};
-	}
-`;

@@ -10,6 +10,9 @@ export const ButtonWrapper = styled.div`
 
 export const DeleteButton = styled(Button)`
 	background-color: ${({ theme }) => theme.color.red100};
+	color: ${({ theme }) => theme.color.white};
+	font-size: ${({ theme }) => theme.textSize.xs}rem;
+	border-radius: 3px;
 	&:hover {
 		background-color: ${({ theme }) => theme.color.red};
 	}
