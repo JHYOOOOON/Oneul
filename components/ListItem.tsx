@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
-import { BsCartPlus } from "react-icons/bs";
 import { PiTrashLight } from "react-icons/pi";
+import { RiPlayListAddFill } from "react-icons/ri";
 
 import { SearchItemType } from "@/state";
 import { formatTime } from "@/utils";
@@ -35,7 +35,7 @@ const HeaderButton = () => <StyledAdd />;
 
 const Add = ({ onClick, title }: AddType) => (
 	<StyledAdd onClick={onClick} title={title}>
-		<BsCartPlus />
+		<RiPlayListAddFill />
 	</StyledAdd>
 );
 
@@ -81,13 +81,15 @@ ListItem.HeaderDuration = HeaderDuration;
 ListItem.HeaderButton = HeaderButton;
 
 const StyledAdd = styled.button`
-	width: 35px;
+	width: 30px;
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	background: none;
 	border: none;
-	font-size: ${({ theme }) => theme.textSize.xxl}rem;
-	color: ${({ theme }) => theme.color.bk200};
+	font-size: ${({ theme }) => theme.textSize.base}rem;
+	color: ${({ theme }) => theme.color.black200};
+	padding: 0;
 	cursor: pointer;
 `;
 
@@ -99,7 +101,7 @@ const StyledHeader = styled.div`
 	gap: 7px;
 	padding: 2px 10px;
 	background-color: ${({ theme }) => theme.color.white};
-	color: ${({ theme }) => theme.color.bk100};
+	color: ${({ theme }) => theme.color.black100};
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
 
 	&::after {

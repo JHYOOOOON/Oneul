@@ -220,6 +220,7 @@ const OptionList = styled.ul`
 	border-radius: 3px;
 	border: 1px solid ${({ theme }) => theme.color.primary400};
 	background-color: ${({ theme }) => theme.color.white};
+	z-index: 1;
 	button {
 		border-bottom: 1px solid ${({ theme }) => theme.color.primary400};
 	}

@@ -1,7 +1,6 @@
 import { IoAlbumsOutline } from "react-icons/io5";
 import { RiListUnordered } from "react-icons/ri";
 import styled from "styled-components";
-import cx from "classnames";
 
 import { VIEW_TYPE } from "@/types";
 

@@ -144,10 +144,13 @@ const StyledSection = styled.div<{ $isOpened: boolean }>`
 	${({ $isOpened }) =>
 		$isOpened
 			? css`
-					max-height: 400px;
+					max-height: 330px;
 			  `
 			: css`
 					max-height: 34px;
+					${({ theme }) => theme.mediaQuery.mobile} {
+						max-height: 29.5px;
+					}
 			  `}
 `;
 
