@@ -1,12 +1,18 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { LogoutButton } from "./LogoutButton";
 import Link from "next/link";
-import { getAccessToken } from "@/lib";
 import { useRouter } from "next/router";
+
+import { getAccessToken } from "@/lib";
+import { LogoutButton } from "./LogoutButton";
 
 export function Header() {
 	const { pathname } = useRouter();
-	const isUser = Boolean(getAccessToken());
+	const [isUser, setIsUser] = useState(false);
+
+	useEffect(() => {
+		setIsUser(Boolean(getAccessToken()));
+	}, []);
 
 	return (
 		<StyledHeader>

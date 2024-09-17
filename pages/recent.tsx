@@ -24,9 +24,7 @@ const DATE: { [key: string]: string } = {
 	long_term: "전체기간",
 } as const;
 
-console.log(DATE);
-
-export default function Search() {
+export default function Recent() {
 	const router = useRouter();
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
