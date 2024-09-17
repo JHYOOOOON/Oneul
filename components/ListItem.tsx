@@ -118,7 +118,7 @@ const StyledHeader = styled.div`
 `;
 
 const StyledIndex = styled.p`
-	width: 20px;
+	width: 30px;
 	font-family: "Moirai" !important;
 	font-size: ${({ theme }) => theme.textSize.lg}rem;
 	text-align: center;

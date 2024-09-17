@@ -2,6 +2,8 @@ export type IdsType = string[];
 
 export type CartItemsType = CartItemType | null;
 
+export type TIME_RANGE_TYPE = "short_term" | "medium_term" | "long_term";
+
 export type CartItemType = {
 	id: string;
 	name: string;
@@ -27,6 +29,20 @@ export type SearchItemType = {
 	track_number: number;
 	type: string;
 	uri: string;
+};
+
+export type ArtistType = {
+	name: string;
+	uri: string;
+	popularity: number;
+	genres: string[];
+	followers: object;
+	images: {
+		height: number;
+		width: number;
+		url: string;
+	}[];
+	id: string;
 };
 
 type AlbumType = {

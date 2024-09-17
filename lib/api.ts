@@ -55,6 +55,14 @@ class RestAPI {
 				limit,
 			},
 		});
+
+	topArtist = async (time_range: string, limit = 20) =>
+		(await this.instance()).get("/me/top/artists", {
+			params: {
+				time_range,
+				limit,
+			},
+		});
 }
 
 const instance = new RestAPI();

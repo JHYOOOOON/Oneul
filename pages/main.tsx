@@ -1,12 +1,12 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import styled from "styled-components";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { BsCart } from "react-icons/bs";
-import { BsMusicNoteBeamed } from "react-icons/bs";
+import { BsCart, BsMusicNoteBeamed } from "react-icons/bs";
+import { FaMicrophone } from "react-icons/fa6";
 
-import { ListItem, Loader } from "@/components";
-import { useValidation } from "@/components/hooks";
+import { ListItem, Loader, Card } from "@/components";
+import { useTopArtists, useValidation } from "@/components/hooks";
 import { ROUTES } from "@/constants";
 import { Button, PageWrapper, WrapperPaddingX } from "@/styles";
 import { removeAccessToken, RestAPI } from "@/lib";
@@ -17,6 +17,7 @@ import Link from "next/link";
 export default function Main() {
 	const router = useRouter();
 	const [topTracks, setTopTracks] = useState<RecommendationType>([]);
+	const { getTopArtists, topArtists } = useTopArtists({ limit: 5 });
 	useValidation();
 
 	useQuery({
@@ -36,6 +37,10 @@ export default function Main() {
 			router.push(ROUTES.HOME);
 		},
 	});
+
+	useEffect(() => {
+		getTopArtists();
+	}, []);
 
 	return (
 		<>
@@ -69,7 +74,7 @@ export default function Main() {
 									<br />
 									이를 바탕으로 추천 곡을 받아볼 수 있어요
 								</Description>
-								<Inform>※ 예시는 최근 1개월 기준 Top 3</Inform>
+								<Inform>※ 예시는 최근 1개월 기준</Inform>
 							</div>
 							<div>
 								<StyledButton onClick={() => router.push(ROUTES.RECENT)}>
@@ -96,6 +101,27 @@ export default function Main() {
 							{/* <Gradation /> */}
 						</List>
 					</TopTrack>
+					<TopArtist>
+						<TitleWrapper>
+							<div>
+								<Title>인기 아티스트</Title>
+								<Description>최근에 즐겨 찾은 아티스트를 볼 수 있어요</Description>
+								<Inform>※ 예시는 최근 1개월 기준</Inform>
+							</div>
+							<div>
+								<StyledButton onClick={() => router.push(ROUTES.ARTIST)}>
+									<FaMicrophone />
+									전체보기
+								</StyledButton>
+							</div>
+						</TitleWrapper>
+						<ArtistList>
+							{topArtists.map((artists, index) => (
+								<Card key={artists.id} {...artists} rank={index + 1} />
+							))}
+							<Gradation />
+						</ArtistList>
+					</TopArtist>
 				</StyledPageWrapper>
 			</Suspense>
 		</>
@@ -103,8 +129,12 @@ export default function Main() {
 }
 
 const StyledPageWrapper = styled(PageWrapper)`
+	padding: min(20%, 30px) 0;
 	${WrapperPaddingX}
-	padding-top: min(20%, 30px);
+	overflow:scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const StyledButton = styled(Button)`
@@ -121,9 +151,15 @@ const Source = styled.p`
 `;
 
 const Wrapper = styled.div`
-	padding: 15px 0;
+	padding-top: 15px;
+	padding-bottom: 25px;
 	display: flex;
 	justify-content: space-between;
+`;
+
+const TopArtist = styled(Wrapper)`
+	flex-direction: column;
+	gap: 5px;
 `;
 
 const TopTrack = styled(Wrapper)`
@@ -179,11 +215,22 @@ const List = styled.ul`
 	margin-top: 7px;
 `;
 
+const ArtistList = styled.ul`
+	position: relative;
+	display: flex;
+	gap: 10px;
+	overflow: hidden;
+	padding: 10px 0;
+	li {
+		min-width: 130px;
+	}
+`;
+
 const Gradation = styled.div`
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 40%;
-	background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(270deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0) 100%);
 `;

@@ -12,18 +12,10 @@ import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 import { Loader, ListItem, Maybe } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
-import { ROUTES } from "@/constants";
+import { ROUTES, DATE } from "@/constants";
 import { Button, Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
-import { RecommendationType, withPlaylistId } from "@/state";
+import { RecommendationType, TIME_RANGE_TYPE, withPlaylistId } from "@/state";
 import { useRecommendation, useSavePlaylist, useToast, useValidation } from "@/components/hooks";
-
-type TIME_RANGE_TYPE = "short_term" | "medium_term" | "long_term";
-
-const DATE: { [key: string]: string } = {
-	short_term: "최근 1개월",
-	medium_term: "최근 6개월",
-	long_term: "전체기간",
-} as const;
 
 export default function Recent() {
 	const router = useRouter();
@@ -39,7 +31,7 @@ export default function Recent() {
 
 	useQuery({
 		queryKey: ["topTracks", term],
-		queryFn: async () => await RestAPI.topTracks(term),
+		queryFn: async () => await RestAPI.topTracks(term, 50),
 		retry: 0,
 		refetchOnWindowFocus: false,
 		refetchOnMount: true,
@@ -57,7 +49,6 @@ export default function Recent() {
 
 	useEffect(() => {
 		const handleClick = (event: MouseEvent) => {
-			console.log((event.target as HTMLElement).closest(".select-box"));
 			if (!(event.target as HTMLElement).closest(".select-box")) {
 				setIsOpen(false);
 			}

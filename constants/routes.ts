@@ -5,4 +5,5 @@ export const ROUTES = {
 	RECENT: "/recent",
 	MAIN: "/main",
 	PRELISTEN: "/prelisten",
+	ARTIST: "/artists",
 };

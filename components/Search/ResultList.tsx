@@ -13,16 +13,25 @@ type ResultItemType = Pick<SearchItemType, "id" | "name" | "artists" | "album" |
 	isExist: (id: string) => boolean;
 };
 
-export function Card({ id, name, artists, uri, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) {
+export function ResultList({
+	id,
+	name,
+	artists,
+	uri,
+	album,
+	duration_ms,
+	isMoreSelectAvailable,
+	isExist,
+}: ResultItemType) {
 	const setCartItem = useSetRecoilState(withCartItems(id));
 	const { addToast } = useToast();
 
 	const handleSelectItem = (event: MouseEvent<HTMLButtonElement>) => {
 		if (isMoreSelectAvailable) {
-			alert(`노래는 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있어요`);
+			alert(`곡은 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있어요`);
 		}
 		if (isExist(id)) {
-			addToast("이미 담겨있는 노래예요");
+			addToast("이미 담겨있는 곡이에요");
 			return;
 		}
 

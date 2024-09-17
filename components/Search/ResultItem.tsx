@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { MAX_ITEM_LEN } from "@/constants";
-import { withCartItemIds, SearchResultsType, withCartItems } from "@/state";
+import { withCartItemIds, SearchResultsType } from "@/state";
 import { useSearch } from "@/components/Search/hooks";
-import { Card } from "@/components/Search";
-import { ListItem } from "../ListItem";
+import { ResultList } from "@/components/Search";
 
 type ResultType = {
 	searchResult: SearchResultsType;
@@ -35,7 +34,7 @@ export function ResultItem({ searchResult }: ResultType) {
 	return (
 		<StyledUl>
 			{searchResult?.map((item, index) => (
-				<Card
+				<ResultList
 					key={`searchResult_${index}`}
 					id={item.id}
 					index={index + 1}
