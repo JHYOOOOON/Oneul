@@ -130,12 +130,7 @@ export default function Recent() {
 									{recentList.map((item, index) => (
 										<ListItem key={`recent_${index}`}>
 											<ListItem.Index>{index + 1}</ListItem.Index>
-											<ListItem.SongInform
-												album={item.album}
-												name={item.name}
-												artists={item.artists}
-												external_urls={item.external_urls}
-											/>
+											<ListItem.SongInform album={item.album} name={item.name} artists={item.artists} uri={item.uri} />
 											<ListItem.AlbumTitle album={item.album} />
 											<ListItem.Duration duration_ms={item.duration_ms} />
 										</ListItem>

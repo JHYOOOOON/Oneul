@@ -48,12 +48,11 @@ const Remove = ({ onClick, title }: AddType) => (
 
 const Index = ({ children }: React.PropsWithChildren) => <StyledIndex>{children}</StyledIndex>;
 
-type SongInformType = Pick<SearchItemType, "name" | "artists" | "album"> &
-	Partial<Pick<SearchItemType, "external_urls">>;
+type SongInformType = Pick<SearchItemType, "name" | "artists" | "album"> & Partial<Pick<SearchItemType, "uri">>;
 
-const SongInform = ({ album, name, artists, external_urls = { spotify: "" } }: SongInformType) => {
+const SongInform = ({ album, name, artists, uri = { spotify: "" } }: SongInformType) => {
 	return (
-		<SongInfo target={external_urls.spotify ? "_blank" : "_self"} href={external_urls.spotify || ""}>
+		<SongInfo target={uri ? "_blank" : "_self"} href={uri || ""}>
 			<AlbumImage src={album.images[2].url} alt={name} />
 			<SongWrapper>
 				<Title>{name}</Title>

@@ -87,7 +87,7 @@ export default function Main() {
 											album={track.album}
 											artists={track.artists}
 											name={track.name}
-											external_urls={track.external_urls}
+											uri={track.uri}
 										/>
 										<ListItem.AlbumTitle album={track.album} />
 										<ListItem.Duration duration_ms={track.duration_ms} />
