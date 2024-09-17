@@ -13,12 +13,12 @@ export default function Search() {
 	return (
 		<>
 			<Head>
-				<title>Search | Oneul</title>
+				<title>노래 고르기 | Oneul</title>
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
 					<ContentWrapper>
-						<Title>노래 선택하기</Title>
+						<Title>노래 고르기</Title>
 						<Description>
 							즐겨듣는 노래를 담아주세요(최대 {MAX_ITEM_LEN}개).
 							<br />

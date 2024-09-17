@@ -45,7 +45,7 @@ export default function Recommendation() {
 	return (
 		<>
 			<Head>
-				<title>Recommendation | Oneul</title>
+				<title>추천 목록 | Oneul</title>
 			</Head>
 			<PageWrapper>
 				<ContentWrapper>

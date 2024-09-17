@@ -84,7 +84,7 @@ export default function Recent() {
 	return (
 		<>
 			<Head>
-				<title>Recent | Oneul</title>
+				<title>즐겨들은 곡 | Oneul</title>
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
