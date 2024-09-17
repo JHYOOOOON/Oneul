@@ -1,5 +1,6 @@
 // rem
 export const textSize = {
+	xxs: 0.625, // 10px
 	xs: 0.75, // 12px
 	sm: 0.875, // 14px
 	base: 1, // 16px

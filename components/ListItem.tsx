@@ -53,7 +53,7 @@ type SongInformType = Pick<SearchItemType, "name" | "artists" | "album"> &
 
 const SongInform = ({ album, name, artists, external_urls = { spotify: "" } }: SongInformType) => {
 	return (
-		<SongInfo target="_blank" href={external_urls.spotify || "#"}>
+		<SongInfo target={external_urls.spotify ? "_blank" : "_self"} href={external_urls.spotify || ""}>
 			<AlbumImage src={album.images[2].url} alt={name} />
 			<SongWrapper>
 				<Title>{name}</Title>
@@ -170,6 +170,7 @@ const SongInfo = styled(Link)`
 	display: flex;
 	gap: 10px;
 	flex: 1;
+	color: ${({ theme }) => theme.color.black100};
 `;
 
 const SongWrapper = styled.div`
