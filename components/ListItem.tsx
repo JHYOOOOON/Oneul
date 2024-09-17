@@ -50,7 +50,7 @@ const Index = ({ children }: React.PropsWithChildren) => <StyledIndex>{children}
 
 type SongInformType = Pick<SearchItemType, "name" | "artists" | "album"> & Partial<Pick<SearchItemType, "uri">>;
 
-const SongInform = ({ album, name, artists, uri = { spotify: "" } }: SongInformType) => {
+const SongInform = ({ album, name, artists, uri = "" }: SongInformType) => {
 	return (
 		<SongInfo target={uri ? "_blank" : "_self"} href={uri || ""}>
 			<AlbumImage src={album.images[2].url} alt={name} />
