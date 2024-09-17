@@ -12,7 +12,7 @@ export function Header() {
 
 	useEffect(() => {
 		setIsUser(Boolean(getAccessToken()));
-	}, []);
+	}, [pathname]);
 
 	return (
 		<StyledHeader>
