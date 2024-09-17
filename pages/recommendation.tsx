@@ -50,7 +50,7 @@ export default function Recommendation() {
 			<PageWrapper>
 				<ContentWrapper>
 					<TitleWrapper>
-						<Title>추천 결과</Title>
+						<Title>추천 목록</Title>
 						<StyledDescription>당신의 취향에 꼭 맞는 곡을 마주치길 바라요 🍃</StyledDescription>
 					</TitleWrapper>
 					<Wrapper>
