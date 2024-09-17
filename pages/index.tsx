@@ -58,7 +58,7 @@ const Wrapper = styled(PageWrapper)`
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
-	padding: 0 20px;
+	padding: 0 40px;
 	padding-top: min(20%, 70px);
 	box-sizing: border-box;
 	line-height: 1.2;
@@ -118,8 +118,7 @@ const Inform = styled.p`
 `;
 
 const Image = styled.img`
-	max-width: 90%;
-	width: 700px;
+	width: 100%;
 	opacity: 0;
 	animation: 1.2s ease-in 0s ${slideInFromLeft} forwards;
 	margin: 0 auto;
