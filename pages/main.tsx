@@ -116,7 +116,7 @@ const Source = styled.p`
 `;
 
 const Wrapper = styled.div`
-	padding: 20px 10px;
+	padding: 15px 10px;
 	display: flex;
 	justify-content: space-between;
 `;
