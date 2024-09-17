@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Suspense } from "react";
 import styled from "styled-components";
 
-import { Loader, TopButton, Input, Result, Cart } from "@/components";
+import { Loader, Input, Result, Cart } from "@/components";
 import { MAX_ITEM_LEN } from "@/constants";
 import { Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
 import { useValidation } from "@/components/hooks";
@@ -29,7 +29,6 @@ export default function Search() {
 							<Suspense fallback={<Loader position="top" size="parent" />}>
 								<Result />
 								<Cart />
-								<TopButton />
 							</Suspense>
 						</Wrapper>
 					</ContentWrapper>
@@ -50,4 +49,5 @@ const ContentWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	box-sizing: border-box;
 `;
