@@ -98,7 +98,7 @@ export default function Recent() {
 					<ContentWrapper>
 						<TitleWrapper>
 							<Title>즐겨들은 곡</Title>
-							<Description>'이 기간에는 이런 노래들을 많이 들었구나~'하며 돌아볼 수 있어요 🌊</Description>
+							<Description>'이 기간에는 이런 곡을 많이 들었구나~'하며 돌아볼 수 있어요 🌊</Description>
 						</TitleWrapper>
 						<Suspense fallback={<Loader position="top" size="parent" />}>
 							<Wrapper>

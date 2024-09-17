@@ -26,9 +26,9 @@ const Header = ({ children }: PropsWithChildren) => {
 
 const HeaderIndex = () => <StyledIndex>#</StyledIndex>;
 
-const HeaderTitle = () => <SongInfo href="#">곡 정보</SongInfo>;
+const HeaderTitle = () => <SongInfo href="#">제목</SongInfo>;
 
-const HeaderAlbum = () => <StyledAlbumTitle>앨범 제목</StyledAlbumTitle>;
+const HeaderAlbum = () => <StyledAlbumTitle>앨범</StyledAlbumTitle>;
 
 const HeaderDuration = () => <Time>재생 시간</Time>;
 
