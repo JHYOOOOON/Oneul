@@ -31,13 +31,13 @@ export default function Prelisten() {
 }
 
 const ContentWrapper = styled.div`
+	${WrapperPaddingX}
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 `;
 
 const TitleWrapper = styled.div`
-	${WrapperPaddingX}
 	padding-top: 30px;
 	margin-bottom: 10px;
 `;

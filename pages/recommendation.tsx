@@ -94,7 +94,7 @@ const ContentWrapper = styled.div`
 const ListWrapper = styled.div`
 	flex: 1;
 	overflow: auto;
-	padding: 0 10px;
+	${WrapperPaddingX}
 	padding-bottom: 30px;
 	margin-bottom: 20px;
 	&::-webkit-scrollbar {

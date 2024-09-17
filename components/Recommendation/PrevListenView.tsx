@@ -31,5 +31,4 @@ export function PrevListenView({ playlistId }: PrevListenViewProps) {
 
 const Wrapper = styled.div`
 	position: relative;
-	${WrapperPaddingX}
 `;
