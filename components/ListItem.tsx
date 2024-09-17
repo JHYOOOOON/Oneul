@@ -5,6 +5,7 @@ import { RiPlayListAddFill } from "react-icons/ri";
 
 import { SearchItemType } from "@/state";
 import { formatTime } from "@/utils";
+import Link from "next/link";
 
 type ListItemType = {
 	variant?: "rounded" | "simple";
@@ -25,7 +26,7 @@ const Header = ({ children }: PropsWithChildren) => {
 
 const HeaderIndex = () => <StyledIndex>#</StyledIndex>;
 
-const HeaderTitle = () => <SongInfo>곡 정보</SongInfo>;
+const HeaderTitle = () => <SongInfo href="#">곡 정보</SongInfo>;
 
 const HeaderAlbum = () => <StyledAlbumTitle>앨범 제목</StyledAlbumTitle>;
 
@@ -47,11 +48,12 @@ const Remove = ({ onClick, title }: AddType) => (
 
 const Index = ({ children }: React.PropsWithChildren) => <StyledIndex>{children}</StyledIndex>;
 
-type SongInformType = Pick<SearchItemType, "name" | "artists" | "album">;
+type SongInformType = Pick<SearchItemType, "name" | "artists" | "album"> &
+	Partial<Pick<SearchItemType, "external_urls">>;
 
-const SongInform = ({ album, name, artists }: SongInformType) => {
+const SongInform = ({ album, name, artists, external_urls = { spotify: "" } }: SongInformType) => {
 	return (
-		<SongInfo>
+		<SongInfo target="_blank" href={external_urls.spotify || "#"}>
 			<AlbumImage src={album.images[2].url} alt={name} />
 			<SongWrapper>
 				<Title>{name}</Title>
@@ -163,13 +165,15 @@ const AlbumImage = styled.img`
 	object-fit: cover;
 `;
 
-const SongInfo = styled.div`
+const SongInfo = styled(Link)`
+	text-decoration: none;
 	display: flex;
 	gap: 10px;
 	flex: 1;
 `;
 
 const SongWrapper = styled.div`
+	color: ${({ theme }) => theme.color.black100};
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

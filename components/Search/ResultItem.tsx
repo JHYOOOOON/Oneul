@@ -43,6 +43,7 @@ export function ResultItem({ searchResult }: ResultType) {
 					artists={item.artists}
 					album={item.album}
 					duration_ms={item.duration_ms}
+					external_urls={item.external_urls}
 					isMoreSelectAvailable={isMoreSelectAvailable}
 					isExist={isExist}
 				/>

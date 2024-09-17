@@ -7,13 +7,22 @@ import { useToast } from "../hooks";
 import { MAX_ITEM_LEN } from "@/constants";
 import { ListItem } from "../ListItem";
 
-type ResultItemType = Pick<SearchItemType, "id" | "name" | "artists" | "album" | "duration_ms"> & {
+type ResultItemType = Pick<SearchItemType, "id" | "name" | "artists" | "album" | "duration_ms" | "external_urls"> & {
 	index: number;
 	isMoreSelectAvailable: boolean;
 	isExist: (id: string) => boolean;
 };
 
-export function Card({ id, name, artists, album, duration_ms, isMoreSelectAvailable, isExist }: ResultItemType) {
+export function Card({
+	id,
+	name,
+	artists,
+	external_urls,
+	album,
+	duration_ms,
+	isMoreSelectAvailable,
+	isExist,
+}: ResultItemType) {
 	const setCartItem = useSetRecoilState(withCartItems(id));
 	const { addToast } = useToast();
 
@@ -39,7 +48,7 @@ export function Card({ id, name, artists, album, duration_ms, isMoreSelectAvaila
 
 	return (
 		<ListItem>
-			<ListItem.SongInform name={name} album={album} artists={artists} />
+			<ListItem.SongInform name={name} album={album} artists={artists} external_urls={external_urls} />
 			<ListItem.AlbumTitle album={album} />
 			<ListItem.Duration duration_ms={duration_ms} />
 			<ListItem.Add title={`${name} 담기`} onClick={handleSelectItem} />
