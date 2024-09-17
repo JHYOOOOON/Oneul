@@ -4,4 +4,5 @@ export const ROUTES = {
 	RECOMMENDATION: "/recommendation",
 	RECENT: "/recent",
 	MAIN: "/main",
+	PRELISTEN: "/prelisten",
 };

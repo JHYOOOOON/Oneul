@@ -1,6 +1,7 @@
+import { Suspense, useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Suspense, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import cx from "classnames";
@@ -13,7 +14,7 @@ import { Loader, ListItem, Maybe } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
 import { Button, Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
-import { RecommendationType } from "@/state";
+import { RecommendationType, withPlaylistId } from "@/state";
 import { useRecommendation, useSavePlaylist, useToast, useValidation } from "@/components/hooks";
 
 type TIME_RANGE_TYPE = "short_term" | "medium_term" | "long_term";
@@ -29,6 +30,7 @@ export default function Recent() {
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
 	const [isOpen, setIsOpen] = useState(false);
+	const setPlaylistId = useSetRecoilState(withPlaylistId);
 	const { addToast } = useToast();
 	const { save, playlistUrl, setPlaylistUrl } = useSavePlaylist();
 	const songIds = recentList.map((item) => item.id);
@@ -79,6 +81,11 @@ export default function Recent() {
 		} catch (error: any) {
 			addToast("알 수 없는 오류가 발생했습니다.");
 		}
+	};
+
+	const handleRecommendationClick = () => {
+		getRecommendation();
+		setPlaylistId("");
 	};
 
 	return (
@@ -150,7 +157,7 @@ export default function Recent() {
 											</Button>
 										}
 									/>
-									<Button $size="md" $variant="simple" $fullWidth title="추천받기" onClick={() => getRecommendation()}>
+									<Button $size="md" $variant="simple" $fullWidth title="추천받기" onClick={handleRecommendationClick}>
 										<FaRegThumbsUp />
 										추천 받기
 									</Button>

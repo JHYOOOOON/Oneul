@@ -11,7 +11,6 @@ import {
 	DownloadButton,
 	ListView,
 	PrevListenButton,
-	PrevListenView,
 	ViewTypeButton,
 } from "@/components/Recommendation";
 import { withRecommendationItems } from "@/state";
@@ -19,12 +18,13 @@ import { Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
 import { useValidation } from "@/components/hooks";
+import { withPlaylistId } from "@/state";
 
 export default function Recommendation() {
 	const router = useRouter();
 	const [recommendationItems, setRecommendationItems] = useRecoilState(withRecommendationItems);
 	const [viewType, setViewType] = useState<VIEW_TYPE>("list");
-	const [createdPlaylistId, setCreatedPlaylistId] = useState<string>("");
+	const [playlistId, setPlaylistId] = useRecoilState(withPlaylistId);
 	useValidation();
 
 	/**
@@ -41,6 +41,10 @@ export default function Recommendation() {
 			}
 		}
 	}, []);
+
+	const handleCreatedPlaylistId = (id: string) => {
+		setPlaylistId(id);
+	};
 
 	return (
 		<>
@@ -59,21 +63,14 @@ export default function Recommendation() {
 					<ListWrapper>
 						<ListView isActive={viewType === "list"} />
 						<AlbumView isActive={viewType === "album"} />
-						<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
 					</ListWrapper>
 					<ButtonWrapper>
-						{viewType !== "prev-listen" && (
-							<>
-								<DownloadButton />
-								<Maybe
-									test={createdPlaylistId.length === 0}
-									truthy={
-										<CreatePlaylistButton handleCreatedPlaylistId={setCreatedPlaylistId} handleViewType={setViewType} />
-									}
-									falsy={<PrevListenButton handleViewType={setViewType} isActive />}
-								/>
-							</>
-						)}
+						<DownloadButton />
+						<Maybe
+							test={playlistId.length === 0}
+							truthy={<CreatePlaylistButton handleCreatedPlaylistId={handleCreatedPlaylistId} />}
+							falsy={<PrevListenButton />}
+						/>
 					</ButtonWrapper>
 				</ContentWrapper>
 			</PageWrapper>
