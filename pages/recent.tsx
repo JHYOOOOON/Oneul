@@ -12,7 +12,7 @@ import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { Loader, ListItem, Maybe } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
-import { Button, Description, PageWrapper, Title } from "@/styles";
+import { Button, Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
 import { RecommendationType } from "@/state";
 import { useRecommendation, useSavePlaylist, useToast, useValidation } from "@/components/hooks";
 
@@ -84,14 +84,14 @@ export default function Recent() {
 	return (
 		<>
 			<Head>
-				<title>즐겨들은 곡 | Oneul</title>
+				<title>즐겨들은 노래 | Oneul</title>
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
 					<ContentWrapper>
 						<TitleWrapper>
-							<Title>즐겨들은 곡</Title>
-							<Description>'이 기간에는 이런 노래들을 많이 들었구나~'하며 돌아볼 수 있어요</Description>
+							<Title>즐겨들은 노래</Title>
+							<Description>'이 기간에는 이런 노래들을 많이 들었구나~'하며 돌아볼 수 있어요 🌊</Description>
 						</TitleWrapper>
 						<Suspense fallback={<Loader position="top" size="parent" />}>
 							<Wrapper>
@@ -178,12 +178,12 @@ const ContentWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-	padding: 0 10px;
-	padding-top: 15px;
+	${WrapperPaddingX}
+	padding-top: 20px;
 `;
 
 const SelectboxWrapper = styled.div`
-	padding: 0 10px;
+	${WrapperPaddingX}
 	margin-bottom: 10px;
 	display: flex;
 	align-items: center;
@@ -235,23 +235,16 @@ const OptionList = styled.ul`
 `;
 
 const StyledUl = styled.ul`
+	${WrapperPaddingX}
 	margin-bottom: 0;
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 7px;
-	padding: 0 10px;
 	padding-bottom: 30px;
 	&::-webkit-scrollbar {
 		display: none;
 	}
-`;
-
-const Index = styled.p`
-	width: 20px;
-	font-family: "Moirai" !important;
-	font-size: ${({ theme }) => theme.textSize.lg}rem;
-	text-align: center;
 `;
 
 const ButtonWrapper = styled.div`

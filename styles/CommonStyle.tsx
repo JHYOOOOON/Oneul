@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
 
+export const WrapperPaddingX = css`
+	padding-left: 20px;
+	padding-right: 20px;
+`;
+
 export const Title = styled.h1`
 	font-size: ${({ theme }) => theme.textSize.xxxl}rem;
 	font-weight: ${({ theme }) => theme.fontWeight.bold};

@@ -28,10 +28,10 @@ export function Card({
 
 	const handleSelectItem = (event: MouseEvent<HTMLButtonElement>) => {
 		if (isMoreSelectAvailable) {
-			alert(`곡은 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있습니다`);
+			alert(`노래는 최대 ${MAX_ITEM_LEN}개까지만 담을 수 있어요`);
 		}
 		if (isExist(id)) {
-			addToast("이미 담겨있는 곡입니다.");
+			addToast("이미 담겨있는 노래예요");
 			return;
 		}
 
@@ -42,7 +42,7 @@ export function Card({
 			album,
 			duration_ms,
 		});
-		addToast("정상적으로 담겼습니다.");
+		addToast("노래주머니에 쏙! 담겼어요");
 		event.currentTarget.blur();
 	};
 

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { Loader, TopButton, Input, Result, Cart } from "@/components";
 import { MAX_ITEM_LEN } from "@/constants";
-import { Description, PageWrapper, Title } from "@/styles";
+import { Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
 import { useValidation } from "@/components/hooks";
 
 export default function Search() {
@@ -45,7 +45,8 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-	padding: 15px 10px;
+	padding: 30px 0;
+	${WrapperPaddingX}
 	display: flex;
 	flex-direction: column;
 	height: 100%;

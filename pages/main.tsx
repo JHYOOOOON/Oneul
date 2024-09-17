@@ -8,7 +8,7 @@ import { BsMusicNoteBeamed } from "react-icons/bs";
 import { ListItem, Loader } from "@/components";
 import { useValidation } from "@/components/hooks";
 import { ROUTES } from "@/constants";
-import { Button, PageWrapper } from "@/styles";
+import { Button, PageWrapper, WrapperPaddingX } from "@/styles";
 import { removeAccessToken, RestAPI } from "@/lib";
 import { useQuery } from "react-query";
 import { RecommendationType } from "@/state";
@@ -98,6 +98,7 @@ export default function Main() {
 }
 
 const StyledPageWrapper = styled(PageWrapper)`
+	${WrapperPaddingX}
 	padding-top: min(20%, 30px);
 `;
 

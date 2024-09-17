@@ -156,14 +156,14 @@ const StyledSection = styled.div<{ $isOpened: boolean }>`
 			  `}
 `;
 
-const borderAnimation = keyframes`
-	from {
-		border-color: ${Theme.color.primary};
-	}
-	to {
-		border-color: ${Theme.color.primary200};
-	}
-`;
+// const borderAnimation = keyframes`
+// 	from {
+// 		border-color: ${Theme.color.primary};
+// 	}
+// 	to {
+// 		border-color: ${Theme.color.primary200};
+// 	}
+// `;
 
 const StyledButton = styled.button`
 	display: flex;
@@ -175,19 +175,19 @@ const StyledButton = styled.button`
 	padding: 8px 10px;
 	border-radius: 20px 20px 0 0;
 	color: ${({ theme }) => theme.color.black200};
-	border-bottom: 1px solid ${({ theme }) => theme.color.gray400};
 	font-weight: 700;
 	background-color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	transition: all 0.2s;
+	border-bottom: 1px dashed ${({ theme }) => theme.color.primary400};
 	cursor: pointer;
-	&.active {
-		animation: ${borderAnimation} 1.5s ease-in-out infinite;
+	svg,
+	p {
+		color: ${({ theme }) => theme.color.primary};
 	}
 	svg {
 		font-size: ${({ theme }) => theme.textSize.lg}rem;
 		margin-top: -1px;
-		color: ${({ theme }) => theme.color.primary};
 	}
 `;
 

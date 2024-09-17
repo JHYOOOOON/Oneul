@@ -15,7 +15,7 @@ import {
 	ViewTypeButton,
 } from "@/components/Recommendation";
 import { withRecommendationItems } from "@/state";
-import { Description, PageWrapper, Title } from "@/styles";
+import { Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
 import { VIEW_TYPE } from "@/types";
 import { RECOMMENDATIONS_KEY, ROUTES } from "@/constants";
 import { useValidation } from "@/components/hooks";
@@ -106,8 +106,8 @@ const ListWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-	padding: 0 10px;
-	padding-top: 15px;
+	${WrapperPaddingX}
+	padding-top: 20px;
 	margin-bottom: 10px;
 `;
 
