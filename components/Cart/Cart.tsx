@@ -71,7 +71,8 @@ export function Cart() {
 							test={selectedItemIds?.length === 0}
 							truthy={
 								<EmptyWrapper>
-									<p>텅 비었네요</p>
+									<img src="/assets/images/typeB.png" alt="" />
+									<p>텅 비었어요</p>
 								</EmptyWrapper>
 							}
 							falsy={
@@ -156,14 +157,14 @@ const StyledSection = styled.div<{ $isOpened: boolean }>`
 			  `}
 `;
 
-const borderAnimation = keyframes`
-	from {
-		border-color: ${Theme.color.primary};
-	}
-	to {
-		border-color: ${Theme.color.primary200};
-	}
-`;
+// const borderAnimation = keyframes`
+// 	from {
+// 		border-color: ${Theme.color.primary};
+// 	}
+// 	to {
+// 		border-color: ${Theme.color.primary200};
+// 	}
+// `;
 
 const StyledButton = styled.button`
 	display: flex;
@@ -174,20 +175,20 @@ const StyledButton = styled.button`
 	text-align: left;
 	padding: 8px 10px;
 	border-radius: 20px 20px 0 0;
-	color: ${({ theme }) => theme.color.black200};
-	border-bottom: 1px solid ${({ theme }) => theme.color.gray400};
+	color: ${({ theme }) => theme.color.black100};
 	font-weight: 700;
 	background-color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	transition: all 0.2s;
+	border-bottom: 1px dashed ${({ theme }) => theme.color.primary400};
 	cursor: pointer;
-	&.active {
-		animation: ${borderAnimation} 1.5s ease-in-out infinite;
+	svg,
+	p {
+		color: ${({ theme }) => theme.color.primary};
 	}
 	svg {
 		font-size: ${({ theme }) => theme.textSize.lg}rem;
 		margin-top: -1px;
-		color: ${({ theme }) => theme.color.primary};
 	}
 `;
 
@@ -195,7 +196,12 @@ const SelectedItemWrapper = styled.div<{ isOpened: boolean }>`
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	padding-bottom: 40px;
 	overflow: hidden;
+	font-size: ${({ theme }) => theme.textSize.lg}rem;
+	img {
+		max-width: 180px;
+	}
 	${({ isOpened }) =>
 		isOpened
 			? css`
@@ -210,9 +216,10 @@ const SelectedItemWrapper = styled.div<{ isOpened: boolean }>`
 const EmptyWrapper = styled.div`
 	flex: 1;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 250px;
+	gap: 15px;
 `;
 
 const ItemWrapper = styled.ul`

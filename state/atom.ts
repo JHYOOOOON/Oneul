@@ -40,3 +40,8 @@ export const userId = atom<string>({
 	key: "atom/userId",
 	default: "",
 });
+
+export const playlistId = atom<string>({
+	key: "atom/playlistId",
+	default: "",
+});

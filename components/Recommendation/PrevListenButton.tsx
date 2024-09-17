@@ -1,24 +1,15 @@
-import React, { Dispatch, SetStateAction } from "react";
-import cx from "classnames";
+import React from "react";
+import { useRouter } from "next/router";
 import { IoHeadset } from "react-icons/io5";
 
 import { Button } from "@/styles";
-import { VIEW_TYPE } from "@/types";
+import { ROUTES } from "@/constants";
 
-type PrevListenButtonProps = {
-	isActive: boolean;
-	handleViewType: Dispatch<SetStateAction<VIEW_TYPE>>;
-};
+export function PrevListenButton() {
+	const router = useRouter();
 
-export function PrevListenButton({ isActive, handleViewType }: PrevListenButtonProps) {
 	return (
-		<Button
-			$variant="simple"
-			$size="md"
-			$fullWidth
-			className={cx({ active: isActive })}
-			onClick={() => handleViewType("prev-listen")}
-		>
+		<Button $variant="simple" $size="md" $fullWidth onClick={() => router.push(ROUTES.PRELISTEN)}>
 			<IoHeadset />
 			미리 듣기
 		</Button>

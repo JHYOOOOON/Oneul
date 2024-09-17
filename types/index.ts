@@ -1,1 +1,1 @@
-export type VIEW_TYPE = "list" | "album" | "prev-listen";
+export type VIEW_TYPE = "list" | "album";

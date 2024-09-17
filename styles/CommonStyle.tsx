@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
 
+export const WrapperPaddingX = css`
+	padding-left: 20px;
+	padding-right: 20px;
+`;
+
 export const Title = styled.h1`
 	font-size: ${({ theme }) => theme.textSize.xxxl}rem;
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
@@ -105,6 +110,11 @@ export const Button = styled.button<{
 			}
 		}
 	}}
+	&:disabled {
+		background-color: ${({ theme }) => theme.color.gray300};
+		color: ${({ theme }) => theme.color.gray};
+		cursor: not-allowed;
+	}
 `;
 
 export const SimpleButton = css`

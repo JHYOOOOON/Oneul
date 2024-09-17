@@ -1,6 +1,7 @@
+import { Suspense, useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Suspense, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import cx from "classnames";
@@ -12,8 +13,8 @@ import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { Loader, ListItem, Maybe } from "@/components";
 import { RestAPI, removeAccessToken } from "@/lib";
 import { ROUTES } from "@/constants";
-import { Button, Description, PageWrapper, Title } from "@/styles";
-import { RecommendationType } from "@/state";
+import { Button, Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
+import { RecommendationType, withPlaylistId } from "@/state";
 import { useRecommendation, useSavePlaylist, useToast, useValidation } from "@/components/hooks";
 
 type TIME_RANGE_TYPE = "short_term" | "medium_term" | "long_term";
@@ -29,6 +30,7 @@ export default function Recent() {
 	const [recentList, setRecentList] = useState<RecommendationType>([]);
 	const [term, setTerm] = useState<TIME_RANGE_TYPE>("short_term");
 	const [isOpen, setIsOpen] = useState(false);
+	const setPlaylistId = useSetRecoilState(withPlaylistId);
 	const { addToast } = useToast();
 	const { save, playlistUrl, setPlaylistUrl } = useSavePlaylist();
 	const songIds = recentList.map((item) => item.id);
@@ -81,17 +83,22 @@ export default function Recent() {
 		}
 	};
 
+	const handleRecommendationClick = () => {
+		getRecommendation();
+		setPlaylistId("");
+	};
+
 	return (
 		<>
 			<Head>
-				<title>Recent | Oneul</title>
+				<title>즐겨들은 곡 | Oneul</title>
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
 					<ContentWrapper>
 						<TitleWrapper>
 							<Title>즐겨들은 곡</Title>
-							<Description>'이 기간에는 이런 노래들을 많이 들었구나~'하며 돌아볼 수 있어요</Description>
+							<Description>'이 기간에는 이런 노래들을 많이 들었구나~'하며 돌아볼 수 있어요 🌊</Description>
 						</TitleWrapper>
 						<Suspense fallback={<Loader position="top" size="parent" />}>
 							<Wrapper>
@@ -150,7 +157,7 @@ export default function Recent() {
 											</Button>
 										}
 									/>
-									<Button $size="md" $variant="simple" $fullWidth title="추천받기" onClick={() => getRecommendation()}>
+									<Button $size="md" $variant="simple" $fullWidth title="추천받기" onClick={handleRecommendationClick}>
 										<FaRegThumbsUp />
 										추천 받기
 									</Button>
@@ -178,12 +185,12 @@ const ContentWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-	padding: 0 10px;
-	padding-top: 15px;
+	${WrapperPaddingX}
+	padding-top: 20px;
 `;
 
 const SelectboxWrapper = styled.div`
-	padding: 0 10px;
+	${WrapperPaddingX}
 	margin-bottom: 10px;
 	display: flex;
 	align-items: center;
@@ -235,23 +242,16 @@ const OptionList = styled.ul`
 `;
 
 const StyledUl = styled.ul`
+	${WrapperPaddingX}
 	margin-bottom: 0;
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 7px;
-	padding: 0 10px;
 	padding-bottom: 30px;
 	&::-webkit-scrollbar {
 		display: none;
 	}
-`;
-
-const Index = styled.p`
-	width: 20px;
-	font-family: "Moirai" !important;
-	font-size: ${({ theme }) => theme.textSize.lg}rem;
-	text-align: center;
 `;
 
 const ButtonWrapper = styled.div`

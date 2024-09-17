@@ -2,9 +2,9 @@ import Head from "next/head";
 import { Suspense } from "react";
 import styled from "styled-components";
 
-import { Loader, TopButton, Input, Result, Cart } from "@/components";
+import { Loader, Input, Result, Cart } from "@/components";
 import { MAX_ITEM_LEN } from "@/constants";
-import { Description, PageWrapper, Title } from "@/styles";
+import { Description, PageWrapper, Title, WrapperPaddingX } from "@/styles";
 import { useValidation } from "@/components/hooks";
 
 export default function Search() {
@@ -13,12 +13,12 @@ export default function Search() {
 	return (
 		<>
 			<Head>
-				<title>Search | Oneul</title>
+				<title>곡 고르기 | Oneul</title>
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
 					<ContentWrapper>
-						<Title>노래 선택하기</Title>
+						<Title>곡 고르기</Title>
 						<Description>
 							즐겨듣는 노래를 담아주세요(최대 {MAX_ITEM_LEN}개).
 							<br />
@@ -29,7 +29,6 @@ export default function Search() {
 							<Suspense fallback={<Loader position="top" size="parent" />}>
 								<Result />
 								<Cart />
-								<TopButton />
 							</Suspense>
 						</Wrapper>
 					</ContentWrapper>
@@ -45,8 +44,10 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-	padding: 15px 10px;
+	padding: 30px 0;
+	${WrapperPaddingX}
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	box-sizing: border-box;
 `;
