@@ -62,13 +62,23 @@ export default function Main() {
 						</div>
 					</Wrapper>
 					<TopTrack>
-						<Title>많이 들은 곡</Title>
-						<Description>
-							최근에 많이 들은 곡을 확인하고,
-							<br />
-							이를 바탕으로 추천 곡을 받아볼 수 있어요
-						</Description>
-						<Inform>※ 예시는 최근 1개월 기준 Top 3</Inform>
+						<TitleWrapper>
+							<div>
+								<Title>많이 들은 곡</Title>
+								<Description>
+									최근에 많이 들은 곡을 확인하고,
+									<br />
+									이를 바탕으로 추천 곡을 받아볼 수 있어요
+								</Description>
+								<Inform>※ 예시는 최근 1개월 기준 Top 3</Inform>
+							</div>
+							<div>
+								<StyledButton onClick={() => router.push(ROUTES.RECENT)}>
+									<BsMusicNoteBeamed />
+									전체보기
+								</StyledButton>
+							</div>
+						</TitleWrapper>
 						<List>
 							{topTracks &&
 								topTracks.map((track, index) => (
@@ -86,10 +96,6 @@ export default function Main() {
 								))}
 							{/* <Gradation /> */}
 						</List>
-						<StyledButton onClick={() => router.push(ROUTES.RECENT)}>
-							<BsMusicNoteBeamed />
-							전체보기
-						</StyledButton>
 					</TopTrack>
 				</StyledPageWrapper>
 			</Suspense>
@@ -130,11 +136,21 @@ const TopTrack = styled(Wrapper)`
 	}
 `;
 
+const TitleWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+`;
+
 const Title = styled.h2`
 	font-size: ${({ theme }) => theme.textSize.xxxl}rem;
 	font-weight: 700;
 	color: ${({ theme }) => theme.color.black100};
-	margin-bottom: 6px;
+	margin-bottom: 8px;
 	justify-content: center;
 `;
 
