@@ -38,7 +38,7 @@ const ContentWrapper = styled.div`
 
 const TitleWrapper = styled.div`
 	${WrapperPaddingX}
-	padding-top: 20px;
+	padding-top: 30px;
 	margin-bottom: 10px;
 `;
 

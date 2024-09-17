@@ -181,7 +181,7 @@ const ContentWrapper = styled.div`
 
 const TitleWrapper = styled.div`
 	${WrapperPaddingX}
-	padding-top: 20px;
+	padding-top: 30px;
 `;
 
 const SelectboxWrapper = styled.div`
