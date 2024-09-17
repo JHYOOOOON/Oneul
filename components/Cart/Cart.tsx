@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useRecoilValue } from "recoil";
-import { PiMusicNoteSimpleFill } from "react-icons/pi";
+import { PiPlaylist } from "react-icons/pi";
 import cx from "classnames";
 
 import { ListItem, Maybe } from "@/components";
@@ -61,47 +61,49 @@ export function Cart() {
 					className={cx({ active: selectedItemIds.length > 0 })}
 					onClick={() => setIsOpened((prevValue) => !prevValue)}
 				>
-					<PiMusicNoteSimpleFill />
+					<PiPlaylist />
 					노래주머니
 					<Maybe test={selectedItemIds.length > 0} truthy={<p>{selectedItemIds.length}</p>} falsy={null} />
 				</StyledButton>
-				<SelectedItemWrapper isOpened={isOpened}>
-					<Maybe
-						test={selectedItemIds?.length === 0}
-						truthy={
-							<EmptyWrapper>
-								<p>텅 비었네요</p>
-							</EmptyWrapper>
-						}
-						falsy={
-							<>
-								<ListItem.Header>
-									<ListItem.HeaderIndex />
-									<ListItem.HeaderTitle />
-									<ListItem.HeaderButton />
-								</ListItem.Header>
-								<ItemWrapper>
-									{selectedItemIds?.map((id, index) => (
-										<CartItem
-											key={`selectedItem_${id}`}
-											id={id}
-											index={index + 1}
-											isDeleteView={isDeletePickView}
-											isDeletePick={pickedDeleteItems.includes(id)}
-											handleSaveDeleteItem={handleSaveDeleteItem}
-										/>
-									))}
-								</ItemWrapper>
-								<NormalViewButtons
-									selectedItemIds={selectedItemIds}
-									setIsDeletePickView={setIsDeletePickView}
-									setCartOpened={setIsOpened}
-									isSelectedMax={isSelectedMax}
-								/>
-							</>
-						}
-					/>
-				</SelectedItemWrapper>
+				{isOpened && (
+					<SelectedItemWrapper isOpened={isOpened}>
+						<Maybe
+							test={selectedItemIds?.length === 0}
+							truthy={
+								<EmptyWrapper>
+									<p>텅 비었네요</p>
+								</EmptyWrapper>
+							}
+							falsy={
+								<>
+									<ListItem.Header>
+										<ListItem.HeaderIndex />
+										<ListItem.HeaderTitle />
+										<ListItem.HeaderButton />
+									</ListItem.Header>
+									<ItemWrapper>
+										{selectedItemIds?.map((id, index) => (
+											<CartItem
+												key={`selectedItem_${id}`}
+												id={id}
+												index={index + 1}
+												isDeleteView={isDeletePickView}
+												isDeletePick={pickedDeleteItems.includes(id)}
+												handleSaveDeleteItem={handleSaveDeleteItem}
+											/>
+										))}
+									</ItemWrapper>
+								</>
+							}
+						/>
+					</SelectedItemWrapper>
+				)}
+				<NormalViewButtons
+					selectedItemIds={selectedItemIds}
+					setIsDeletePickView={setIsDeletePickView}
+					setCartOpened={setIsOpened}
+					isSelectedMax={isSelectedMax}
+				/>
 			</StyledSection>
 		</>
 	);
@@ -147,9 +149,9 @@ const StyledSection = styled.div<{ $isOpened: boolean }>`
 					max-height: 330px;
 			  `
 			: css`
-					max-height: 34px;
+					max-height: calc(34px + 40px);
 					${({ theme }) => theme.mediaQuery.mobile} {
-						max-height: 29.5px;
+						max-height: calc(29.5px + 40px);
 					}
 			  `}
 `;
@@ -172,22 +174,20 @@ const StyledButton = styled.button`
 	text-align: left;
 	padding: 8px 10px;
 	border-radius: 20px 20px 0 0;
-	background-color: ${({ theme }) => theme.color.primary400};
+	color: ${({ theme }) => theme.color.black200};
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray400};
+	font-weight: 700;
+	background-color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
 	transition: all 0.2s;
 	cursor: pointer;
-	&:hover {
-		background-color: ${({ theme }) => theme.color.primary300};
-	}
 	&.active {
 		animation: ${borderAnimation} 1.5s ease-in-out infinite;
 	}
 	svg {
 		font-size: ${({ theme }) => theme.textSize.lg}rem;
-	}
-	p {
+		margin-top: -1px;
 		color: ${({ theme }) => theme.color.primary};
-		font-weight: 700;
 	}
 `;
 

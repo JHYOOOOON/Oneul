@@ -95,9 +95,11 @@ export const Button = styled.button<{
 			default: {
 				return css`
 					padding: 7px 10px;
+					padding-right: 13px;
 					font-size: ${({ theme }) => theme.textSize.sm}rem;
 					${({ theme }) => theme.mediaQuery.mobile} {
 						padding: 5px 7px;
+						padding-right: 10px;
 					}
 				`;
 			}

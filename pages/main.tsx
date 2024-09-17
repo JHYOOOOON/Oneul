@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { BsCart } from "react-icons/bs";
-import { IoBarChart } from "react-icons/io5";
+import { BsMusicNoteBeamed } from "react-icons/bs";
 
 import { ListItem, Loader } from "@/components";
 import { useValidation } from "@/components/hooks";
@@ -62,23 +62,13 @@ export default function Main() {
 						</div>
 					</Wrapper>
 					<TopTrack>
-						<TitleWrapper>
-							<div>
-								<Title>많이 들은 곡</Title>
-								<Description>
-									최근에 많이 들은 곡을 확인하고,
-									<br />
-									이를 바탕으로 추천 곡을 받아볼 수 있어요
-								</Description>
-								<Inform>※ 예시는 최근 1개월 기준 Top 3</Inform>
-							</div>
-							<div>
-								<StyledButton onClick={() => router.push(ROUTES.RECENT)}>
-									<IoBarChart />
-									전체보기
-								</StyledButton>
-							</div>
-						</TitleWrapper>
+						<Title>많이 들은 곡</Title>
+						<Description>
+							최근에 많이 들은 곡을 확인하고,
+							<br />
+							이를 바탕으로 추천 곡을 받아볼 수 있어요
+						</Description>
+						<Inform>※ 예시는 최근 1개월 기준 Top 3</Inform>
 						<List>
 							{topTracks &&
 								topTracks.map((track, index) => (
@@ -96,6 +86,10 @@ export default function Main() {
 								))}
 							{/* <Gradation /> */}
 						</List>
+						<StyledButton onClick={() => router.push(ROUTES.RECENT)}>
+							<BsMusicNoteBeamed />
+							전체보기
+						</StyledButton>
 					</TopTrack>
 				</StyledPageWrapper>
 			</Suspense>
@@ -104,10 +98,11 @@ export default function Main() {
 }
 
 const StyledPageWrapper = styled(PageWrapper)`
-	padding-top: min(20%, 50px);
+	padding-top: min(20%, 30px);
 `;
 
 const StyledButton = styled(Button)`
+	width: fit-content;
 	margin-top: 15px;
 	border-radius: 30px;
 `;
@@ -128,14 +123,9 @@ const Wrapper = styled.div`
 const TopTrack = styled(Wrapper)`
 	flex-direction: column;
 	gap: 5px;
-`;
-
-const TitleWrapper = styled.div`
-	display: flex;
-	justify-content: space-between;
-	> div:last-child {
-		display: flex;
-		align-items: end;
+	button {
+		margin: 0 auto;
+		margin-top: 10px;
 	}
 `;
 

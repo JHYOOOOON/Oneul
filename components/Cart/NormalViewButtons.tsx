@@ -28,6 +28,7 @@ export function NormalViewButtons({ selectedItemIds, isSelectedMax }: INormalVie
 				title="추천받기"
 				onClick={handleRecommendation}
 				className={cx({ active: isSelectedMax })}
+				disabled={selectedItemIds.length === 0}
 			>
 				<FaRegThumbsUp />
 				<div>
@@ -39,6 +40,10 @@ export function NormalViewButtons({ selectedItemIds, isSelectedMax }: INormalVie
 }
 
 const Wrapper = styled.div`
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 	display: flex;
 	min-height: 40px;
 	div {
