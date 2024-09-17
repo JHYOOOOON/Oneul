@@ -162,6 +162,7 @@ const AlbumImage = styled.img`
 	width: 45px;
 	height: 45px;
 	object-fit: cover;
+	border-radius: 4px;
 `;
 
 const SongInfo = styled(Link)`
