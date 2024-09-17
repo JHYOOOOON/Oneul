@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 100vh;
+	height: 100dvh;
 	background-color: #f5f5f7;
 
 	.content {
