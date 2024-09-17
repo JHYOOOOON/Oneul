@@ -71,7 +71,8 @@ export function Cart() {
 							test={selectedItemIds?.length === 0}
 							truthy={
 								<EmptyWrapper>
-									<p>텅 비었네요</p>
+									<img src="/assets/images/typeB.png" alt="" />
+									<p>텅 비었어요</p>
 								</EmptyWrapper>
 							}
 							falsy={
@@ -174,7 +175,7 @@ const StyledButton = styled.button`
 	text-align: left;
 	padding: 8px 10px;
 	border-radius: 20px 20px 0 0;
-	color: ${({ theme }) => theme.color.black200};
+	color: ${({ theme }) => theme.color.black100};
 	font-weight: 700;
 	background-color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.textSize.sm}rem;
@@ -195,7 +196,12 @@ const SelectedItemWrapper = styled.div<{ isOpened: boolean }>`
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	padding-bottom: 40px;
 	overflow: hidden;
+	font-size: ${({ theme }) => theme.textSize.lg}rem;
+	img {
+		max-width: 180px;
+	}
 	${({ isOpened }) =>
 		isOpened
 			? css`
@@ -210,9 +216,10 @@ const SelectedItemWrapper = styled.div<{ isOpened: boolean }>`
 const EmptyWrapper = styled.div`
 	flex: 1;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 250px;
+	gap: 15px;
 `;
 
 const ItemWrapper = styled.ul`
