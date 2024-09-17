@@ -84,13 +84,13 @@ export default function Recent() {
 	return (
 		<>
 			<Head>
-				<title>즐겨들은 노래 | Oneul</title>
+				<title>즐겨들은 곡 | Oneul</title>
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
 					<ContentWrapper>
 						<TitleWrapper>
-							<Title>즐겨들은 노래</Title>
+							<Title>즐겨들은 곡</Title>
 							<Description>'이 기간에는 이런 노래들을 많이 들었구나~'하며 돌아볼 수 있어요 🌊</Description>
 						</TitleWrapper>
 						<Suspense fallback={<Loader position="top" size="parent" />}>

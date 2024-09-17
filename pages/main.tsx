@@ -50,8 +50,7 @@ export default function Main() {
 							<Title>추천 곡 찾기</Title>
 							<Description>좋아하는 곡을 기반으로 추천 곡을 받아볼 수 있어요</Description>
 							<StyledButton onClick={() => router.push(ROUTES.SEARCH)}>
-								<BsCart />
-								노래 담으러 가기
+								<BsCart />곡 담으러 가기
 							</StyledButton>
 						</div>
 						<div>
