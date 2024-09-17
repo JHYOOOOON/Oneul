@@ -1,14 +1,19 @@
 import styled from "styled-components";
 import { LogoutButton } from "./LogoutButton";
 import Link from "next/link";
+import { getAccessToken } from "@/lib";
+import { useRouter } from "next/router";
 
 export function Header() {
+	const { pathname } = useRouter();
+	const isUser = Boolean(getAccessToken());
+
 	return (
 		<StyledHeader>
-			<Link href="/main">
+			<Link href={pathname === "/" ? "/" : "/main"}>
 				<Logo src="/assets/images/logo.png" />
 			</Link>
-			<LogoutButton />
+			{isUser ? <LogoutButton /> : null}
 		</StyledHeader>
 	);
 }

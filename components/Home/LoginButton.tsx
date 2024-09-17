@@ -29,4 +29,10 @@ const SpotifyLoginButton = styled.button`
 	&:focus {
 		background-color: ${({ theme }) => theme.color.green100};
 	}
+	${({ theme }) => theme.mediaQuery.mobile} {
+		padding: 5px 7px;
+		padding-right: 13px;
+		border-radius: 40px;
+		gap: 4px;
+	}
 `;

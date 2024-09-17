@@ -5,14 +5,12 @@ import styled, { ThemeProvider } from "styled-components";
 
 import { GlobalStyle, Theme } from "@/styles";
 import { ToastConatiner } from "@/components";
-import "/public/assets/fonts/font.css";
 import { Header } from "@/components/Header";
-import { useRouter } from "next/router";
+import "/public/assets/fonts/font.css";
 
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
-	const router = useRouter();
 	return (
 		<RecoilRoot>
 			<GlobalStyle />
@@ -20,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<QueryClientProvider client={queryClient}>
 					<Wrapper>
 						<div className="content">
-							{router.pathname !== "/" && <Header />}
+							<Header />
 							<Component {...pageProps} />
 							<ToastConatiner />
 						</div>
