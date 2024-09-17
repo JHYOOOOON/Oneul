@@ -200,7 +200,7 @@ const SelectedItemWrapper = styled.div<{ isOpened: boolean }>`
 	overflow: hidden;
 	font-size: ${({ theme }) => theme.textSize.lg}rem;
 	img {
-		max-width: 180px;
+		max-width: 150px;
 	}
 	${({ isOpened }) =>
 		isOpened
