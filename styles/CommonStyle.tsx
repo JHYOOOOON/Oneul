@@ -110,6 +110,11 @@ export const Button = styled.button<{
 			}
 		}
 	}}
+	&:disabled {
+		background-color: ${({ theme }) => theme.color.gray300};
+		color: ${({ theme }) => theme.color.gray};
+		cursor: not-allowed;
+	}
 `;
 
 export const SimpleButton = css`
