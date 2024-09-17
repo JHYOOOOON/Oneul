@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { MAX_ITEM_LEN } from "@/constants";
-import { withCartItemIds, SearchResultsType } from "@/state";
+import { withCartItemIds, SearchResultsType, withCartItems } from "@/state";
 import { useSearch } from "@/components/Search/hooks";
 import { Card } from "@/components/Search";
+import { ListItem } from "../ListItem";
 
 type ResultType = {
 	searchResult: SearchResultsType;
@@ -42,6 +43,7 @@ export function ResultItem({ searchResult }: ResultType) {
 					artists={item.artists}
 					album={item.album}
 					duration_ms={item.duration_ms}
+					external_urls={item.external_urls}
 					isMoreSelectAvailable={isMoreSelectAvailable}
 					isExist={isExist}
 				/>
@@ -52,12 +54,10 @@ export function ResultItem({ searchResult }: ResultType) {
 }
 
 const StyledUl = styled.ul`
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-	row-gap: 25px;
-	column-gap: 20px;
-	overflow: hidden;
-	${({ theme }) => theme.mediaQuery.mobile} {
-		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+	flex: 1;
+	overflow: auto;
+	margin-bottom: 70px;
+	&::-webkit-scrollbar {
+		display: none;
 	}
 `;

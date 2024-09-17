@@ -53,6 +53,9 @@ const SearchTitle = styled.h2`
 `;
 
 const Wrapper = styled.div`
-	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	min-height: 500px;
+	overflow: hidden;
 `;

@@ -24,8 +24,5 @@ export function LogoutButton() {
 }
 
 const StyledButton = styled.button`
-	position: absolute;
-	top: 0.6rem;
-	right: 1rem;
 	${SimpleButton}
 `;

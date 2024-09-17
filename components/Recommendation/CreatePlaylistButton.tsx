@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { RiPlayListFill } from "react-icons/ri";
 import { useRecoilValue } from "recoil";
 
 import { useSavePlaylist } from "@/components/hooks";
@@ -24,5 +25,10 @@ export function CreatePlaylistButton({ handleCreatedPlaylistId, handleViewType }
 		await save("ᕷ₊· 𝑶𝒏𝒆𝒖𝒍 ◡̎ ·₊ᕷ", uris, callback);
 	};
 
-	return <Button onClick={savePlaylist}>플레이리스트 저장</Button>;
+	return (
+		<Button $variant="simple" $size="md" $fullWidth onClick={savePlaylist}>
+			<RiPlayListFill />
+			플리 저장
+		</Button>
+	);
 }

@@ -21,3 +21,10 @@
 	src: local("Pretendard-Black"), url("./woff2/Pretendard-Black.woff2") format("woff2"),
 		url("./woff/Pretendard-Black.woff") format("woff");
 }
+
+@font-face {
+	font-family: "Moirai";
+	font-display: swap;
+	src: local("MoiraiOne-Regular"), url("./woff2/MoiraiOne-Regular.woff2") format("woff2"),
+		url("./woff/MoiraiOne-Regular.woff") format("woff");
+}

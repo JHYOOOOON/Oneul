@@ -1,4 +1,5 @@
 import html2canvas from "html2canvas";
+import { LuDownload } from "react-icons/lu";
 
 import { Button } from "@/styles";
 import { useToast } from "../hooks";
@@ -30,5 +31,10 @@ export function DownloadButton() {
 		downloadImage(url);
 	};
 
-	return <Button onClick={handleSaveList}>이미지로 저장</Button>;
+	return (
+		<Button $size="md" $variant="empty" $fullWidth onClick={handleSaveList}>
+			<LuDownload />
+			이미지 저장
+		</Button>
+	);
 }

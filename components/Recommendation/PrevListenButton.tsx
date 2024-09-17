@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import cx from "classnames";
+import { IoHeadset } from "react-icons/io5";
 
 import { Button } from "@/styles";
 import { VIEW_TYPE } from "@/types";
@@ -11,7 +12,14 @@ type PrevListenButtonProps = {
 
 export function PrevListenButton({ isActive, handleViewType }: PrevListenButtonProps) {
 	return (
-		<Button className={cx({ active: isActive })} onClick={() => handleViewType("prev-listen")}>
+		<Button
+			$variant="simple"
+			$size="md"
+			$fullWidth
+			className={cx({ active: isActive })}
+			onClick={() => handleViewType("prev-listen")}
+		>
+			<IoHeadset />
 			미리 듣기
 		</Button>
 	);

@@ -4,7 +4,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { Loader, Tooltip } from "@/components";
-import { LogoutButton } from "@/components";
 import { useValidation } from "@/components/hooks";
 import { ROUTES } from "@/constants";
 import { Button, PageWrapper } from "@/styles";
@@ -20,7 +19,6 @@ export default function Main() {
 			</Head>
 			<Suspense fallback={<Loader position="center" size="full" />}>
 				<PageWrapper>
-					<LogoutButton />
 					<Wrapper>
 						<Tooltip contents={<p>평소 즐겨듣는 곡을 담은 후, 해당 목록으로 추천곡을 받아볼 수 있습니다.</p>}>
 							<StyledButton onClick={() => router.push(ROUTES.SEARCH)}>추천곡 찾기</StyledButton>

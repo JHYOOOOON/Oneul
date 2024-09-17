@@ -1,7 +1,6 @@
 import { IoAlbumsOutline } from "react-icons/io5";
 import { RiListUnordered } from "react-icons/ri";
 import styled from "styled-components";
-import cx from "classnames";
 
 import { VIEW_TYPE } from "@/types";
 
@@ -12,49 +11,37 @@ type ViewTypeButton = {
 
 export function ViewTypeButton({ viewType, handleViewType }: ViewTypeButton) {
 	return (
-		<Wrapper>
-			<StyledButton className={cx({ active: viewType === "list" })} onClick={() => handleViewType("list")}>
-				<RiListUnordered />
-				<Title>리스트</Title>
-			</StyledButton>
-			<StyledButton className={cx({ active: viewType === "album" })} onClick={() => handleViewType("album")}>
-				<IoAlbumsOutline />
-				<Title>앨범</Title>
-			</StyledButton>
-		</Wrapper>
+		<>
+			{viewType === "album" ? (
+				<StyledButton title="목록으로 보기" onClick={() => handleViewType("list")}>
+					<RiListUnordered />
+				</StyledButton>
+			) : (
+				<StyledButton title="앨범사진으로 보기" onClick={() => handleViewType("album")}>
+					<IoAlbumsOutline />
+				</StyledButton>
+			)}
+		</>
 	);
 }
 
-const Wrapper = styled.div`
-	display: flex;
-	border-radius: 5px;
-	overflow: hidden;
-`;
-
 const StyledButton = styled.button`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 3px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
 	font-family: inherit;
-	font-size: ${({ theme }) => theme.textSize.sm}rem;
-	padding: 7px 10px;
+	font-size: ${({ theme }) => theme.textSize.xl}rem;
 	border: none;
-	cursor: pointer;
-	&.active,
-	&:hover {
-		color: ${({ theme }) => theme.color.white};
-	}
-	&.active {
-		background-color: ${({ theme }) => theme.color.primary100};
-	}
+	color: ${({ theme }) => theme.color.white};
+	background-color: ${({ theme }) => theme.color.primary200};
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	transition: background 0.1s;
 	&:hover {
 		background-color: ${({ theme }) => theme.color.primary};
 	}
-`;
-
-const Title = styled.p`
+	cursor: pointer;
 	${({ theme }) => theme.mediaQuery.mobile} {
-		display: none;
+		width: 38px;
+		height: 38px;
 	}
 `;

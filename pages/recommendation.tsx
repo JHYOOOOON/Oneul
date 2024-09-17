@@ -4,10 +4,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-import { LogoutButton, Maybe } from "@/components";
+import { Maybe } from "@/components";
 import {
 	AlbumView,
-	BackButton,
 	CreatePlaylistButton,
 	DownloadButton,
 	ListView,
@@ -49,42 +48,67 @@ export default function Recommendation() {
 				<title>Recommendation | Oneul</title>
 			</Head>
 			<PageWrapper>
-				<BackButton />
-				<LogoutButton />
-				<TitleWrapper>
-					<Title>추천곡 리스트</Title>
-					<StyledDescription>담은 곡들을 바탕으로 추천드리는 곡 목록입니다.</StyledDescription>
-				</TitleWrapper>
-				<Wrapper>
-					<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
+				<ContentWrapper>
+					<TitleWrapper>
+						<Title>추천 결과</Title>
+						<StyledDescription>당신의 취향에 꼭 맞는 곡을 마주치길 바라요 🍃</StyledDescription>
+					</TitleWrapper>
+					<Wrapper>
+						<ViewTypeButton viewType={viewType} handleViewType={setViewType} />
+					</Wrapper>
+					<ListWrapper>
+						<ListView isActive={viewType === "list"} />
+						<AlbumView isActive={viewType === "album"} />
+						<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
+					</ListWrapper>
 					<ButtonWrapper>
-						<Maybe
-							test={createdPlaylistId.length === 0}
-							truthy={
-								<CreatePlaylistButton handleCreatedPlaylistId={setCreatedPlaylistId} handleViewType={setViewType} />
-							}
-							falsy={<PrevListenButton handleViewType={setViewType} isActive={viewType === "prev-listen"} />}
-						/>
-						{viewType !== "prev-listen" && <DownloadButton />}
+						{viewType !== "prev-listen" && (
+							<>
+								<DownloadButton />
+								<Maybe
+									test={createdPlaylistId.length === 0}
+									truthy={
+										<CreatePlaylistButton handleCreatedPlaylistId={setCreatedPlaylistId} handleViewType={setViewType} />
+									}
+									falsy={<PrevListenButton handleViewType={setViewType} isActive />}
+								/>
+							</>
+						)}
 					</ButtonWrapper>
-				</Wrapper>
-				<ListView isActive={viewType === "list"} />
-				<AlbumView isActive={viewType === "album"} />
-				<PrevListenView isActive={viewType === "prev-listen"} playlistId={createdPlaylistId} />
+				</ContentWrapper>
 			</PageWrapper>
 		</>
 	);
 }
 
 const Wrapper = styled.div`
+	position: absolute;
+	bottom: 60px;
+	right: 20px;
+	z-index: 1;
+`;
+
+const ContentWrapper = styled.div`
 	display: flex;
-	justify-content: space-between;
-	margin-top: 15px;
-	margin-bottom: 10px;
+	flex-direction: column;
+	height: 100%;
+`;
+
+const ListWrapper = styled.div`
+	flex: 1;
+	overflow: auto;
+	padding: 0 10px;
+	padding-bottom: 30px;
+	margin-bottom: 20px;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const TitleWrapper = styled.div`
-	position: relative;
+	padding: 0 10px;
+	padding-top: 15px;
+	margin-bottom: 10px;
 `;
 
 const StyledDescription = styled(Description)`
@@ -92,6 +116,7 @@ const StyledDescription = styled(Description)`
 `;
 
 const ButtonWrapper = styled.div`
+	width: 100%;
 	display: flex;
-	gap: 5px;
+	background-color: ${({ theme }) => theme.color.primary400};
 `;
