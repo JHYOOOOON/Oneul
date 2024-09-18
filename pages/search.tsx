@@ -26,7 +26,7 @@ export default function Search() {
 						</Description>
 						<Input />
 						<Wrapper>
-							<Suspense fallback={<Loader position="top" size="parent" />}>
+							<Suspense fallback={<Loader position="center" size="full" />}>
 								<Result />
 								<Cart />
 							</Suspense>

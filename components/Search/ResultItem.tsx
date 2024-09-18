@@ -14,6 +14,7 @@ type ResultType = {
 export function ResultItem({ searchResult }: ResultType) {
 	const cartItemIds = useRecoilValue(withCartItemIds);
 	const observeTargetRef = useRef<HTMLLIElement | null>(null);
+	const scrollRef = useRef<HTMLUListElement | null>(null);
 	const { fetchNextPage, searchValue, isFetchingNextPage } = useSearch();
 	const isMoreSelectAvailable = useMemo(() => cartItemIds.length === MAX_ITEM_LEN, [cartItemIds]);
 
@@ -26,13 +27,17 @@ export function ResultItem({ searchResult }: ResultType) {
 			}
 		});
 		io.observe(observeTargetRef.current);
+
+		if (!scrollRef.current) return;
+		scrollRef.current.scrollTop = 0;
+
 		return () => io.disconnect();
 	}, [searchValue]);
 
 	const isExist = useCallback((id: string) => cartItemIds.includes(id), [cartItemIds]);
 
 	return (
-		<StyledUl>
+		<StyledUl ref={scrollRef}>
 			{searchResult?.map((item, index) => (
 				<ResultList
 					key={`searchResult_${index}`}
