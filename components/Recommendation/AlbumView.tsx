@@ -31,7 +31,8 @@ export function AlbumView({ isActive }: AlbumViewProps) {
 
 const AlbumUl = styled.ul`
 	display: grid;
-	grid-template-columns: repeat(8, 1fr); /* 5개의 열 */
+	grid-template-columns: repeat(8, 1fr);
+	grid-template-rows: auto 1fr;
 	overflow: hidden;
 	background-color: ${({ theme }) => theme.color.primary400};
 `;
