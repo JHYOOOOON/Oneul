@@ -29,6 +29,23 @@ export default function Home() {
 		<>
 			<Head>
 				<title>로그인 | Oneul</title>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<meta
+					name="description"
+					content="내가 좋아하는 음악을 기반으로 새로운 음악을 추천받아보세요. 스포티파이에서 많이 들은 곡으로도 추천 받을 수 있어요."
+				/>
+				<meta
+					name="keywords"
+					content="노래 추천, 음악 추천, 스포티파이, Spotify, 오늘, 취향 노래 추천, 많이 들은 곡, 좋아하는 아티스트"
+				/>
+				<meta property="og:url" content="https://oneul.vercel.app" />
+				<meta property="og:site_name" content="오늘" />
+				<meta
+					property="og:description"
+					content="내가 좋아하는 음악을 기반으로 새로운 음악을 추천받아보세요. 스포티파이에서 많이 들은 곡으로도 추천 받을 수 있어요."
+				/>
+				<meta property="og:title" content="오늘 | Oneul" />
+				<meta property="og:image" content="https://oneul.vercel.app/assets/images/logo.png" />
 			</Head>
 			<Wrapper>
 				<Image src="/assets/images/band.jpg" alt="" />
