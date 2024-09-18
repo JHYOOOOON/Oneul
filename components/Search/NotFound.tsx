@@ -6,9 +6,12 @@ export function NotFound() {
 			<ImageWrapper>
 				<img src="/assets/images/typeA.png" alt="green note character on the cloud" />
 				<Description>
-					검색 결과가 없습니다.
-					<br />
-					다른 검색어를 입력하시거나, 검색어에 오탈자가 없는지 확인해보세요.
+					<p>검색 결과가 없어요.</p>
+					<p>
+						다른 검색어를 입력하시거나,
+						<br />
+						검색어에 오탈자가 없는지 확인해보세요.
+					</p>
 				</Description>
 				<img src="/assets/images/typeB.png" alt="blue note character on the cloud" />
 			</ImageWrapper>
@@ -17,9 +20,10 @@ export function NotFound() {
 }
 
 const Wrapper = styled.div`
+	position: relative;
+	flex: 1;
 	display: flex;
 	flex-direction: column;
-	min-height: 400px;
 	gap: 10px;
 	padding: 20px 0;
 `;
@@ -29,8 +33,6 @@ const ImageWrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	min-width: 320px;
-	max-width: 700px;
 	position: relative;
 	flex: 1;
 	margin: 0 auto;
@@ -38,18 +40,18 @@ const ImageWrapper = styled.div`
 	img {
 		position: absolute;
 		animation: bounce 2s infinite ease-in-out both;
-		width: 50%;
+		width: 40%;
 		&:first-child {
 			top: 2%;
 			left: 0%;
 			animation-delay: -0.5s;
-			max-width: 180px;
+			max-width: 150px;
 		}
 		&:last-child {
 			bottom: 3%;
 			right: 2%;
 			animation-delay: -1s;
-			max-width: 200px;
+			max-width: 180px;
 		}
 	}
 
@@ -68,6 +70,12 @@ const ImageWrapper = styled.div`
 const Description = styled.p`
 	text-align: center;
 	line-height: 1.2;
-	font-size: ${({ theme }) => theme.textSize.lg}rem;
 	word-break: keep-all;
+	font-size: ${({ theme }) => theme.textSize.sm}rem;
+	color: ${({ theme }) => theme.color.black200};
+	p:first-child {
+		font-size: ${({ theme }) => theme.textSize.lg}rem;
+		margin-bottom: 5px;
+		color: ${({ theme }) => theme.color.black100};
+	}
 `;
