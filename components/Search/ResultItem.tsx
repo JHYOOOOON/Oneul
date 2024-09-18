@@ -55,7 +55,6 @@ export function ResultItem({ searchResult }: ResultType) {
 const StyledUl = styled.ul`
 	flex: 1;
 	overflow: auto;
-	margin-bottom: 70px;
 	&::-webkit-scrollbar {
 		display: none;
 	}
