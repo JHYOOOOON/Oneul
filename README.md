@@ -9,7 +9,7 @@
 #### 🎧 로그인 페이지
 
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/c6731176-d5ed-4315-9cff-826eaf5c88d4"  style="max-width: 1000px; width: 80%; margin-bottom: 10px" />
+    <img src="https://github.com/user-attachments/assets/c6731176-d5ed-4315-9cff-826eaf5c88d4"  style="max-width: 200px;"/>
 </div>
 
 ## 🛠️ 기술스택
