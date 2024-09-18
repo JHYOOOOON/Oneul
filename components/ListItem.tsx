@@ -156,6 +156,10 @@ const Wrapper = styled.li<{ $variant: "rounded" | "simple" }>`
 				`;
 		}
 	}}
+	${({ theme }) => theme.mediaQuery.mobile} {
+		gap: 3px;
+		padding-left: 3px;
+	}
 `;
 
 const AlbumImage = styled.img`
@@ -184,17 +188,12 @@ const SongWrapper = styled.div`
 const Title = styled.p`
 	line-height: 1.15;
 	font-size: ${({ theme }) => theme.textSize.base}rem;
+	word-break: keep-all;
 `;
 
 const Name = styled.p`
 	font-size: ${({ theme }) => theme.textSize.xs}rem;
 	color: ${({ theme }) => theme.color.black200};
-`;
-
-const mobile = css`
-	${({ theme }) => theme.mediaQuery.mobile} {
-		display: none;
-	}
 `;
 
 const StyledAlbumTitle = styled.p`
@@ -209,7 +208,6 @@ const StyledAlbumTitle = styled.p`
 	font-size: ${({ theme }) => theme.textSize.xs}rem;
 	text-align: left;
 	line-height: 1.15;
-	${mobile}
 `;
 
 const Time = styled.p`

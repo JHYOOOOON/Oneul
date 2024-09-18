@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
 export const WrapperPaddingX = css`
-	padding-left: 30px;
-	padding-right: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
 `;
 
 export const Title = styled.h1`
