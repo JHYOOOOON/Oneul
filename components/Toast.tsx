@@ -39,15 +39,22 @@ const Toast = React.memo(({ id, text }: ToastProps) => {
 	);
 });
 
-const moveTopToBottom = keyframes`
+const moveBottomToTop = keyframes`
 	0% {
-		top: 5%;
+		bottom: 5%;
+		opacity: 0;
 	}
-	30% {
-		top: 7%;
+	15% {
+		bottom: 7%;
+		opacity: 1;
+	}
+	85% {
+		bottom: 7%;
+		opacity: 1;
 	}
 	100% {
-		top: 7%;
+		bottom: 5%;
+		opacity: 0;
 	}
 `;
 
@@ -64,9 +71,10 @@ const Wrapper = styled.div<{ show: boolean }>`
 	color: ${({ theme }) => theme.color.white};
 	opacity: 0;
 	transition: all 0.2s;
-	animation: ${moveTopToBottom} 0.5s ease forwards;
+	animation: ${moveBottomToTop} 1.5s linear forwards;
 	line-height: 1.2;
 	word-break: keep-all;
+	z-index: 1000;
 	${({ show }) =>
 		show &&
 		css`
